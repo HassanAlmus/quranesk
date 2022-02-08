@@ -1,0 +1,182 @@
+@import './mixins.scss';
+
+#d1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 15px;
+    min-height: 100vh;
+    #d2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 1000px;
+        #d3{
+            font-size: 2.5rem;
+            color: $c1;
+            margin-bottom: 15px;
+        }
+    }
+}
+
+#d4{
+    padding: 25px;
+    @include img('../public/bg7.png');
+    #d5{
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    @include shadow;
+}
+
+#d6, #d7{
+    background-color: whitesmoke;
+    padding: 0 10px;
+    border-radius: 5px;
+    @include center;
+    margin: 20px 0;
+}
+
+#d6{
+    h1{
+        color:  rgb(180, 129, 0);
+    }
+}
+
+#d7 {
+    h1{
+        color: $c1
+    }
+}
+
+#d8{
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+    margin-bottom: 10px;
+}
+
+#d9, #d10, #d14{
+    padding: 0 5px;
+    border-radius: 5px;
+    margin: 5px;
+    h4{
+        color: white;
+        transform: translateY(-1px);
+    }
+}
+
+#d9, #d14 {
+    background: linear-gradient(to right, $c1, $c2);
+}
+
+#d10{
+    background: linear-gradient(to right, $c2, $c1);
+}
+
+#d14{
+    background: linear-gradient(to right, $c1, $c2); 
+}
+
+#d11{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    @include glass;
+    border-bottom-left-radius: 15px ;
+    border-bottom-right-radius: 15px;
+    border: 1px solid $c1;
+    border-top: 0;
+    padding: 0 10px;
+    min-height: 50px;
+}
+
+#d12{
+    cursor: pointer;
+}
+
+#d13, #d12{
+    transform: translateY(3px);
+}
+
+#d15{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    position: relative;
+}
+
+#d16 {
+    background: linear-gradient(to right, $c2, $c1);
+    padding: 0 5px;
+    border-radius: 5px;
+    h2{
+        color: white;
+        font-size: 1rem;
+        transform: translateY(-1px);
+    }
+}
+
+#d17{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+#d18{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 150px;
+    margin-top: 50px;
+}
+
+#d19, #d20{
+    margin: 10px;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    background: linear-gradient(to right, $c1, $c2);
+    padding: 0 7.5px;
+    border-radius: 5px;
+    @include button;
+    h1{
+        font-size: 1.5rem;
+        flex-shrink: 0;
+        transform: translateY(-2px);
+        color: white;
+    }
+    svg{
+        flex-shrink: 0;
+        height: 40px;
+        width: auto;
+        stroke: white;
+    }
+}
+
+#d20{
+    flex-direction: row-reverse;
+}
+
+#d23{
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    top: 50%;
+    margin-top: -50px;
+}

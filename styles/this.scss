@@ -1,0 +1,267 @@
+@import "./mixins.scss";
+
+::-webkit-scrollbar {
+  width: 15px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to top, $c1 0%, $c2 100%);
+  border-radius: 7.5px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0);
+}
+
+@font-face {
+  font-family: "roboto";
+  src: url("../public/fonts/RobotoSlab-VariableFont_wght.ttf")
+    format("truetype-variations");
+  font-style: normal;
+  font-weight: 1 999;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "uthmani";
+  src: url("../public/fonts/UthmanicHafs1\ Ver17.ttf");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "indopak";
+  src: url("../public/fonts/Naskh-Nastaleeq-IndoPak-QWBW.woff");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "hussaini";
+  src: url("../public//fonts/hussaini-nastaleeq.ttf");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "mehrnastaliq";
+  src: url("../public//fonts/MehrNastaliqWebRegular.ttf");
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "cinzel-regular";
+  src: url("../public//fonts/CinzelDecorative-Regular.ttf");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "cinzel-bold";
+  src: url("../public//fonts/CinzelDecorative-Bold.ttf");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "cinzel-black";
+  src: url("../public//fonts/CinzelDecorative-Black.ttf");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "gentium-regular";
+  src: url("../public//fonts/GentiumPlus-R.ttf");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "gentium-italic";
+  src: url("../public//fonts/GentiumPlus-I.ttf");
+  font-style: normal;
+  font-display: swap;
+}
+
+h1, h2, h3, h4, h5, h6, span, .latin {
+  font-family: "gentium-regular", serif;
+  font-weight: normal;
+  color: rgb(82, 80, 80);
+}
+
+.uthmani {
+  font-family: "uthmani";
+  font-weight: lighter;
+  direction: rtl;
+}
+
+.indopak {
+  font-family: "indopak";
+  direction: rtl;
+}
+
+.farsi {
+  font-family: "hussaini";
+  font-weight: lighter;
+  line-height: 2;
+  direction: rtl;
+}
+
+.urdu {
+  font-family: "mehrnastaliq";
+  font-weight: lighter;
+  direction: rtl;
+}
+
+.d100__control,
+.d101__control {
+  cursor: pointer;
+  @include button;
+}
+
+.d100__control {
+  width: 15rem;
+}
+
+.d101__control {
+  width: 7rem;
+  @media (max-width: 700px) {
+    transform: translateX(3px);
+  }
+}
+
+#dedication,
+#email {
+  color: $c2;
+}
+
+#logo {
+  max-width: 100px;
+  min-height: 100px;
+  @include img("../public/logo.png");
+  margin-bottom: 1rem;
+}
+
+#contact {
+  max-width: 100px;
+  min-height: 100px;
+  @include img("../public/contact.png");
+  margin-bottom: 2rem;
+}
+
+#contribute {
+  max-width: 100px;
+  min-height: 100px;
+  @include img("../public/files.png");
+  margin-bottom: 2rem;
+}
+
+#creds {
+  max-width: 100px;
+  min-height: 100px;
+  @include img("../public/star.png");
+  margin-bottom: 2rem;
+}
+
+#highlighted {
+  color: $c2;
+  font-weight: 700;
+}
+
+.clrd {
+  color: $c1;
+}
+
+.arrow-left {
+  width: 50px;
+  height: 40px;
+}
+
+.settings {
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}
+
+.up, .down{
+  height: 40px;
+  width: 40px;
+}
+
+.share{
+  height: 30px;
+  width: 30px;
+  transform: translateY(4px);
+}
+
+.copy{
+  height: 30px;
+  width: 30px
+}
+
+.share, .copy, .home{
+  cursor: pointer;
+  &:hover {
+    stroke: $c1;
+  }
+}
+
+.hsloading{
+height: 100vh;
+width: 100vw;
+@include center;
+}
+
+.loader_container {
+  width: 100px;
+  height: 100px;
+  border: 3px dotted #C7C7BB;
+  border-radius: 50%;
+  position: relative;
+}
+
+@keyframes loading {
+  0%{
+    transform: rotate(0deg);
+  }
+  50%{
+    transform: rotate(180deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+
+.loader{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  animation: loading 2s linear infinite;
+  &::after{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    content:"";
+    position: absolute;
+    top: 50px;
+    left: -5px;
+    background-color: $c1;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

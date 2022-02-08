@@ -1,0 +1,41 @@
+@import "./mixins.scss";
+
+#d1{
+display: flex;
+justify-content: center;
+padding: 50px 15px;
+}
+
+#d2{
+    max-width: 1000px;
+    text-align: right;
+    #d5{
+        padding: 10px;
+        background-color: white;
+        @include shadow;
+        border-radius: 10px;
+        p{font-size: 1.5rem; margin-bottom: 10px;}
+    }
+}
+
+#d3{
+    h1{
+        font-size: 2.5rem;
+        color: $c1
+    }
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+#d4{
+    background-color: $c1;
+    padding: 0 10px;
+    border-radius: 5px;
+    h4{
+        color: white
+    }
+}

@@ -1,0 +1,193 @@
+@import "./mixins.scss";
+
+.d11 {
+    .d28 {
+        margin: 10px 0;
+
+        span {
+            color: gray;
+            font-family: 'gentium-regular';
+            font-size: 1.2rem;
+        }
+        position: relative;
+        span.d30 {
+            color: $c1;
+            @include selectnone;
+            font-size: 1rem;
+            font-family: 'gentium-italic';
+            vertical-align: text-top;
+            &:nth-child(1) {
+                margin-right: 5px;
+            }
+            &:last-child {
+                margin-left: 5px;
+            }
+        }
+    }
+    .d12 {
+        padding: 10px;
+        border-radius: 10px;
+        .d42 {
+            display: flex;
+            flex-direction: row-reverse;
+            flex-wrap: wrap;
+            align-items: center;
+            * {
+                @include selectnone;
+            }
+            .d13 {
+                margin-left: 0.25em;
+                display: flex;
+                text-align: center;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                position: relative;
+                h1 {
+                    transition: ease-in 0.25s color;
+                }
+                h1:hover {
+                    color: $c2;
+                    transition: ease-in 0.25s color;
+                }
+                h4 {
+                    color: whitesmoke;
+                }
+                .d15,
+                .d16 {
+                    position: absolute;
+                    @include selectnone;
+                    display: flex;
+                    flex-direction: column;
+                    z-index: 2;
+                    div {
+                        padding: 0.25rem 0.5rem;
+                        background: linear-gradient(to right, $c1, $c2);
+                        border-radius: 5px;
+                        @include selectnone;
+                        white-space: nowrap;
+                        font-size: 0.75rem;
+                    }
+                    h4 {
+                        font-size: 1rem
+                    }
+                }
+                .d15 {
+                    transform: translateY(-40px);
+                    justify-content: flex-end;
+                }
+                .d16 {
+                    transform: translateY(40px);
+                    justify-content: flex-start;
+                }
+            }
+        }
+    }
+}
+.d26 {
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    @include shadow;
+    border-radius: 10px;
+    .d27:nth-child(1) {
+        margin-top: 0;
+    }
+    .d27 {
+        margin-top: 10px;
+        .d41 {
+            display: flex;
+            align-items: center;
+            h1 {
+                color: $c1;
+                width: calc(100% - 30px);
+                margin: 0 10px;
+                font-size: 1.5rem;
+                @include selectnone;
+            }
+        }
+        p {
+            padding: 10px;
+            font-size: 1.25rem;
+            div {
+                margin-bottom: 10px;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                span {
+                    margin-right: 0.25em;
+                }
+            }
+            div:last-child,
+            div:last-of-type {
+                margin: 0;
+            }
+        }
+    }
+}
+
+.d17 {
+    @include selectnone;
+    padding: 0 5px;
+    border-radius: 3px;
+    background-color: rgb(78, 78, 78);
+    display: inline-block;
+    h4 {
+        color: white;
+        font-size: 15px;
+        transform: translateY(-1px);
+    }
+}
+
+#d19{
+    @include button;
+    border-radius: 5px;
+    background-color: rgb(230, 230, 230);
+    margin: 5px 0;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    &:hover h2{
+        color: white;
+    }
+    &:hover svg {
+        fill: white;
+        stroke: white;
+    }
+    &:hover{
+        background-color: $c1;
+    }
+    &:hover {
+        #d21{
+            background-color: white;
+            h4{
+                color: $c1
+            }
+        }
+    }
+    svg{
+        width: 30px;
+        height: 50px;
+        margin-right: 10px;
+        flex-shrink: 0;
+    }
+}
+
+#d20{
+    display: flex;
+    flex-direction: column;
+}
+
+#d21{
+    background-color: $c1;
+    align-self: flex-end;
+    padding: 0 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    h4{
+        color: white
+    }
+}
