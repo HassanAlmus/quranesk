@@ -13,12 +13,7 @@ const TopicQuery = gql`
 
 const Topic = () => {
   const router = useRouter();
-  const { data, loading, error } = useQuery(TopicQuery, {variables: {topic: router.query.topic}});
-
-  if (error) {
-    console.error(error);
-    return null;
-  }
+  const { data } = useQuery(TopicQuery, {variables: {topic: router.query.topic}});
 
   const [getText, textData] = useLazyQuery(TopicQuery, {
     variables: { topic: router.query.topic },
@@ -35,6 +30,7 @@ const Topic = () => {
   }, [textData]);
 
   const [stateText, setText] = useState(data ? data.text : "");
+
   const link = (topic: string) =>
     router.push(`/info/${topic}`, undefined, { shallow: true });
     
@@ -44,7 +40,7 @@ const Topic = () => {
         <title>{`Quranesk.com | ${router.query.topic}`}</title>
       </Head>
       <nav className={styles.d2}>
-        <Link href="/">
+        <Link passHref={true} href="/">
           <div className={styles.d5}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -54,9 +50,9 @@ const Topic = () => {
               className="arrow-left"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M7 16l-4-4m0 0l4-4m-4 4h18"
               />
             </svg>

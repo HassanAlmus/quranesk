@@ -23,7 +23,7 @@ const Popup = (props : any) => {
                         () => props.setShowPopup(false)
                 }>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#FFFFFF" className="arrow-left">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
                     </svg>
                 </div>
                 <h2>Commentaries</h2>
@@ -31,9 +31,9 @@ const Popup = (props : any) => {
                     styles.d22
                 }>
                     {
-                    (props.tafseerMap ).map((tafseer : Tafseer) => {
+                    (props.tafseerMap ).map((tafseer : Tafseer, key: number) => {
                         return (
-                            <label className={
+                            <label key={key} className={
                                 styles.d23
                             }>
                                 <input className={
@@ -86,7 +86,7 @@ const Popup = (props : any) => {
                         "Russian",
                         "Ingush",
                     ].map((language) => (
-                        <option value={
+                        <option key={language} value={
                             language.toLowerCase()
                         }>
                             {language}</option>
@@ -112,8 +112,8 @@ const Popup = (props : any) => {
                         [
                             "Indopak", "indopak"
                         ],
-                    ].map((rasmItem) => (
-                        <option value={
+                    ].map((rasmItem, i) => (
+                        <option key={i} value={
                             rasmItem[1]
                         }>
                             {
@@ -135,7 +135,7 @@ const Popup = (props : any) => {
                 }>
                     {
                     (props.audioMap ).map((ae : any) => (
-                        <option value={
+                        <option key={ae.key} value={
                             ae.key
                         }>
                             {
@@ -152,7 +152,7 @@ const Popup = (props : any) => {
                 (props.translationMap as TranslationLanguage[]).map((translationLanguage) => {
                     const t = translationLanguage;
                     return (
-                        <div className={
+                        <div key={translationLanguage.name} className={
                             styles.d20
                         }>
                             <div>
@@ -180,8 +180,8 @@ const Popup = (props : any) => {
                                     styles.d22
                                 }>
                                     {
-                                    t.translations.map((tr) => (
-                                        <label className={
+                                    t.translations.map((tr, i) => (
+                                        <label key={i} className={
                                             styles.d23
                                         }>
                                             <input className={

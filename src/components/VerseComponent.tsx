@@ -310,8 +310,8 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
               <p className='latin'>
                 {Object.keys(verse).includes(key)            
                   ? ((verse as any)[key][1].split('\n')).map(
-                      (para: string) => (
-                        <div>
+                      (para: string, i:number) => (
+                        <div key={i}>
                           {para}
                         </div>
                       )
@@ -345,7 +345,7 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
               {Object.keys(verse).includes(key)            
                   ? (verse[key] as NamoonaTopic[]).map((topic, i)=>{
                     return(
-                      <a href={`/tafseerenamoona?s=${loc[0]}&v=${loc[1]}&id=${topic.link}`} target='_blank'>
+                      <a key={i} href={`/tafseerenamoona?s=${loc[0]}&v=${loc[1]}&id=${topic.link}`} rel="noreferrer" target='_blank'>
                         <div id={styles.d19} key={i}>
                           <div id={styles.d20}>
                             {topic.range[0]!==-1&&topic.range[0]!==topic.range[1]&&

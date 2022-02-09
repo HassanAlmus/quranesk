@@ -75,7 +75,7 @@ const TafseereNamoona = (props : {
                     </div>
                 </div>
                 <div id={styles.d5}>
-                    {props.data.namoonaTopic.text.split('\n').map(t=><p className='urdu'>{t}</p>)}
+                    {props.data.namoonaTopic.text.split('\n').map((t, i)=><p key={i} className='urdu'>{t}</p>)}
                 </div>
                 
             </div>

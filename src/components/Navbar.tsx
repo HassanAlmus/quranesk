@@ -7,8 +7,8 @@ const Navbar = ({ cs, setShowPopup }: { cs: Surah; setShowPopup: any }) => (
   <div id={styles.d50}>
     <div className={styles.d2}>
       <div className={styles.d3}>
-        <Link href="/">
-          <Image src="/logo.png" height={40} width={40} />
+        <Link passHref={true} href="/">
+          <Image alt="logo" src="/logo.png" height={40} width={40} />
         </Link>
       </div>
       <div className={styles.d4}>

@@ -126,7 +126,7 @@ const Index = () => {
                                 )
                             } </div>
                         </div>
-                        <Link href={
+                        <Link passHref={true} href={
                             ss ? `/${
                                 ss.value
                             }/${
@@ -151,8 +151,8 @@ const Index = () => {
                     surahs.filter((s : any, i : number, arr : any) => i >= 0 && i <= (sm ? arr.length - 1 : 35)).map((s : any, i : number) => (
                         <div className={
                             styles.d15
-                        }>
-                            <Link href={
+                        } key={i}>
+                            <Link passHref={true} href={
                                 `/${
                                     i + 1
                                 }/1`
@@ -171,7 +171,7 @@ const Index = () => {
                                     }</h1>
                                 </div>
                             </Link>
-                            <Link href={
+                            <Link passHref={true} href={
                                 `/${
                                     i + 1
                                 }/1`
@@ -242,10 +242,10 @@ const Index = () => {
                                                     }`
                                                 }</h2>
                                             </div>
-                                        ) : (s.juz.map((j : any) => (
+                                        ) : (s.juz.map((j : any, i: number) => (
                                             <div className={
                                                 styles.d23
-                                            }>
+                                            } key={i}>
                                                 <h2> {
                                                     `Juz ${ + (j ?. index as string)
                                                     }: ${
@@ -293,7 +293,7 @@ const Index = () => {
                         <div className={
                             styles.d28
                         }>
-                            <a className='a' href="https://al-islam.org" target="_blank">
+                            <a className='a' href="https://al-islam.org" target="_blank" rel="noreferrer">
                                 <h1>al-islam.org</h1>
                             </a>
                             <h3>Islamic Books {"&"}
@@ -314,7 +314,7 @@ const Index = () => {
                         <div className={
                             styles.d28
                         }>
-                            <a className='a' href="https://thaqalayn.net" target="_blank">
+                            <a className='a' href="https://thaqalayn.net" target="_blank" rel="noreferrer">
                                 <h1>thaqalayn.net</h1>
                             </a>
                             <h3>Sunan {"&"}
@@ -328,22 +328,22 @@ const Index = () => {
                     }>
                         <nav>
                             <h1>Navigate</h1>
-                            <Link href="/info/about">
+                            <Link passHref={true} href="/info/about">
                                 <div>
                                     <h2>About</h2>
                                 </div>
                             </Link>
-                            <Link href="/info/contact">
+                            <Link passHref={true} href="/info/contact">
                                 <div>
                                     <h2>Contact</h2>
                                 </div>
                             </Link>
-                            <Link href="/info/contribute">
+                            <Link passHref={true} href="/info/contribute">
                                 <div>
                                     <h2>Contribute</h2>
                                 </div>
                             </Link>
-                            <Link href="/info/credits">
+                            <Link passHref={true} href="/info/credits">
                                 <div>
                                     <h2>Credits</h2>
                                 </div>
@@ -352,12 +352,12 @@ const Index = () => {
                         <nav>
                             <h1>Useful Links</h1>
                             <div>
-                                <a className='a' href="https://al-islam.org" target="_blank">
+                                <a className='a' href="https://al-islam.org" target="_blank" rel="noreferrer">
                                     al-islam.org
                                 </a>
                             </div>
                             <div>
-                                <a className='a' href="https://thaqalayn.net" target="_blank">
+                                <a className='a' href="https://thaqalayn.net" target="_blank" rel="noreferrer">
                                     thaqalayn.net
                                 </a>
                             </div>
