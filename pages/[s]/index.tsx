@@ -142,7 +142,7 @@ const V = (props : {
                     <Head>
             <title> {
                 `${s+1}. ${
-                    snap.cs.title.split(" (")[1].substring(0, snap.cs.title.split(" (")[1].length - 1)
+                    snap.cs.title.split(" (")[1].substring(0, snap.cs.title.split(" (")[1].length - 1).replace("'", "&apos;")
                 } (${
                     snap.cs.title.split(" (")[0]
                 })${snap.isFirstPage?"":` - P${p}`}`
@@ -150,7 +150,7 @@ const V = (props : {
             <meta property="og:title"
                 content={
                     `${s+1}. ${
-                        snap.cs.title.split(" (")[1].substring(0, snap.cs.title.split(" (")[1].length - 1)
+                        snap.cs.title.split(" (")[1].substring(0, snap.cs.title.split(" (")[1].length - 1).replace("'", "&apos;")
                     } (${
                         snap.cs.title.split(" (")[0]
                     })${snap.isFirstPage?"":` - P${p}`}`
