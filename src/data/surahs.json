@@ -12,7 +12,8 @@
                     "end": "7"
                 }
             }
-        ]
+        ],
+        "startPage": 1
     },
     {
         "title": "The Cow (al-Baqarah)",
@@ -39,7 +40,8 @@
                     "end": "286"
                 }
             }
-        ]
+        ],
+        "startPage": 2
     },
     {
         "title": "Imran's Folk (Āl ‘Imrān)",
@@ -60,7 +62,8 @@
                     "end": "200"
                 }
             }
-        ]
+        ],
+        "startPage": 50
     },
     {
         "title": "Women (al-Nisā’)",
@@ -87,7 +90,8 @@
                     "end": "176"
                 }
             }
-        ]
+        ],
+        "startPage": 77
     }, {
         "title": "The Table (al-Mā’idah)",
         "titleAr": "ٱلْمَائِدَة",
@@ -107,7 +111,8 @@
                     "end": "120"
                 }
             }
-        ]
+        ],
+        "startPage": 106
     }, {
         "title": "Cattle (al-An‘ām)",
         "titleAr": "ٱلْأَنْعَام",
@@ -127,7 +132,8 @@
                     "end": "165"
                 }
             }
-        ]
+        ],
+        "startPage": 128
     }, {
         "title": "The Elevations (al-A‘rāf)",
         "titleAr": "ٱلْأَعْرَاف",
@@ -147,7 +153,8 @@
                     "end": "206"
                 }
             }
-        ]
+        ],
+        "startPage": 151
     }, {
         "title": "The Spoils (al-Anfāl)",
         "titleAr": "ٱلْأَنْفَال",
@@ -167,7 +174,8 @@
                     "end": "75"
                 }
             }
-        ]
+        ],
+        "startPage": 177
     }, {
         "title": "Repentance (al-Tawbah)",
         "titleAr": "ٱلتَّوْبَة",
@@ -187,7 +195,8 @@
                     "end": "129"
                 }
             }
-        ]
+        ],
+        "startPage": 187
     }, {
         "title": "Jonah (Yūnus)",
         "titleAr": "يُونُس",
@@ -201,7 +210,8 @@
                     "end": "109"
                 }
             }
-        ]
+        ],
+        "startPage": 208
     }, {
         "title": "Hud (Hūd)",
         "titleAr": "هُود",
@@ -221,7 +231,8 @@
                     "end": "123"
                 }
             }
-        ]
+        ],
+        "startPage": 221
     }, {
         "title": "Joseph (Yūsuf)",
         "titleAr": "يُوسُف",
@@ -241,7 +252,8 @@
                     "end": "111"
                 }
             }
-        ]
+        ],
+        "startPage": 235
     }, {
         "title": "Thunder (al-Ra‘d)",
         "titleAr": "ٱلرَّعْد",
@@ -255,7 +267,8 @@
                     "end": "43"
                 }
             }
-        ]
+        ],
+        "startPage": 249
     }, {
         "title": "Abraham (Ibrāhīm)",
         "titleAr": "إِبْرَاهِيم",
@@ -269,7 +282,8 @@
                     "end": "52"
                 }
             }
-        ]
+        ],
+        "startPage": 255
     }, {
         "title": "Hijr (al-Ḥijr)",
         "titleAr": "ٱلْحِجْر",
@@ -283,7 +297,8 @@
                     "end": "99"
                 }
             }
-        ]
+        ],
+        "startPage": 262
     }, {
         "title": "The Bee (al-Naḥl)",
         "titleAr": "ٱلنَّحْل",
@@ -297,7 +312,8 @@
                     "end": "128"
                 }
             }
-        ]
+        ],
+        "startPage": 267
     }, {
         "title": "The Night Journey (al-Isrā’)",
         "titleAr": "ٱلْإِسْرَاء",
@@ -311,7 +327,8 @@
                     "end": "111"
                 }
             }
-        ]
+        ],
+        "startPage": 282
     }, {
         "title": "The Cave (al-Kahf)",
         "titleAr": "ٱلْكَهْف",
@@ -331,7 +348,8 @@
                     "end": "110"
                 }
             }
-        ]
+        ],
+        "startPage": 293
     }, {
         "title": "Mary (Maryam)",
         "titleAr": "مَرْيَم",
@@ -345,7 +363,8 @@
                     "end": "98"
                 }
             }
-        ]
+        ],
+        "startPage": 305
     }, {
         "title": "Ta Ha (Ṭāhā)",
         "titleAr": "طه",
@@ -359,7 +378,8 @@
                     "end": "135"
                 }
             }
-        ]
+        ],
+        "startPage": 312
     }, {
         "title": "The Prophets (al-Anbiyā’)",
         "titleAr": "ٱلْأَنْبِيَاء",
@@ -373,7 +393,8 @@
                     "end": "112"
                 }
             }
-        ]
+        ],
+        "startPage": 322
     }, {
         "title": "The Pilgrimage (al-Ḥajj)",
         "titleAr": "ٱلْحَجّ",
@@ -387,7 +408,8 @@
                     "end": "78"
                 }
             }
-        ]
+        ],
+        "startPage": 332
     }, {
         "title": "The Faithful (al-Mu’minūn)",
         "titleAr": "ٱلْمُؤْمِنُون",
@@ -401,7 +423,8 @@
                     "end": "118"
                 }
             }
-        ]
+        ],
+        "startPage": 342
     }, {
         "title": "The Light (al-Nūr)",
         "titleAr": "ٱلنُّور",
@@ -415,7 +438,8 @@
                     "end": "64"
                 }
             }
-        ]
+        ],
+        "startPage": 350
     }, {
         "title": "The Criterion (al-Furqān)",
         "titleAr": "ٱلْفُرْقَان",
@@ -435,7 +459,8 @@
                     "end": "77"
                 }
             }
-        ]
+        ],
+        "startPage": 359
     }, {
         "title": "The Poets (al-Shu‘arā’)",
         "titleAr": "ٱلشُّعَرَاء",
@@ -449,7 +474,8 @@
                     "end": "227"
                 }
             }
-        ]
+        ],
+        "startPage": 367
     }, {
         "title": "The Ants (al-Naml)",
         "titleAr": "ٱلنَّمْل",
@@ -469,7 +495,8 @@
                     "end": "93"
                 }
             }
-        ]
+        ],
+        "startPage": 377
     }, {
         "title": "The Story (al-Qaṣaṣ)",
         "titleAr": "ٱلْقَصَص",
@@ -483,7 +510,8 @@
                     "end": "88"
                 }
             }
-        ]
+        ],
+        "startPage": 385
     }, {
         "title": "The Spider (al-‘Ankabūt)",
         "titleAr": "ٱلْعَنْكَبُوت",
@@ -503,7 +531,8 @@
                     "end": "69"
                 }
             }
-        ]
+        ],
+        "startPage": 396
     }, {
         "title": "The Byzantines (al-Rūm)",
         "titleAr": "ٱلرُّوم",
@@ -517,7 +546,8 @@
                     "end": "60"
                 }
             }
-        ]
+        ],
+        "startPage": 404
     }, {
         "title": "Luqman (Luqmān)",
         "titleAr": "لُقْمَان",
@@ -531,7 +561,8 @@
                     "end": "34"
                 }
             }
-        ]
+        ],
+        "startPage": 411
     }, {
         "title": "Prostration (al-Sajdah)",
         "titleAr": "ٱلسَّجْدَة",
@@ -545,7 +576,8 @@
                     "end": "30"
                 }
             }
-        ]
+        ],
+        "startPage": 415
     }, {
         "title": "The Confederates (al-Aḥzāb)",
         "titleAr": "ٱلْأَحْزَاب",
@@ -565,7 +597,8 @@
                     "end": "73"
                 }
             }
-        ]
+        ],
+        "startPage": 418
     }, {
         "title": "Sheba (Saba’)",
         "titleAr": "سَبَأ",
@@ -579,7 +612,8 @@
                     "end": "54"
                 }
             }
-        ]
+        ],
+        "startPage": 428
     }, {
         "title": "The Originator (Fāṭir)",
         "titleAr": "فَاطِر",
@@ -593,7 +627,8 @@
                     "end": "45"
                 }
             }
-        ]
+        ],
+        "startPage": 434
     }, {
         "title": "Ya Sin (Yā Sīn)",
         "titleAr": "يس",
@@ -613,7 +648,8 @@
                     "end": "83"
                 }
             }
-        ]
+        ],
+        "startPage": 440
     }, {
         "title": "The Ranged Ones (al-Ṣaffāt)",
         "titleAr": "ٱلصَّافَّات",
@@ -627,7 +663,8 @@
                     "end": "182"
                 }
             }
-        ]
+        ],
+        "startPage": 446
     }, {
         "title": "Sad (Ṣād)",
         "titleAr": "ص",
@@ -641,7 +678,8 @@
                     "end": "88"
                 }
             }
-        ]
+        ],
+        "startPage": 453
     }, {
         "title": "The Throngs (al-Zumar)",
         "titleAr": "ٱلزُّمَر",
@@ -661,7 +699,8 @@
                     "end": "75"
                 }
             }
-        ]
+        ],
+        "startPage": 458
     }, {
         "title": "The Forgiver (al-Ghāfir)",
         "titleAr": "غَافِر",
@@ -675,7 +714,8 @@
                     "end": "85"
                 }
             }
-        ]
+        ],
+        "startPage": 467
     }, {
         "title": "Elaborated (Fuṣṣilat)",
         "titleAr": "فُصِّلَت",
@@ -695,7 +735,8 @@
                     "end": "54"
                 }
             }
-        ]
+        ],
+        "startPage": 477
     }, {
         "title": "Consultation (al-Shūrā)",
         "titleAr": "ٱلشُّورىٰ",
@@ -709,7 +750,8 @@
                     "end": "53"
                 }
             }
-        ]
+        ],
+        "startPage": 483
     }, {
         "title": "Ornaments (al-Zukhruf)",
         "titleAr": "ٱلْزُّخْرُف",
@@ -723,7 +765,8 @@
                     "end": "89"
                 }
             }
-        ]
+        ],
+        "startPage": 489
     }, {
         "title": "Smoke (al-Dukhān)",
         "titleAr": "ٱلدُّخَان",
@@ -737,7 +780,8 @@
                     "end": "59"
                 }
             }
-        ]
+        ],
+        "startPage": 496
     }, {
         "title": "Crowling (al-Jāthiyah)",
         "titleAr": "ٱلْجَاثِيَة",
@@ -751,7 +795,8 @@
                     "end": "37"
                 }
             }
-        ]
+        ],
+        "startPage": 499
     }, {
         "title": "Ahqaf (al-Aḥqāf)",
         "titleAr": "ٱلْأَحْقَاف",
@@ -765,7 +810,8 @@
                     "end": "35"
                 }
             }
-        ]
+        ],
+        "startPage": 502
     }, {
         "title": "Muhammad (Muḥammad)",
         "titleAr": "مُحَمَّد",
@@ -779,7 +825,8 @@
                     "end": "38"
                 }
             }
-        ]
+        ],
+        "startPage": 507
     }, {
         "title": "Victory (al-Fatḥ)",
         "titleAr": "ٱلْفَتْح",
@@ -793,7 +840,8 @@
                     "end": "29"
                 }
             }
-        ]
+        ],
+        "startPage": 511
     }, {
         "title": "Apartments (al-Ḥujurāt)",
         "titleAr": "ٱلْحُجُرَات",
@@ -807,7 +855,8 @@
                     "end": "18"
                 }
             }
-        ]
+        ],
+        "startPage": 515
     }, {
         "title": "Qaf (Qāf)",
         "titleAr": "ق",
@@ -821,7 +870,8 @@
                     "end": "45"
                 }
             }
-        ]
+        ],
+        "startPage": 518
     }, {
         "title": "The Scatterers (al-Dhāriyāt)",
         "titleAr": "ٱلذَّارِيَات",
@@ -841,7 +891,8 @@
                     "end": "60"
                 }
             }
-        ]
+        ],
+        "startPage": 520
     }, {
         "title": "The Mount (al-Ṭūr)",
         "titleAr": "ٱلطُّور",
@@ -855,7 +906,8 @@
                     "end": "49"
                 }
             }
-        ]
+        ],
+        "startPage": 523
     }, {
         "title": "The Star (al-Najm)",
         "titleAr": "ٱلنَّجْم",
@@ -869,7 +921,8 @@
                     "end": "62"
                 }
             }
-        ]
+        ],
+        "startPage": 526
     }, {
         "title": "The Moon (al-Qamar)",
         "titleAr": "ٱلْقَمَر",
@@ -883,7 +936,8 @@
                     "end": "55"
                 }
             }
-        ]
+        ],
+        "startPage": 528
     }, {
         "title": "The All-beneficent (al-Raḥmān)",
         "titleAr": "ٱلرَّحْمَٰن",
@@ -897,7 +951,8 @@
                     "end": "78"
                 }
             }
-        ]
+        ],
+        "startPage": 531
     }, {
         "title": "The Imminent (al-Wāqi‘ah)",
         "titleAr": "ٱلْوَاقِعَة",
@@ -911,7 +966,8 @@
                     "end": "96"
                 }
             }
-        ]
+        ],
+        "startPage": 534
     }, {
         "title": "Iron (al-Ḥadīd)",
         "titleAr": "ٱلْحَدِيد",
@@ -925,7 +981,8 @@
                     "end": "29"
                 }
             }
-        ]
+        ],
+        "startPage": 539
     }, {
         "title": "The Pleader (al-Mujādilah)",
         "titleAr": "ٱلْمُجَادِلَة",
@@ -939,7 +996,8 @@
                     "end": "22"
                 }
             }
-        ]
+        ],
+        "startPage": 542
     }, {
         "title": "The Banishment (al-Ḥashr)",
         "titleAr": "ٱلْحَشْر",
@@ -953,7 +1011,8 @@
                     "end": "24"
                 }
             }
-        ]
+        ],
+        "startPage": 545
     }, {
         "title": "The Woman Tested (al-Mumtaḥanah)",
         "titleAr": "ٱلْمُمْتَحَنَة",
@@ -967,7 +1026,8 @@
                     "end": "13"
                 }
             }
-        ]
+        ],
+        "startPage": 549
     }, {
         "title": "Ranks (al-Ṣaff)",
         "titleAr": "ٱلصَّفّ",
@@ -981,7 +1041,8 @@
                     "end": "14"
                 }
             }
-        ]
+        ],
+        "startPage": 551
     }, {
         "title": "Friday (al-Jumu‘ah)",
         "titleAr": "ٱلْجُمُعَة",
@@ -995,7 +1056,8 @@
                     "end": "11"
                 }
             }
-        ]
+        ],
+        "startPage": 553
     }, {
         "title": "The Hypocrites (al-Munāfiqūn)",
         "titleAr": "ٱلْمُنَافِقُون",
@@ -1009,7 +1071,8 @@
                     "end": "11"
                 }
             }
-        ]
+        ],
+        "startPage": 554
     }, {
         "title": "Dispossession (al-Taghābun)",
         "titleAr": "ٱلتَّغَابُن",
@@ -1023,7 +1086,8 @@
                     "end": "18"
                 }
             }
-        ]
+        ],
+        "startPage": 556
     }, {
         "title": "Divorce (al-Ṭalāq)",
         "titleAr": "ٱلطَّلَاق",
@@ -1037,7 +1101,8 @@
                     "end": "12"
                 }
             }
-        ]
+        ],
+        "startPage": 558
     }, {
         "title": "The Forbidding (al-Taḥrīm)",
         "titleAr": "ٱلتَّحْرِيم",
@@ -1051,7 +1116,8 @@
                     "end": "12"
                 }
             }
-        ]
+        ],
+        "startPage": 560
     }, {
         "title": "Sovereignty (al-Mulk)",
         "titleAr": "ٱلْمُلْك",
@@ -1065,7 +1131,8 @@
                     "end": "30"
                 }
             }
-        ]
+        ],
+        "startPage": 562
     }, {
         "title": "The Pen (al-Qalam)",
         "titleAr": "ٱلْقَلَم",
@@ -1079,7 +1146,8 @@
                     "end": "52"
                 }
             }
-        ]
+        ],
+        "startPage": 564
     }, {
         "title": "The Inevitable (al-Ḥāqqah)",
         "titleAr": "ٱلْحَاقَّة",
@@ -1093,7 +1161,8 @@
                     "end": "52"
                 }
             }
-        ]
+        ],
+        "startPage": 566
     }, {
         "title": "Lofty Stations (al-Ma‘ārij)",
         "titleAr": "ٱلْمَعَارِج",
@@ -1107,7 +1176,8 @@
                     "end": "44"
                 }
             }
-        ]
+        ],
+        "startPage": 568
     }, {
         "title": "Noah (Nūḥ)",
         "titleAr": "نُوح",
@@ -1121,7 +1191,8 @@
                     "end": "28"
                 }
             }
-        ]
+        ],
+        "startPage": 570
     }, {
         "title": "The Jinn (al-Jinn)",
         "titleAr": "ٱلْجِنّ",
@@ -1135,7 +1206,8 @@
                     "end": "28"
                 }
             }
-        ]
+        ],
+        "startPage": 572
     }, {
         "title": "Enwrapped (al-Muzzammil)",
         "titleAr": "ٱلْمُزَّمِّل",
@@ -1149,7 +1221,8 @@
                     "end": "20"
                 }
             }
-        ]
+        ],
+        "startPage": 574
     }, {
         "title": "Shrouded (al-Muddaththir)",
         "titleAr": "ٱلْمُدَّثِّر",
@@ -1163,7 +1236,8 @@
                     "end": "56"
                 }
             }
-        ]
+        ],
+        "startPage": 575
     }, {
         "title": "Resurrection (al-Qiyāmah)",
         "titleAr": "ٱلْقِيَامَة",
@@ -1177,7 +1251,8 @@
                     "end": "40"
                 }
             }
-        ]
+        ],
+        "startPage": 577
     }, {
         "title": "Man (al-Insān)",
         "titleAr": "ٱلْإِنْسَان",
@@ -1191,7 +1266,8 @@
                     "end": "31"
                 }
             }
-        ]
+        ],
+        "startPage": 578
     }, {
         "title": "The Emissaries (al-Mursalāt)",
         "titleAr": "ٱلْمُرْسَلَات",
@@ -1205,7 +1281,8 @@
                     "end": "50"
                 }
             }
-        ]
+        ],
+        "startPage": 580
     }, {
         "title": "The Tiding (al-Naba’)",
         "titleAr": "ٱلنَّبَأ",
@@ -1219,7 +1296,8 @@
                     "end": "40"
                 }
             }
-        ]
+        ],
+        "startPage": 582
     }, {
         "title": "The Wresters (al-Nāzi‘āt)",
         "titleAr": "ٱلنَّازِعَات",
@@ -1233,7 +1311,8 @@
                     "end": "46"
                 }
             }
-        ]
+        ],
+        "startPage": 583
     }, {
         "title": "He frowned (‘Abasa)",
         "titleAr": "عَبَسَ",
@@ -1247,7 +1326,8 @@
                     "end": "42"
                 }
             }
-        ]
+        ],
+        "startPage": 585
     }, {
         "title": "The Winding Up (al-Takwīr)",
         "titleAr": "ٱلتَّكْوِير",
@@ -1261,7 +1341,8 @@
                     "end": "29"
                 }
             }
-        ]
+        ],
+        "startPage": 586
     }, {
         "title": "The Rending (al-Infiṭār)",
         "titleAr": "ٱلْإِنْفِطَار",
@@ -1275,7 +1356,8 @@
                     "end": "19"
                 }
             }
-        ]
+        ],
+        "startPage": 587
     }, {
         "title": "The Defrauding (al-Muṭaffifīn)",
         "titleAr": "ٱلْمُطَفِّفِين",
@@ -1289,7 +1371,8 @@
                     "end": "36"
                 }
             }
-        ]
+        ],
+        "startPage": 588
     }, {
         "title": "The Splitting (al-Inshiqāq)",
         "titleAr": "ٱلْإِنْشِقَاق",
@@ -1303,7 +1386,8 @@
                     "end": "25"
                 }
             }
-        ]
+        ],
+        "startPage": 589
     }, {
         "title": "The Houses (al-Burūj)",
         "titleAr": "ٱلْبُرُوج",
@@ -1317,7 +1401,8 @@
                     "end": "22"
                 }
             }
-        ]
+        ],
+        "startPage": 590
     }, {
         "title": "The Nightly Visitor (al-Ṭāriq)",
         "titleAr": "ٱلطَّارِق",
@@ -1331,7 +1416,8 @@
                     "end": "17"
                 }
             }
-        ]
+        ],
+        "startPage": 591
     }, {
         "title": "The Most Exalted (al-A‘lā)",
         "titleAr": "ٱلْأَعْلَىٰ",
@@ -1345,7 +1431,8 @@
                     "end": "19"
                 }
             }
-        ]
+        ],
+        "startPage": 591
     }, {
         "title": "The Enveloper (al-Ghāshiyah)",
         "titleAr": "ٱلْغَاشِيَة",
@@ -1359,7 +1446,8 @@
                     "end": "26"
                 }
             }
-        ]
+        ],
+        "startPage": 592
     }, {
         "title": "The Dawn (al-Fajr)",
         "titleAr": "ٱلْفَجْر",
@@ -1373,7 +1461,8 @@
                     "end": "30"
                 }
             }
-        ]
+        ],
+        "startPage": 593
     }, {
         "title": "The City (al-Balad)",
         "titleAr": "ٱلْبَلَد",
@@ -1387,7 +1476,8 @@
                     "end": "20"
                 }
             }
-        ]
+        ],
+        "startPage": 594
     }, {
         "title": "The Sun (al-Shams)",
         "titleAr": "ٱلشَّمْس",
@@ -1401,7 +1491,8 @@
                     "end": "15"
                 }
             }
-        ]
+        ],
+        "startPage": 595
     }, {
         "title": "The Night (al-Layl)",
         "titleAr": "ٱللَّيْل",
@@ -1415,7 +1506,8 @@
                     "end": "21"
                 }
             }
-        ]
+        ],
+        "startPage": 595
     }, {
         "title": "The Morning Brightness (al-Ḍuḥā)",
         "titleAr": "ٱلضُّحَىٰ",
@@ -1429,7 +1521,8 @@
                     "end": "11"
                 }
             }
-        ]
+        ],
+        "startPage": 596
     }, {
         "title": "Opening (al-Sharḥ)",
         "titleAr": "ٱلشَّرْح",
@@ -1443,7 +1536,8 @@
                     "end": "8"
                 }
             }
-        ]
+        ],
+        "startPage": 596
     }, {
         "title": "The Fig (al-Tīn)",
         "titleAr": "ٱلتِّين",
@@ -1457,7 +1551,8 @@
                     "end": "8"
                 }
             }
-        ]
+        ],
+        "startPage": 597
     }, {
         "title": "The Clinging Mass (al-‘Alaq)",
         "titleAr": "ٱلْعَلَق",
@@ -1471,7 +1566,8 @@
                     "end": "19"
                 }
             }
-        ]
+        ],
+        "startPage": 597
     }, {
         "title": "The Ordainment (al-Qadr)",
         "titleAr": "ٱلْقَدْر",
@@ -1485,7 +1581,8 @@
                     "end": "5"
                 }
             }
-        ]
+        ],
+        "startPage": 598
     }, {
         "title": "The Proof (al-Bayyinah)",
         "titleAr": "ٱلْبَيِّنَة",
@@ -1499,7 +1596,8 @@
                     "end": "8"
                 }
             }
-        ]
+        ],
+        "startPage": 598
     }, {
         "title": "The Quake (al-Zalzalah)",
         "titleAr": "ٱلزَّلْزَلَة",
@@ -1513,7 +1611,8 @@
                     "end": "8"
                 }
             }
-        ]
+        ],
+        "startPage": 599
     }, {
         "title": "The Chargers (al-‘Ādiyāt)",
         "titleAr": "ٱلْعَادِيَات",
@@ -1527,7 +1626,8 @@
                     "end": "11"
                 }
             }
-        ]
+        ],
+        "startPage": 599
     }, {
         "title": "The Catastrophe (al-Qāri‘ah)",
         "titleAr": "ٱلْقَارِعَة",
@@ -1541,7 +1641,8 @@
                     "end": "11"
                 }
             }
-        ]
+        ],
+        "startPage": 600
     }, {
         "title": "Rivalry (al-Takāthur)",
         "titleAr": "ٱلتَّكَاثُر",
@@ -1555,7 +1656,8 @@
                     "end": "8"
                 }
             }
-        ]
+        ],
+        "startPage": 600
     }, {
         "title": "Time (al-‘Aṣr)",
         "titleAr": "ٱلْعَصْر",
@@ -1569,7 +1671,8 @@
                     "end": "3"
                 }
             }
-        ]
+        ],
+        "startPage": 601
     }, {
         "title": "The Scandal-monger (al-Humazah)",
         "titleAr": "ٱلْهُمَزَة",
@@ -1583,7 +1686,8 @@
                     "end": "9"
                 }
             }
-        ]
+        ],
+        "startPage": 601
     }, {
         "title": "The Elephant (al-Fīl)",
         "titleAr": "ٱلْهُمَزَة",
@@ -1597,7 +1701,8 @@
                     "end": "5"
                 }
             }
-        ]
+        ],
+        "startPage": 601
     }, {
         "title": "Quraysh (Quraysh)",
         "titleAr": "قُرَيْش",
@@ -1611,7 +1716,8 @@
                     "end": "4"
                 }
             }
-        ]
+        ],
+        "startPage": 602
     }, {
         "title": "Aid (al-Mā‘ūn)",
         "titleAr": "ٱلْمَاعُون",
@@ -1625,7 +1731,8 @@
                     "end": "7"
                 }
             }
-        ]
+        ],
+        "startPage": 602
     }, {
         "title": "Abundance (al-Kawthar)",
         "titleAr": "ٱلْكَوْثَر",
@@ -1639,7 +1746,8 @@
                     "end": "3"
                 }
             }
-        ]
+        ],
+        "startPage": 602
     }, {
         "title": "The Faithless (al-Kāfirūn)",
         "titleAr": "ٱلْكَافِرُون",
@@ -1653,7 +1761,8 @@
                     "end": "6"
                 }
             }
-        ]
+        ],
+        "startPage": 603
     }, {
         "title": "The Help (al-Naṣr)",
         "titleAr": "ٱلنَّصْر",
@@ -1667,7 +1776,8 @@
                     "end": "3"
                 }
             }
-        ]
+        ],
+        "startPage": 603
     }, {
         "title": "Palm Fibre (al-Masad)",
         "titleAr": "ٱلْمَسَد",
@@ -1681,7 +1791,8 @@
                     "end": "5"
                 }
             }
-        ]
+        ],
+        "startPage": 603
     }, {
         "title": "Monotheism (al-Ikhlāṣ)",
         "titleAr": "ٱلْإِخْلَاص",
@@ -1695,7 +1806,8 @@
                     "end": "4"
                 }
             }
-        ]
+        ],
+        "startPage": 604
     }, {
         "title": "The Daybreak (al-Falaq)",
         "titleAr": "ٱلْفَلَق",
@@ -1709,7 +1821,8 @@
                     "end": "5"
                 }
             }
-        ]
+        ],
+        "startPage": 604
     }, {
         "title": "Humans (al-Nās)",
         "titleAr": "ٱلنَّاس",
@@ -1723,6 +1836,7 @@
                     "end": "6"
                 }
             }
-        ]
+        ],
+        "startPage": 604
     }
 ]

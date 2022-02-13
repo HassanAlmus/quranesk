@@ -121,7 +121,7 @@ const Popup = (props : any) => {
                         }</option>
                     ))
                 } </select>
-                <h2>Verse Audio</h2>
+                {props.v&&<><h2>Verse Audio</h2>
                 <select value={
                         props.user.audio
                     }
@@ -146,7 +146,7 @@ const Popup = (props : any) => {
                             })`
                         }</option>
                     ))
-                } </select>
+                } </select></>}
                 <h2>Translations</h2>
                 {
                 (props.translationMap as TranslationLanguage[]).map((translationLanguage) => {

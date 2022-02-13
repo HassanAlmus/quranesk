@@ -1,10 +1,12 @@
 import {ApolloProvider} from "@apollo/client";
-import client from "../apollo-client";
+//import client from "../apollo-client";
 import Head from "next/head";
 import "../styles/mixins.scss";
 import "../styles/globals.scss";
 import "../styles/this.scss";
 import {useEffect} from "react";
+import {Provider} from "urql"
+import {client, ssrCache} from '../urql-client'
 
 export default function App({Component, pageProps}) {
     useEffect(() => document.documentElement.lang = 'en-us', [])
@@ -20,9 +22,9 @@ export default function App({Component, pageProps}) {
                 <link rel="apple-touch-icon-precomposed" href="/logo.png"></link>
                 <link rel="shortcut icon" href="/logo.png"></link>
             </Head>
-            <ApolloProvider client={client}>
+            <Provider value={client}>
                 <Component {...pageProps}/>
-            </ApolloProvider>
+            </Provider>
         </>
     );
 }

@@ -1,5 +1,5 @@
 @import './mixins.scss';
-
+//
 #d1 {
     display: flex;
     flex-direction: column;
@@ -19,13 +19,89 @@
     }
 }
 
+#home {
+       display: flex;
+        align-items: center;
+        
+        a {
+            margin-left: 5px;
+            cursor: pointer !important;
+        }
+        .d8 {
+            @include button;
+            background: none !important;
+        }
+}
+
+.d4_ {
+    @include selectnone;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 5px;
+    background-color: $c1;
+    .d6_ {
+        display: flex;
+        align-items: center;
+        @media(max-width: 430px) {
+            * {
+                font-size: 1rem;
+            }
+        }
+        #translation  {
+            color: whitesmoke;
+            @media(max-width: 600px) {
+                display: none;
+            }
+        }
+        #translation, #p{
+            margin-left: 10px;
+        }
+        #p,
+        h3 {
+            color: gold;
+        }
+        h3 {
+            transform: translateY(-0.5px);
+            font-size: 1.5rem;
+        }
+        .d7 {
+            margin-left: 0.25rem;
+        }
+        span {
+            margin-left: 0.5rem;
+        }
+    }
+}
+
 #d4{
     padding: 25px;
     @include img('../public/bg7.png');
+    width: 100vw;
     #d5{
         display: flex;
         justify-content: space-around;
-        flex-wrap: wrap;
+        @media(max-width: 500px){
+            flex-direction: column;
+        }
+        align-items: center;
+        #english, #arabic{
+          background: -webkit-linear-gradient(#cfdbcf,#fff);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          font-size: 2rem;
+          font-weight: 700;
+        }
+        #english{
+            font-family: "cinzel-bold"
+        }
+        #transliteration {
+            background: -webkit-linear-gradient(goldenrod,gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; 
+            font-size: 3rem;
+            font-weight: 700
+        }
     }
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
@@ -98,85 +174,39 @@
     min-height: 50px;
 }
 
-#d12{
-    cursor: pointer;
+#d30{
+    margin-top: 30px;
+    max-width: 1000px;
 }
 
-#d13, #d12{
-    transform: translateY(3px);
-}
-
-#d15{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    justify-content: center;
-    position: relative;
-}
-
-#d16 {
-    background: linear-gradient(to right, $c2, $c1);
-    padding: 0 5px;
-    border-radius: 5px;
-    h2{
-        color: white;
-        font-size: 1rem;
-        transform: translateY(-1px);
-    }
-}
-
-#d17{
-    display: flex;
-    justify-content: center;
-    margin: 10px;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-top: 15px;
-}
-
-#d18{
+#d31{
+    margin: 25px 0;
     display: flex;
     justify-content: space-around;
+    width: 100vw;
     flex-wrap: wrap;
-    width: 100%;
-    align-items: center;
-    margin-bottom: 150px;
-    margin-top: 50px;
+    #d32, #d33{
+        @include button;
+        border-radius: 7px;
+        padding: 5px 15px;
+        display: flex;
+        align-items: center;
+        margin: 25px;
+        h1{
+        color: whitesmoke;
+        font-family: "gentium-regular";
+        font-weight: 700;
 }
-
-#d19, #d20{
-    margin: 10px;
-    display: flex;
-    flex-shrink: 0;
-    align-items: center;
-    background: linear-gradient(to right, $c1, $c2);
-    padding: 0 7.5px;
-    border-radius: 5px;
-    @include button;
-    h1{
-        font-size: 1.5rem;
-        flex-shrink: 0;
-        transform: translateY(-2px);
-        color: white;
+        }
+        #d33{
+            background: linear-gradient(to right, $c2, $c1);
+        }
+        #d32{
+            background: $g5;
+            h1{
+                background: -webkit-linear-gradient($c1,$c2);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
     }
-    svg{
-        flex-shrink: 0;
-        height: 40px;
-        width: auto;
-        stroke: white;
-    }
-}
-
-#d20{
-    flex-direction: row-reverse;
-}
-
-#d23{
-    height: 100px;
-    width: 100px;
-    position: absolute;
-    left: 50%;
-    margin-left: -50px;
-    top: 50%;
-    margin-top: -50px;
-}

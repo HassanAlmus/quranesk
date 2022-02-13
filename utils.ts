@@ -23,6 +23,7 @@ export type Surah = {
   count: Scalars["Int"]
   titleAr: Scalars["String"]
   index: Scalars["Int"]
+  startPage: Scalars["Int"]
   juz: Array<Maybe<Juz>>
   reciters: RecitersList
   verses: Array<Verse>
