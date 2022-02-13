@@ -140,7 +140,7 @@ const V = (props : {
             styles.d1
         }>
                     <Head>
-            <title> {
+{/*             <title> {
                 `${s+1}. ${
                     snap.cs.title.split(" (")[1].substring(0, snap.cs.title.split(" (")[1].length - 1).replace("'", "&apos;")
                 } (${
@@ -154,7 +154,7 @@ const V = (props : {
                     } (${
                         snap.cs.title.split(" (")[0]
                     })${snap.isFirstPage?"":` - P${p}`}`
-            }></meta>
+            }></meta> */}
             <meta name="keywords"
                 content={
                     `${
