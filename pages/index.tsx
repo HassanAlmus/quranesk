@@ -131,7 +131,7 @@ const Index = () => {
                                 ss.value
                             }/${
                                 sv ? sv.value : "1"
-                            }` : `/1`
+                            }` : ``
                         }>
                             <div className={
                                     ss ? styles.d17 : styles.d18
@@ -144,6 +144,9 @@ const Index = () => {
                         </Link>
                     </div>
                 </div>
+                <div className="announcement">
+                    <h1>Celebrating Quranesk's <strong>First Year Anniversary</strong></h1>
+                </div>
                 <div className={
                     styles.d11
                 }>
@@ -155,7 +158,7 @@ const Index = () => {
                             <Link passHref={true} href={
                                 `/${
                                     i + 1
-                                }/1`
+                                }/`
                             }>
                                 <div className={
                                         styles.d16
@@ -174,7 +177,7 @@ const Index = () => {
                             <Link passHref={true} href={
                                 `/${
                                     i + 1
-                                }/1`
+                                }/`
                             }>
                                 <div className={
                                         styles.d19

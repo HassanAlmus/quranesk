@@ -286,3 +286,13 @@ width: 100vw;
     right: 10vw;
   }
 }
+
+.announcement {
+  @include center;
+  margin-bottom: 40px;
+  flex-direction: column;
+  h1{
+    margin-bottom: 40px;
+  }
+
+}
