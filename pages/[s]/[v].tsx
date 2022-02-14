@@ -19,56 +19,6 @@ import { state } from "../../src/components/useV";
 
 const Popup = dynamic(() => import ('../../src/components/popup'));
 
-export const returnQuery = (s : number, v : number, user : User) => {
-    return gql `
-    query Query {
-        cs: surah(s: ${
-        (s - 1).toString()
-    }){
-            id
-            titleAr
-            title
-            count
-        }
-        ps: surah(s: ${
-        (s - 1 !== 0 ? s - 2 : s - 1).toString()
-    }){
-            id
-            count
-        }
-        verse(s: ${
-        (s - 1).toString()
-    }, v: ${
-        (v - 1).toString()
-    }) {
-            id
-            ${
-        (user.translations.map((t) => `${t}\n`)).toString()
-    }
-            ${
-        (user.tafseers.map((t) => `${
-            returnKey(t)
-        }\n`)).toString()
-    }
-            words {
-            ${
-        user.rasm.split("-")[0]
-    }
-            ${
-        user.wbwtranslation
-    }
-            transliteration
-            }
-            meta {
-                tse
-                ayah
-                surah
-            }
-        }
-    }
-`;
-};
-
 const V = (props : {
     data: {
         cs: Surah,
@@ -97,35 +47,11 @@ const V = (props : {
         setAudio2,
         loc, setLoc,
         user
-    } = useV(props);
+    } = useV();
 
     const snap = useSnapshot(state)
 
-    const [{ data, error}] = useQuery({
-        query: returnQuery(props.s+1, props.v+1, props.user)
-      });
-
-    useEffect(()=>{
-    if(error)console.log(error)
-    if(data!==undefined){
-        state.verse=data.verse
-        state.ps=data.ps
-        state.cs=data.cs
-        state.tafseerMap=props.maps.tafseers;
-        state.translationMap=props.maps.translationLanguages;
-        state.audioMap=props.maps.audio;
-        setAudio2(`${
-            maps.audio.find((e : any) => e.key === user.audio) ?. url
-        }${
-            (loc[0] + 1).toString().padStart(3, "0")
-        }${
-            (loc[1] + 1).toString().padStart(3, "0")
-        }.mp3`)
-        state.loaded=true;
-    }
-    }, [data])
-
-    if(snap.loaded){
+    if(snap.init){
         return (<div className={
             styles.d1
         }>
@@ -307,24 +233,15 @@ const V = (props : {
             }><Loader/></div>
         } </div>)
     }else{
-        return <></>
+        return (
+            <div style={
+            {
+                position: 'fixed',
+                top: '50vh',
+                right: '50vw'
+            }
+        }><Loader/></div>)
     }
 };
 
- export const getServerSideProps: GetServerSideProps = async function ({params, req, query}) {
-    let user: User;
-    user = edit(query, req, false);
-    const Query = returnQuery(Number(params ?. s), Number(params ?. v), user);
-    await client.query(Query).toPromise();
-    return {
-        props: {
-            s: Number(params ?. s) - 1,
-            v: Number(params ?. v) - 1,
-            user,
-            maps,
-            urqlState: ssrCache.extractData()
-        }
-    }; 
-}; 
- 
 export default V

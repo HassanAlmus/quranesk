@@ -1,5 +1,3 @@
-import {ApolloProvider} from "@apollo/client";
-//import client from "../apollo-client";
 import Head from "next/head";
 import "../styles/mixins.scss";
 import "../styles/globals.scss";

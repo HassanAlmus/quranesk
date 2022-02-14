@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from "../styles/index.module.scss";
 import Image from "next/image";
 import Select from "react-select";
@@ -6,6 +6,8 @@ import Link from "next/link";
 import Head from 'next/head'
 import Loader from '../src/components/Loader'
 import surahs from '../src/data/surahs.json'
+import { state as state2 } from "../src/components/useV";
+import { state } from "../src/components/useS";
 
 const Index = () => {
     const [ss, setSs] = useState < null | {
@@ -18,6 +20,23 @@ const Index = () => {
     } > (null);
     const [sm, setSm] = useState(false);
     const [loading, setLoading] = useState(false)
+    useEffect(()=>{
+        state.loading=false;
+        state.cs=null
+        state.ps=null
+        state.ns=null
+        state.isFirstPage=null
+        state.init=false
+        state.verses=null
+        state.showPopup=false
+        state2.init= false,
+        state2.cs= null,
+        state2.ps= null,
+        state2.verse= null,
+        state2.translationMap= null,
+        state2.tafseerMap= null,
+        state2.audioMap= null
+    }, [])
 
     return (
         <>
@@ -136,9 +155,9 @@ const Index = () => {
                             <div className={
                                     ss ? styles.d17 : styles.d18
                                 }
-                                onClick={
+                                /* onClick={
                                     () => setLoading(true)
-                            }>
+                            } */>
                                 <h2>GO</h2>
                             </div>
                         </Link>
@@ -163,9 +182,9 @@ const Index = () => {
                                 <div className={
                                         styles.d16
                                     }
-                                    onClick={
+                                    /* onClick={
                                         () => setLoading(true)
-                                }>
+                                } */>
                                     <h1 style={
                                         {fontFamily: 'cinzel-bold'}
                                     }>
@@ -182,9 +201,9 @@ const Index = () => {
                                 <div className={
                                         styles.d19
                                     }
-                                    onClick={
+                                    /* onClick={
                                         () => setLoading(true)
-                                }>
+                                } */>
                                     <div className={
                                         styles.d12
                                     }>

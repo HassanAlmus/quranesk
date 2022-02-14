@@ -10,16 +10,17 @@ export const defaultUser: User = {
     surahAudio: "Amer Al Kadhimi"
 };
 
-const returnUser = (req : any, test : boolean) => {
-    const userCookie = test ? req : (typeof req.cookies ?. user !== "undefined" ? JSON.parse(req.cookies ?. user) : undefined);
+
+const returnUser = (cookies : any, test : boolean) => {
+    const userCookie = test ? cookies : ( cookies ?. user !== undefined ? JSON.parse(cookies ?. user) : undefined);
     let user = userCookie !== undefined ? userCookie : defaultUser;
     user.translations = [...new Set(user.translations)as any] as string[]
     user.tafseers = [...new Set(user.tafseers)as any] as string[]
     return user
-};
+}
 
-const main = (query : any, req : any, test : boolean) => {
-    let user = returnUser(req, test);
+const edit = (query : any, clientUser : any, test : boolean) => {
+    let user = returnUser(clientUser, test);
     Object.keys(query).filter((e) => e !== "s" && e !== "v").forEach((e) => {
         switch (e) {
             case "t":
@@ -43,4 +44,4 @@ const main = (query : any, req : any, test : boolean) => {
     return user;
 }
 
-export default main
+export default edit

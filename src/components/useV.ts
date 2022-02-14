@@ -2,7 +2,6 @@ import {useEffect} from "react";
 import Cookies from "js-cookie";
 import {useRouter} from "next/router";
 import {useState} from "react";
-import maps from "../data/maps";
 import {
     User,
     Surah,
@@ -13,10 +12,14 @@ import {
     Word
 } from "../../utils";
 import {useSnapshot, proxy} from "valtio";
-import {useQuery, gql, useClient} from 'urql'
+import {gql, useClient} from 'urql'
+import maps from '../data/maps'
+import edit from "./edit";
+
+//YA ABALFAZL
 
 export const state = proxy({
-    loaded: false,
+    init: false,
     cs: null,
     ps: null,
     verse: null,
@@ -27,26 +30,92 @@ export const state = proxy({
 
 export const returnKey = (key : string) : string => key === "namoonaur" ? "namoonaur{\ntitle\nrange\nlink\n}" : key;
 
-const useV = (props : {
-    data: {
-        cs: Surah,
-        ps: Surah,
-        verse: Verse
-    },
-    s: number,
-    v: number,
-    maps: any,
-    urqlState: any,
-    user: User
-}) => {
+const returnQuery = (s : number, v : number, user : User) => {
+    return gql `
+    query Query {
+        cs: surah(s: ${
+        (s - 1).toString()
+    }){
+            id
+            titleAr
+            title
+            count
+        }
+        ps: surah(s: ${
+        (s - 1 !== 0 ? s - 2 : s - 1).toString()
+    }){
+            id
+            count
+        }
+        verse(s: ${
+        (s - 1).toString()
+    }, v: ${
+        (v - 1).toString()
+    }) {
+            id
+            ${
+        (user.translations.map((t) => `${t}\n`)).toString()
+    }
+            ${
+        (user.tafseers.map((t) => `${
+            returnKey(t)
+        }\n`)).toString()
+    }
+            words {
+            ${
+        user.rasm.split("-")[0]
+    }
+            ${
+        user.wbwtranslation
+    }
+            transliteration
+            }
+            meta {
+                tse
+                ayah
+                surah
+            }
+        }
+    }
+`;
+};
+
+const useV = () => {
     const client = useClient()
     const snap = useSnapshot(state)
     const router = useRouter();
     const [showPopup, setShowPopup] = useState(false);
     const [playing, setPlaying] = useState(false);
     const [audio, setAudio2] = useState("");
-    const [loc, setLoc] = useState([props.s, props.v])
-    const [user, setUser] = useState < User > (props.user)
+    const [loc, setLoc] = useState([undefined, undefined])
+    const [user, setUser] = useState < User > (edit(router.query, Cookies.get('user'), false))
+
+    useEffect(()=>{
+        if(!snap.init&&router.query.v!==undefined&& router.query.s!==undefined){
+            console.log(router.query)
+            const Query = returnQuery(Number(router.query.s), Number(router.query.v), user);
+            client.query(Query).toPromise().then(result=>{
+                if(result.error){
+                    console.log(result.error)
+                }
+                state.verse=result.data.verse
+                state.ps=result.data.ps
+                state.cs=result.data.cs
+                state.tafseerMap=maps.tafseers;
+                state.translationMap=maps.translationLanguages;
+                state.audioMap=maps.audio;
+                setLoc([Number(router.query.s)-1, Number(router.query.v)-1])
+                state.init=true;
+        })
+        setAudio2(`${
+            maps.audio.find((e : any) => e.key === user.audio) ?. url
+        }${
+            (loc[0] + 1).toString().padStart(3, "0")
+        }${
+            (loc[1] + 1).toString().padStart(3, "0")
+        }.mp3`)
+    }
+        }, [router.query])
 
     useEffect(() => {
         if (user.audio) {

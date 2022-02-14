@@ -1,6 +1,4 @@
 import {useEffect} from "react";
-import {useLazyQuery} from "@apollo/client";
-import {gql} from "@apollo/client";
 import Cookies from "js-cookie";
 import {useRouter} from "next/router";
 import {useState} from "react";
@@ -15,8 +13,9 @@ import {
 } from "../../utils";
 import {returnKey} from "./useV";
 import {useSnapshot, proxy} from "valtio";
-import {client} from "../../urql-client";
-import {useClient} from "urql";
+import {useClient, gql} from "urql";
+import edit from "./edit";
+import maps from '../data/maps'
 
 export const state = proxy({
     loading: false,
@@ -29,29 +28,101 @@ export const state = proxy({
     showPopup: false
 })
 
-const useS = (props : {
-    data: {
-        maps: any;
-        cs: Surah;
-        ps: Surah;
-        ns: Surah;
-        page: Verse[];
-    };
-    s: number;
-    p: number;
-    isFirstPage: boolean;
-    user: User;
-    maps: any;
-}) => {
+const returnQuery = (s : number, p:(undefined|number), user : User) => {
+    return gql `
+    query Query {
+        cs: surah(s: ${
+        (s - 1).toString()
+    }){
+            id
+            titleAr
+            title
+            count
+            startPage
+        }
+        ps: surah(s: ${
+        (s - 1 !== 0 ? s - 2 : s - 1).toString()
+    }){
+            id
+            titleAr
+            title
+            count
+            startPage
+        }
+        ns: surah(s: ${
+        (s - 1 !== 113 ? s : s - 1).toString()
+    }){
+                id
+                titleAr
+                title
+                count
+                startPage
+            }
+        page(s: ${
+        (s - 1).toString()
+    }${p?`, p:${p}`:""}) {
+            id
+            ${
+        (user.translations.map((t) => `${t}\n`)).toString()
+    }
+            ${
+        (user.tafseers.map((t) => `${
+            returnKey(t)
+        }\n`)).toString()
+    }
+            words {
+            ${
+        user.rasm.split("-")[0]
+    }
+            ${
+        user.wbwtranslation
+    }
+            transliteration
+            }
+            meta {
+                tse
+                ayah
+                surah
+                page
+            }
+        }
+    }
+`;
+};
+
+const useS = () => {
+    //
     const client = useClient()
     const snap = useSnapshot(state)
     const router = useRouter();
-    const translationMap: TranslationLanguage[] = props.maps.translationLanguages;
-    const audioMap: Audio[] = props.maps.audio;
-    const tafseerMap: Tafseer[] = props.maps.tafseers;
-    const [user, setUser] = useState(props.user);
-    const [s, setS] = useState(props.s)
-    const [p, setP] = useState(props.p)
+    const translationMap: TranslationLanguage[] = maps.translationLanguages;
+    const audioMap: Audio[] = maps.audio;
+    const tafseerMap: Tafseer[] = maps.tafseers;
+    const [user, setUser] = useState(edit(router.query, Cookies.get('user'), false));
+    const [s, setS] = useState(undefined)
+    const [p, setP] = useState(undefined)
+
+    useEffect(()=>{
+    if(!snap.init && router.query.s!==undefined){
+        const Query = returnQuery(Number(router.query.s), Number(router.query.p), user);
+        client.query(Query).toPromise().then(result=>{
+            if(result.error){
+                console.log(result.error)
+            }
+            state.verses=result.data.page;
+            state.cs=result.data.cs;
+            state.ps=result.data.ps;
+            state.ns=result.data.ns;
+            state.isFirstPage=typeof router.query.p === 'undefined';
+            setS(Number(router.query.s)-1)
+            if(typeof router.query.p === 'undefined'){
+                setP(result.data.cs.startPage)
+            }else{
+                setP(Number(router.query.p))
+            }
+            state.init=true;
+    })}
+    }, [router.query])
 
     const setTranslations = (v : any) => setUser({
         ...user,
@@ -88,7 +159,7 @@ const useS = (props : {
 
     const WBWQuery = (key : string) => gql `
      query Query {
-       page(s: ${s}, p: ${p}){
+       page(s: ${s.toString()}, p: ${p.toString()}){
          id
          words{
            ${key}
@@ -136,7 +207,7 @@ const useS = (props : {
 
     const PageQuery = (_p:number) => gql`
     query Query{
-      page(s: ${s}, p: ${_p}) {
+      page(s: ${s.toString()}, p: ${_p.toString()}) {
        id
        ${
         [
@@ -162,7 +233,7 @@ const useS = (props : {
 
    const LineQuery = (key:string) => gql`
    query Query{
-     page(s: ${s}, p: ${p}) {
+     page(s: ${s.toString()}, p: ${p.toString()}) {
       id
       ${returnKey(key)}
      }
@@ -190,7 +261,7 @@ const useS = (props : {
 
     const SurahQuery = (type: ('next'|'prev'), _s:number) => gql `
     query Query {
-      page(s: ${_s} ) {
+      page(s: ${_s.toString()} ) {
       id
       ${
         [
@@ -295,8 +366,7 @@ const useS = (props : {
         prevPage,
         s,
         setS,
-        p,
-        setP
+        p
     };
 };
 export default useS;

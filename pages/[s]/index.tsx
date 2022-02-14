@@ -17,8 +17,8 @@ import {state} from '../../src/components/useS'
 import {client, ssrCache} from '../../urql-client'
 import { useQuery, gql} from "urql";
 import surahlist from '../../src/data/surahs.json'
+import Cookies from "js-cookie";
 const Popup = dynamic(() => import ('../../src/components/popup'));
-
 
 export const returnQuery = (s : number, p:(undefined|number), user : User) => {
     return gql `
@@ -82,21 +82,7 @@ export const returnQuery = (s : number, p:(undefined|number), user : User) => {
 `;
 };
 
-
-const V = (props : {
-    data: {
-        maps: any,
-        cs: Surah,
-        ps: Surah,
-        ns: Surah,
-        page: Verse[]
-    },
-    s: number,
-    p: number,
-    maps: any,
-    isFirstPage: boolean,
-    user: User
-}) => {
+const S = () => {
     const {
         tafseerMap,
         audioMap,
@@ -109,30 +95,11 @@ const V = (props : {
         nextPage,
         prevPage,   
         s,
-        setP,
         p,
         setS
-    } = useS(props)
+    } = useS()
 
     const snap = useSnapshot(state);
-
-    const [{ data, error}] = useQuery({
-        query: returnQuery(props.s+1, props.p, user)
-      });
-
-      useEffect(() => {
-        if (error) 
-            console.log(error)
-        
-        if (data !== undefined) {
-            state.verses=data.page;
-            state.cs=data.cs;
-            state.ps=data.ps;
-            state.ns=data.ns;
-            state.isFirstPage=props.isFirstPage;
-            state.init=true;
-        }
-    }, [data])
 
     if(snap.init)
     {return (
@@ -140,7 +107,7 @@ const V = (props : {
             styles.d1
         }>
                     <Head>
-{/*             <title> {
+            <title> {
                 `${s+1}. ${
                     snap.cs.title.split(" (")[1].substring(0, snap.cs.title.split(" (")[1].length - 1).replace("'", "&apos;")
                 } (${
@@ -154,7 +121,7 @@ const V = (props : {
                     } (${
                         snap.cs.title.split(" (")[0]
                     })${snap.isFirstPage?"":` - P${p}`}`
-            }></meta> */}
+            }></meta>
             <meta name="keywords"
                 content={
                     `${
@@ -364,21 +331,4 @@ const V = (props : {
 
 //ya allah
 
-export const getServerSideProps: GetServerSideProps = async function ({params, req, query}) {
-    let user: User;
-    user = edit(query, req, false);
-    const Query = returnQuery(Number(params ?. s), typeof query.p === 'undefined'?undefined:Number(query.p), user);
-    await client.query(Query).toPromise();
-    return {
-        props: {
-            s: Number(params ?. s) - 1,
-            p: typeof query.p === 'undefined'?surahlist[Number(params ?. s) - 1].startPage:Number(query.p),
-            isFirstPage: typeof query.p === 'undefined',
-            maps,
-            user,
-            urqlState: ssrCache.extractData()
-        }
-    };
-};
-
-export default V
+export default S
