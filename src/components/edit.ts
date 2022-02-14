@@ -2,7 +2,7 @@ import {User} from "../../utils";
 
 export const defaultUser: User = {
     translations: ["enqarai"],
-    tafseers: ["puyaen"],
+    tafseers: [],
     audio: "murparhizgar",
     wbwtranslation: "english",
     rasm: "uthmani",
