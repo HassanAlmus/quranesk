@@ -261,7 +261,7 @@ ps, ns,loading, showPopup, setShowPopup
 export async function getStaticPaths() {
     return {
       paths: Array.from(Array(114).keys()).map((_s)=>{
-        return {params: {s:_s.toString()}}
+        return {params: {s:(_s+1).toString()}}
     }),
       fallback: false
     };
