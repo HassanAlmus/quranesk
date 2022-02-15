@@ -14,8 +14,10 @@ import {returnKey} from '../../src/components/useV';
 import ReactAudioPlayer from 'react-audio-player';
 import {client, ssrCache} from '../../urql-client'
 import { useQuery, gql} from "urql";
-import { useSnapshot} from "valtio"
+import { useSnapshot, proxy} from "valtio"
 import { state } from "../../src/components/useV";
+import { edit2 } from "../../src/components/edit";
+import Link from 'next/link'
 
 const Popup = dynamic(() => import ('../../src/components/popup'));
 
@@ -27,7 +29,6 @@ const V = (props : {
     },
     s: number,
     v: number,
-    maps: any,
     urqlState: any,
     user: User
 }) => {
@@ -244,4 +245,13 @@ const V = (props : {
     }
 };
 
+/* export async function getServerSideProps({req, params, query}) {
+      const user = edit2(query, req);
+      let data;
+      await client.query(returnQuery(Number(params.s), Number(params.v), user)).toPromise().then(result=>{
+          data=result.data
+      })
+      return {props: {s: Number(params.s)-1, v: Number(params.v)-1, data, user}}
+}
+ */
 export default V

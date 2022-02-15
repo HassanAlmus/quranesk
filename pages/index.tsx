@@ -7,7 +7,6 @@ import Head from 'next/head'
 import Loader from '../src/components/Loader'
 import surahs from '../src/data/surahs.json'
 import { state as state2 } from "../src/components/useV";
-import { state } from "../src/components/useS";
 
 const Index = () => {
     const [ss, setSs] = useState < null | {
@@ -21,14 +20,6 @@ const Index = () => {
     const [sm, setSm] = useState(false);
     const [loading, setLoading] = useState(false)
     useEffect(()=>{
-        state.loading=false;
-        state.cs=null
-        state.ps=null
-        state.ns=null
-        state.isFirstPage=null
-        state.init=false
-        state.verses=null
-        state.showPopup=false
         state2.init= false,
         state2.cs= null,
         state2.ps= null,
@@ -90,6 +81,7 @@ const Index = () => {
                     <div className={
                         styles.d8
                     }>
+                        <h3 className={styles.e}>Read verse by verse</h3>
                         <div className={
                             styles.d9
                         }>
@@ -166,6 +158,7 @@ const Index = () => {
                 <div className="announcement">
                     <h1>Celebrating Quranesk&apos;s <strong>First Year Anniversary</strong></h1>
                 </div>
+                <h3 className={styles.e2}>Read surah by surah</h3>
                 <div className={
                     styles.d11
                 }>

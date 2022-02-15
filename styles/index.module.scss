@@ -71,6 +71,10 @@
       flex-direction: column;
       align-items: center;
       margin-bottom: 20px;
+      .e{
+        font-weight: bolder;
+        color: $c1
+      }
       .d32{
         padding: 5px;
         background-color: $c1;
@@ -83,8 +87,7 @@
       }
       .d17,
       .d18 {
-        margin-top: 1rem;
-        padding: 1rem;
+        padding: 20px;
         border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
         @include selectnone;
         h2 {
@@ -106,7 +109,7 @@
         padding: 0.5rem;
         padding-bottom: 0.25rem;
         border-radius: 1rem;
-        margin-top: 1rem;
+        margin: 20px 0;
         justify-content: space-around;
         @include glass;
         @include shadow;
@@ -329,4 +332,11 @@
      @include center;
     }
   }
+}
+
+.e2{
+  text-align: center;
+  font-weight: bolder;
+  color: $c1;
+  margin-bottom: 40px;
 }

@@ -74,6 +74,7 @@ const returnQuery = (s : number, v : number, user : User) => {
                 tse
                 ayah
                 surah
+                page
             }
         }
     }
@@ -88,11 +89,10 @@ const useV = () => {
     const [playing, setPlaying] = useState(false);
     const [audio, setAudio2] = useState("");
     const [loc, setLoc] = useState([undefined, undefined])
-    const [user, setUser] = useState < User > (edit(router.query, Cookies.get('user'), false))
+    const [user, setUser] = useState < User > (edit(router.query, Cookies.get('user')))
 
     useEffect(()=>{
         if(!snap.init&&router.query.v!==undefined&& router.query.s!==undefined){
-            console.log(router.query)
             const Query = returnQuery(Number(router.query.s), Number(router.query.v), user);
             client.query(Query).toPromise().then(result=>{
                 if(result.error){

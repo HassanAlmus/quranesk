@@ -289,7 +289,7 @@ width: 100vw;
 
 .announcement {
   @include center;
-  margin-bottom: 40px;
+  margin: 20px 0;
   flex-direction: column;
   padding: 0 20px;
   h1{

@@ -14,21 +14,10 @@ import {
 import {returnKey} from "./useV";
 import {useSnapshot, proxy} from "valtio";
 import {useClient, gql} from "urql";
-import edit from "./edit";
+import edit, { defaultUser } from "./edit";
 import maps from '../data/maps'
 
-export const state = proxy({
-    loading: false,
-    cs: null,
-    ps: null,
-    ns: null,
-    isFirstPage: null,
-    init: false,
-    verses: null,
-    showPopup: false
-})
-
-const returnQuery = (s : number, p:(undefined|number), user : User) => {
+export const returnQuery = (s : number, p:(undefined|number), user : User) => {
     return gql `
     query Query {
         cs: surah(s: ${
@@ -90,39 +79,62 @@ const returnQuery = (s : number, p:(undefined|number), user : User) => {
 `;
 };
 
-const useS = () => {
-    //
-    const client = useClient()
+const state = proxy({
+    init: false
+})
+
+const useS = (props) => {
     const snap = useSnapshot(state)
+    const client = useClient()
     const router = useRouter();
     const translationMap: TranslationLanguage[] = maps.translationLanguages;
     const audioMap: Audio[] = maps.audio;
     const tafseerMap: Tafseer[] = maps.tafseers;
-    const [user, setUser] = useState(edit(router.query, Cookies.get('user'), false));
-    const [s, setS] = useState(undefined)
-    const [p, setP] = useState(undefined)
+    const [user, setUser] = useState(edit(router.query, Cookies.get('user')));
+    const [s, setS] = useState(props.s)
+    const [p, setP] = useState(props.p)
+    const [cs, setCs] = useState(props.data.cs)
+    const [ps, setPs] = useState(props.data.ps)
+    const [ns, setNs] = useState(props.data.ns)
+    const [isFirstPage, setIsFirstPage] = useState(props.isFirstPage)
+    const [verses, setVerses] = useState(props.data.page)
+    const [showPopup, setShowPopup] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     useEffect(()=>{
-    if(!snap.init && router.query.s!==undefined){
-        const Query = returnQuery(Number(router.query.s), Number(router.query.p), user);
-        client.query(Query).toPromise().then(result=>{
-            if(result.error){
-                console.log(result.error)
-            }
-            state.verses=result.data.page;
-            state.cs=result.data.cs;
-            state.ps=result.data.ps;
-            state.ns=result.data.ns;
-            state.isFirstPage=typeof router.query.p === 'undefined';
-            setS(Number(router.query.s)-1)
-            if(typeof router.query.p === 'undefined'){
-                setP(result.data.cs.startPage)
-            }else{
-                setP(Number(router.query.p))
-            }
-            state.init=true;
-    })}
-    }, [router.query])
+    const NewPageQuery = () => gql`
+    query Query {
+      page(s: ${props.s.toString()}, p: ${props.p.toString()}) {
+       id
+       ${
+        [
+            ...user.translations,
+            ...user.tafseers
+        ].filter(t=>t!==('enqarai')).map((key) => returnKey(key)).join("\n")
+    }
+       words {
+         ${user.wbwtranslation!==defaultUser.translations[0]?user.wbwtranslation:""}
+       } 
+      }
+    }
+   `
+   client.query(NewPageQuery()).toPromise().then(result=>{
+    [
+        ...user.translations,
+        ...user.tafseers
+    ].filter(t=>t!==('enqarai')).forEach((key)=>{
+        const newVerses = props.data.page
+        newVerses.forEach((verse, i)=>{
+            newVerses[i][key]=result.data.page[i][key]
+            verse.words.forEach((word, e)=>{
+                newVerses[i].words[e][user.wbwtranslation]=result.data.page[i].words[e][user.wbwtranslation]
+            })
+        })
+        setVerses(newVerses)
+        state.init=true
+    })
+   })
+    }, [])
 
     const setTranslations = (v : any) => setUser({
         ...user,
@@ -145,17 +157,17 @@ const useS = () => {
         rasm: v
     });
 
-    useEffect(() => {
+     useEffect(() => {
         Cookies.set("user", JSON.stringify(user), {
             expires: 60 * 60 * 24 * 1000
         });
     }, []);
 
     useEffect(() => {
-        if (snap.verses && snap.cs && snap.ps && snap.ns) {
+        if (verses && cs && ps && ns) {
             Cookies.set("user", JSON.stringify(user), {expires: 365});
         }
-    }, [user]);
+    }, [user]);  
 
     const WBWQuery = (key : string) => gql `
      query Query {
@@ -170,8 +182,7 @@ const useS = () => {
 
     const fetchWBW = (key: string) => {
         client.query(WBWQuery(key)).toPromise().then(result=>{
-            let newVerses = snap.verses;
-            newVerses = snap.verses.map((verse, e) => {
+            setVerses(verses.map((verse, e) => {
                 return {
                     ...verse,
                     words: verse.words.map(
@@ -184,22 +195,21 @@ const useS = () => {
                         }
                     )
                 }
-            })
-            state.verses = (newVerses);
+            }));
         })
     }
 
     useEffect(() => {
-        if (snap.verses) {
-            if (!Object.keys(snap.verses[0].words[0] as Word).includes(user.wbwtranslation)) {
+        if (verses) {
+            if (!Object.keys(verses[0].words[0] as Word).includes(user.wbwtranslation)) {
                 fetchWBW(user.wbwtranslation)
             }
         }
     }, [user.wbwtranslation]);
 
     useEffect(() => {
-        if (snap.verses) {
-            if (!Object.keys(snap.verses[0].words[0] as Word).includes(user.rasm)) {
+        if (verses) {
+            if (!Object.keys(verses[0].words[0] as Word).includes(user.rasm)) {
                 fetchWBW(user.rasm);
             }
         }
@@ -241,19 +251,21 @@ const useS = () => {
   `;
 
     useEffect(() => {
-        if (snap.verses) {
+        if (verses&&snap.init) {
             if ([
                 ...user.translations,
                 ...user.tafseers
-            ].some((key) => !Object.keys(snap.verses[0]).includes(key))) {
+            ].some((key) => !Object.keys(verses[0]).includes(key))) {
                 const key = [
                     ...user.translations,
                     ...user.tafseers
-                ].find((key) => !Object.keys(snap.verses[0]).includes(key));
+                ].find((key) => !Object.keys(verses[0]).includes(key));
                 client.query(LineQuery(key)).toPromise().then(result=>{
-                    snap.verses.forEach((verse, i)=>{
-                        state.verses[i][key]=result.data.page[i][key];
+                    let newVerses = verses
+                    newVerses.forEach((verse, i)=>{
+                        newVerses[i][key]=result.data.page[i][key];
                     })
+                    setVerses(newVerses)
                 })
             }
         }
@@ -293,63 +305,60 @@ const useS = () => {
 
     const getSurah = (type: ('next'|'prev'), s:number) => {
         client.query(SurahQuery(type, s)).toPromise().then(result => {
-            state.verses = (result.data.page);
-            if(type==='next')state.ns = (result.data.ns)
-            if(type==='prev')state.ps = (result.data.ps)
-            state.loading = false
+            setVerses(result.data.page);
+            if(type==='next')setNs(result.data.ns)
+            if(type==='prev')setPs(result.data.ps)
+            setLoading(false)
         })
     }
 
     const getPage = (p:number) => {
         client.query(PageQuery(p)).toPromise().then(result => {
-            state.verses = (result.data.page);
-            state.loading = false
+            setVerses(result.data.page);
+            setLoading(false)
         })
     }
 
     const nextPage = () => {
-        state.loading = true;
-        if (snap.verses[snap.verses.length - 1].meta.ayah === snap.cs.count) {
+        setLoading(true);
+        if (verses[verses.length - 1].meta.ayah === cs.count) {
             getSurah('next', s+1)
-            state.cs = (snap.ns)
-            state.ps = (snap.cs)
-            state.isFirstPage = (true)
+            setCs(ns)
+            setPs(cs)
+            setIsFirstPage(true)
             setS(s + 1)
-            setP(snap.ns.startPage)
+            setP(ns.startPage)
         } else {
             getPage(p+1)
-            state.isFirstPage = (false)
+            setIsFirstPage(false)
             setP(p + 1)
         }
     }
 
     const prevPage = () => {
-        state.loading = true;
-        if (snap.isFirstPage) {
+        setLoading(true);
+        if (isFirstPage) {
             getSurah('prev', s-1)
-            state.ns = (snap.cs)
-            state.cs = (snap.ps)
+            setNs(cs)
+            setCs(ps)
             setS(s - 1)
-            setP(snap.ps.startPage)
+            setP(ps.startPage)
         } else {
             getPage(p-1)
-            if (p - 1 === snap.cs.startPage) 
-                state.isFirstPage = (true);
+            if (p - 1 === cs.startPage) {
+            setIsFirstPage(true);
+        }
             setP(p - 1)
         }
     }
 
     useEffect(() => {
-        if (snap.isFirstPage===true) {
+        if (isFirstPage===true) {
             router.push(`/${
                 s + 1
             }`, undefined, {shallow: true})
-        } else if (snap.isFirstPage===false) {
-            router.push(`/${
-                s + 1
-            }?p=${p}`, undefined, {shallow: true})
         }
-    }, [p, s])
+    }, [p, s]) 
 
     return {
         setRasm,
@@ -366,7 +375,11 @@ const useS = () => {
         prevPage,
         s,
         setS,
-        p
+        p,
+        cs,
+        isFirstPage,
+verses,
+ps, ns,loading, showPopup, setShowPopup
     };
 };
 export default useS;
