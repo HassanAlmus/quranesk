@@ -13,7 +13,7 @@ import {
 } from "../../utils";
 import {returnKey} from "./useV";
 import {useSnapshot, proxy} from "valtio";
-import {useClient, gql} from "urql";
+import {useClient, gql, useQuery} from "urql";
 import edit, { defaultUser } from "./edit";
 import maps from '../data/maps'
 
@@ -80,7 +80,8 @@ export const returnQuery = (s : number, p:(undefined|number), user : User) => {
 };
 
 const state = proxy({
-    init: false
+    init: false,
+    verses: null
 })
 
 const useS = (props) => {
@@ -251,7 +252,9 @@ const useS = (props) => {
   `;
 
     useEffect(() => {
+        console.log(user.translations, user.tafseers)
         if (verses&&snap.init) {
+            console.log('fk')
             if ([
                 ...user.translations,
                 ...user.tafseers
@@ -260,12 +263,13 @@ const useS = (props) => {
                     ...user.translations,
                     ...user.tafseers
                 ].find((key) => !Object.keys(verses[0]).includes(key));
-                client.query(LineQuery(key)).toPromise().then(result=>{
-                    let newVerses = verses
-                    newVerses.forEach((verse, i)=>{
-                        newVerses[i][key]=result.data.page[i][key];
-                    })
-                    setVerses(newVerses)
+                client.query(LineQuery(key)).toPromise().then(async result=>{
+                    console.log(result.data)
+                    setVerses(verses.map((verse, i)=>{
+                        let newVerse= verse
+                        newVerse[key]=result.data.page[i][key]
+                        return newVerse
+                    }))
                 })
             }
         }
