@@ -11,7 +11,7 @@ import ReactAudioPlayer from 'react-audio-player';
 import { useSnapshot, proxy} from "valtio"
 import { state } from "../../src/components/useV";
 
-const Popup = dynamic(() => import ('../../src/components/Popup'));
+const Popup = dynamic(() => import ('../../src/components/popup'));
 
 const V = (props : {
     data: {

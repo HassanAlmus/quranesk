@@ -13,7 +13,7 @@ import {client} from '../../urql-client'
 import { gql} from "urql";
 import { useSnapshot } from "valtio";
 import { state } from "../../src/components/useS";
-const Popup = dynamic(() => import ('../../src/components/Popup'));
+const Popup = dynamic(() => import ('../../src/components/popup'));
 const S = (props:{isFirstPage: boolean, p: number, s: number, data: {cs: Surah, ps: Surah, ns: Surah, page: Verse[]}}) => {
     const snap = useSnapshot(state)
     const {
