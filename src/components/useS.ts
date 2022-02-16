@@ -14,10 +14,10 @@ import {
 import {returnKey} from "./useV";
 import {useSnapshot, proxy} from "valtio";
 import {useClient, gql, useQuery} from "urql";
-import edit, { defaultUser } from "./edit";
+import edit, {defaultUser} from "./edit";
 import maps from '../data/maps'
 
-export const returnQuery = (s : number, p:(undefined|number), user : User) => {
+export const returnQuery = (s : number, p : (undefined | number), _user : User) => {
     return gql `
     query Query {
         cs: surah(s: ${
@@ -28,6 +28,11 @@ export const returnQuery = (s : number, p:(undefined|number), user : User) => {
             title
             count
             startPage
+            reciters {
+                ${
+        _user.surahAudio
+    }
+            }
         }
         ps: surah(s: ${
         (s - 1 !== 0 ? s - 2 : s - 1).toString()
@@ -37,6 +42,11 @@ export const returnQuery = (s : number, p:(undefined|number), user : User) => {
             title
             count
             startPage
+            reciters {
+              ${
+        _user.surahAudio
+    }
+            }
         }
         ns: surah(s: ${
         (s - 1 !== 113 ? s : s - 1).toString()
@@ -46,25 +56,25 @@ export const returnQuery = (s : number, p:(undefined|number), user : User) => {
                 title
                 count
                 startPage
+                reciters {
+                  ${
+        _user.surahAudio
+    }
+                }
             }
         page(s: ${
         (s - 1).toString()
-    }${p?`, p:${p}`:""}) {
-            id
-            ${
-        (user.translations.map((t) => `${t}\n`)).toString()
-    }
-            ${
-        (user.tafseers.map((t) => `${
-            returnKey(t)
-        }\n`)).toString()
-    }
+    }${
+        p ? `, p:${p}` : ""
+    }) {
+        ${_user.surahTranslation?returnKey(_user.surahTranslation):""}
+        ${_user.surahTafseer?returnKey(_user.surahTafseer):""}
             words {
             ${
-        user.rasm.split("-")[0]
+        _user.rasm.split("-")[0]
     }
             ${
-        user.wbwtranslation
+        _user.wbwtranslation
     }
             transliteration
             }
@@ -79,10 +89,7 @@ export const returnQuery = (s : number, p:(undefined|number), user : User) => {
 `;
 };
 
-const state = proxy({
-    init: false,
-    verses: null
-})
+export const state = proxy({loadedVerses: false, verses: null, init: false})
 
 const useS = (props) => {
     const snap = useSnapshot(state)
@@ -91,59 +98,120 @@ const useS = (props) => {
     const translationMap: TranslationLanguage[] = maps.translationLanguages;
     const audioMap: Audio[] = maps.audio;
     const tafseerMap: Tafseer[] = maps.tafseers;
-    const [user, setUser] = useState(edit(router.query, Cookies.get('user')));
+    const [user, setUser] = useState<User>(edit(router.query, Cookies.get('user')));
     const [s, setS] = useState(props.s)
     const [p, setP] = useState(props.p)
     const [cs, setCs] = useState(props.data.cs)
     const [ps, setPs] = useState(props.data.ps)
     const [ns, setNs] = useState(props.data.ns)
-    const [isFirstPage, setIsFirstPage] = useState(props.isFirstPage)
+    const [isFirstPage, setIsFirstPage] = useState<('none'|true|false)>('none')
     const [verses, setVerses] = useState(props.data.page)
     const [showPopup, setShowPopup] = useState(false)
     const [loading, setLoading] = useState(false)
 
-    useEffect(()=>{
-    const NewPageQuery = () => gql`
-    query Query {
-      page(s: ${props.s.toString()}, p: ${props.p.toString()}) {
+    const PageQuery = (_p : number) => gql `
+    query Query{
+      page(s: ${
+        s.toString()
+    }, p: ${
+        _p.toString()
+    }) {
        id
-       ${
-        [
-            ...user.translations,
-            ...user.tafseers
-        ].filter(t=>t!==('enqarai')).map((key) => returnKey(key)).join("\n")
-    }
+       ${user.surahTranslation?returnKey(user.surahTranslation):""}
+       ${user.surahTafseer?returnKey(user.surahTafseer):""}
        words {
-         ${user.wbwtranslation!==defaultUser.translations[0]?user.wbwtranslation:""}
-       } 
+         ${
+        user.wbwtranslation
+    }
+         ${
+        user.rasm
+    }
+         transliteration
+       }
+       meta{
+        tse
+        ayah
+        surah
+        page
+      }
+       
       }
     }
-   `
-   client.query(NewPageQuery()).toPromise().then(result=>{
-    [
-        ...user.translations,
-        ...user.tafseers
-    ].filter(t=>t!==('enqarai')).forEach((key)=>{
-        const newVerses = props.data.page
-        newVerses.forEach((verse, i)=>{
-            newVerses[i][key]=result.data.page[i][key]
-            verse.words.forEach((word, e)=>{
-                newVerses[i].words[e][user.wbwtranslation]=result.data.page[i].words[e][user.wbwtranslation]
-            })
+   `;
+
+    useEffect(() => {
+        if (isFirstPage !== 'none') {
+            router.push(`/${
+                s + 1
+            }${
+                isFirstPage ? "" : `?p=${p}`
+            }`, undefined, {shallow: true})
+        }
+    }, [p, s])
+
+    const getPage = (p : number) => {
+        client.query(PageQuery(p)).toPromise().then(result => {
+            setVerses(result.data.page);
+            setLoading(false)
+            state.loadedVerses = true
         })
-        setVerses(newVerses)
-        state.init=true
-    })
-   })
+    }
+
+    useEffect(() => {
+        const NewPageQuery = () => gql `
+        query Query {
+          page(s: ${
+            props.s.toString()
+        }, p: ${
+            props.p.toString()
+        }) {
+           id
+           ${user.surahTranslation?returnKey(user.surahTranslation):""}
+           ${user.surahTafseer?returnKey(user.surahTafseer):""}
+           words {
+             ${
+            user.wbwtranslation !== defaultUser.translations[0] ? user.wbwtranslation : ""
+        }
+           } 
+          }
+        }
+       `
+        if (window.location.href.split('?p=')[1] !== undefined && Number(window.location.href.split('?p=')[1]) !== cs.startPage) {
+            setIsFirstPage(false)
+            setLoading(true)
+            setP(Number(window.location.href.split('?p=')[1]));
+            getPage(Number(window.location.href.split('?p=')[1]))
+            state.init = true
+        } else {
+            router.push(`/${
+                s + 1
+            }`, undefined, {shallow: true})
+            state.init = true;
+            if(user.wbwtranslation!==defaultUser.wbwtranslation||user.surahTafseer!==null||user.surahTranslation!==defaultUser.surahTranslation){
+                client.query(NewPageQuery()).toPromise().then(result => {
+                    [user.surahTranslation, user.surahTranslation].forEach((key) => {
+                        const newVerses = props.data.page
+                        newVerses.forEach((verse, i) => {
+                            newVerses[i][key] = result.data.page[i][key]
+                            verse.words.forEach((word, e) => {
+                                newVerses[i].words[e][user.wbwtranslation] = result.data.page[i].words[e][user.wbwtranslation]
+                            })
+                        })
+                        setVerses(newVerses)
+                        state.loadedVerses = true
+                    })
+                })
+            }
+        }
     }, [])
 
-    const setTranslations = (v : any) => setUser({
+    const setTranslation = (v : any) => setUser({
         ...user,
-        translations: v
+        surahTranslation: v
     });
-    const setTafseers = (v : any) => setUser({
+    const setTafseer = (v : any) => setUser({
         ...user,
-        tafseers: v
+        surahTafseer: v
     });
     const setWbwtranslation = (v : any) => setUser({
         ...user,
@@ -158,7 +226,7 @@ const useS = (props) => {
         rasm: v
     });
 
-     useEffect(() => {
+    useEffect(() => {
         Cookies.set("user", JSON.stringify(user), {
             expires: 60 * 60 * 24 * 1000
         });
@@ -168,11 +236,15 @@ const useS = (props) => {
         if (verses && cs && ps && ns) {
             Cookies.set("user", JSON.stringify(user), {expires: 365});
         }
-    }, [user]);  
+    }, [user]);
 
     const WBWQuery = (key : string) => gql `
      query Query {
-       page(s: ${s.toString()}, p: ${p.toString()}){
+       page(s: ${
+        s.toString()
+    }, p: ${
+        p.toString()
+    }){
          id
          words{
            ${key}
@@ -181,8 +253,8 @@ const useS = (props) => {
      }
     `;
 
-    const fetchWBW = (key: string) => {
-        client.query(WBWQuery(key)).toPromise().then(result=>{
+    const fetchWBW = (key : string) => {
+        client.query(WBWQuery(key)).toPromise().then(result => {
             setVerses(verses.map((verse, e) => {
                 return {
                     ...verse,
@@ -201,7 +273,7 @@ const useS = (props) => {
     }
 
     useEffect(() => {
-        if (verses) {
+        if (snap.loadedVerses) {
             if (!Object.keys(verses[0].words[0] as Word).includes(user.wbwtranslation)) {
                 fetchWBW(user.wbwtranslation)
             }
@@ -216,78 +288,55 @@ const useS = (props) => {
         }
     }, [user.rasm]);
 
-    const PageQuery = (_p:number) => gql`
+    const LineQuery = (key : string) => gql `
     query Query{
-      page(s: ${s.toString()}, p: ${_p.toString()}) {
-       id
-       ${
-        [
-            ...user.translations,
-            ...user.tafseers
-        ].map((key) => returnKey(key)).join("\n")
+        page(s: ${
+            s.toString()
+        }, p: ${
+            p.toString()
+        }) {
+        id
+        ${
+            returnKey(key)
+        }
+        }
     }
-       words {
-         ${user.wbwtranslation}
-         ${user.rasm}
-         transliteration
-       }
-       meta{
-        tse
-        ayah
-        surah
-        page
-      }
-       
-      }
-    }
-   `;
-
-   const LineQuery = (key:string) => gql`
-   query Query{
-     page(s: ${s.toString()}, p: ${p.toString()}) {
-      id
-      ${returnKey(key)}
-     }
-   }
-  `;
+    `;
 
     useEffect(() => {
-        console.log(user.translations, user.tafseers)
-        if (verses&&snap.init) {
-            console.log('fk')
-            if ([
-                ...user.translations,
-                ...user.tafseers
-            ].some((key) => !Object.keys(verses[0]).includes(key))) {
+        if (verses && snap.loadedVerses) {
+            if (verses.some((verse)=>!Object.keys(verse).includes(user.surahTranslation)||!Object.keys(verse).includes(user.surahTafseer))) {
+                console.log('gon fetch')
                 const key = [
-                    ...user.translations,
-                    ...user.tafseers
+                    user.surahTranslation,
+                    user.surahTafseer
                 ].find((key) => !Object.keys(verses[0]).includes(key));
-                client.query(LineQuery(key)).toPromise().then(async result=>{
-                    console.log(result.data)
-                    setVerses(verses.map((verse, i)=>{
-                        let newVerse= verse
-                        newVerse[key]=result.data.page[i][key]
+                client.query(LineQuery(key)).toPromise().then(result => {
+                    setVerses(verses.map((verse, i) => {
+                        let newVerse = verse
+                        newVerse[key] = result.data.page[i][key]
                         return newVerse
                     }))
                 })
             }
         }
-    }, [user.translations, user.tafseers]);
+    }, [user.surahTranslation, user.surahTafseer]);
 
-    const SurahQuery = (type: ('next'|'prev'), _s:number) => gql `
+    const SurahQuery = (type : ('next' | 'prev'), _s : number) => gql `
     query Query {
-      page(s: ${_s.toString()} ) {
+      page(s: ${
+        _s.toString()
+    } ) {
       id
-      ${
-        [
-            ...user.translations,
-            ...user.tafseers
-        ].map((key) => returnKey(key)).join("\n")
-    }
+      ${user.surahTranslation?returnKey(user.surahTranslation):""}
+      ${user.surahTafseer?returnKey(user.surahTafseer):""}
       words {
-        ${user.wbwtranslation}
-        ${user.rasm}
+        ${
+        user.wbwtranslation
+    }
+        ${
+        user.rasm
+    }
         transliteration
       }
       meta{
@@ -297,43 +346,44 @@ const useS = (props) => {
         page
       }
       }
-      ${_s!==0&&_s!==113?`${type==='next'?'ns':"ps"}: surah(s: ${type==='next'?_s+1:_s-1}){
+      ${
+        _s !== 0 && _s !== 113 ? `${
+            type === 'next' ? 'ns' : "ps"
+        }: surah(s: ${
+            type === 'next' ? _s + 1 : _s - 1
+        }){
         id
         title
         titleAr
         count
         startPage
-      }`:""}
+      }` : ""
+    }
     }
   `;
 
-    const getSurah = (type: ('next'|'prev'), s:number) => {
+    const getSurah = (type : ('next' | 'prev'), s : number) => {
         client.query(SurahQuery(type, s)).toPromise().then(result => {
             setVerses(result.data.page);
-            if(type==='next')setNs(result.data.ns)
-            if(type==='prev')setPs(result.data.ps)
-            setLoading(false)
-        })
-    }
-
-    const getPage = (p:number) => {
-        client.query(PageQuery(p)).toPromise().then(result => {
-            setVerses(result.data.page);
-            setLoading(false)
+            if (type === 'next') 
+                setNs(result.data.ns)
+            if (type === 'prev') 
+                setPs(result.data.ps)
+                setLoading(false)
         })
     }
 
     const nextPage = () => {
         setLoading(true);
         if (verses[verses.length - 1].meta.ayah === cs.count) {
-            getSurah('next', s+1)
+            getSurah('next', s + 1)
             setCs(ns)
             setPs(cs)
             setIsFirstPage(true)
             setS(s + 1)
             setP(ns.startPage)
         } else {
-            getPage(p+1)
+            getPage(p + 1)
             setIsFirstPage(false)
             setP(p + 1)
         }
@@ -342,35 +392,27 @@ const useS = (props) => {
     const prevPage = () => {
         setLoading(true);
         if (isFirstPage) {
-            getSurah('prev', s-1)
+            getSurah('prev', s - 1)
             setNs(cs)
             setCs(ps)
             setS(s - 1)
             setP(ps.startPage)
         } else {
-            getPage(p-1)
+            getPage(p - 1)
             if (p - 1 === cs.startPage) {
-            setIsFirstPage(true);
-        }
+                setIsFirstPage(true);
+            }
             setP(p - 1)
         }
     }
 
-    useEffect(() => {
-        if (isFirstPage===true) {
-            router.push(`/${
-                s + 1
-            }`, undefined, {shallow: true})
-        }
-    }, [p, s]) 
-
     return {
         setRasm,
         setAudio,
-        setTafseers,
+        setTafseer,
         translationMap,
         user,
-        setTranslations,
+        setTranslation,
         setWbwtranslation,
         tafseerMap,
         audioMap,
@@ -382,8 +424,12 @@ const useS = (props) => {
         p,
         cs,
         isFirstPage,
-verses,
-ps, ns,loading, showPopup, setShowPopup
+        verses,
+        ps,
+        ns,
+        loading,
+        showPopup,
+        setShowPopup
     };
 };
 export default useS;

@@ -1,5 +1,47 @@
 @import "./mixins.scss";
 
+@keyframes fadeout{
+    0%{
+        opacity: 1
+    }
+    100%{
+        opacity: 0
+    }
+}
+#notif{
+    color: $c1;
+    font-family: "gentium-regular";
+    font-weight: bolder;
+    animation: fadeout 1s ease-in-out 3s;
+    animation-fill-mode: forwards;  
+}
+
+.d44{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    align-items: center;
+    #d100, #d101{
+        background: linear-gradient(to right, $c2, $c1);
+        @include button;
+        border-radius: 7px;
+        padding: 5px 15px;
+        display: flex;
+        align-items: center;
+        h3{
+        color: whitesmoke;
+        font-family: "gentium-regular";
+        font-weight: bolder;
+}
+    }
+    #d101{
+        background: whitesmoke;
+        h3{
+            color: $c1 
+        }
+    }
+}
+
 .d11 {
     .d28 {
         margin: 10px 0;
@@ -99,6 +141,7 @@
         .d41 {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             h1 {
                 color: $c1;
                 width: calc(100% - 30px);

@@ -185,5 +185,7 @@ export type User = {
   rasm: string;
   autoplay: boolean;
   surahAudio: string;
+  surahTranslation: (null|string);
+  surahTafseer: (null|string);
   [key: string]: (string|string[]|boolean)
 }

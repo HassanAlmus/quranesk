@@ -270,23 +270,6 @@ width: 100vw;
   margin-bottom: 30px
 }
 
-.s{
-  @media (min-width: 500px){
-    position: fixed;
-    bottom: 20px;
-  }
-}
-.first{
-  @media (min-width: 500px){
-    left: 10vw;
-  }
-}
-.second{
-  @media (min-width: 500px){
-    right: 10vw;
-  }
-}
-
 .announcement {
   @include center;
   margin: 20px 0;

@@ -26,12 +26,13 @@ const Popup = (props : any) => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
                     </svg>
                 </div>
+                {!props.v&&<h3 id={styles.d105}>In order to view more than one translation/tafseer simultaneously, navigate to specific verse.</h3>}
                 <h2>Commentaries</h2>
                 <div className={
                     styles.d22
                 }>
                     {
-                    (props.tafseerMap ).map((tafseer : Tafseer, key: number) => {
+                    (props.tafseerMap).map((tafseer : Tafseer, key: number) => {
                         return (
                             <label key={key} className={
                                 styles.d23
@@ -40,18 +41,26 @@ const Popup = (props : any) => {
                                         styles.d24
                                     }
                                     type="checkbox"
-                                    defaultChecked={
-                                        props.user.tafseers.includes(tafseer.key)
+                                    checked={
+                                        props.v?props.user.tafseers.includes(tafseer.key):props.user.surahTafseer===(tafseer.key)
                                     }
                                     onChange={
                                         (event) => {
-                                            if (props.user.tafseers.includes(tafseer.key)) {
-                                                props.setTafseers(props.user.tafseers.filter((key2 : any) => key2 !== tafseer.key));
-                                            } else {
-                                                props.setTafseers([
-                                                    ...props.user.tafseers,
-                                                    tafseer.key
-                                                ]);
+                                            if(props.v){
+                                                if (props.user.tafseers.includes(tafseer.key)) {
+                                                    props.setTafseers(props.user.tafseers.filter((key2 : any) => key2 !== tafseer.key));
+                                                } else {
+                                                    props.setTafseers([
+                                                        ...props.user.tafseers,
+                                                        tafseer.key
+                                                    ]);
+                                                }
+                                            }else{
+                                                if(props.user.surahTafseer===tafseer.key){
+                                                    props.setTafseers(null)
+                                                }else{
+                                                    props.setTafseers(tafseer.key)
+                                                }
                                             }
                                         }
                                     }/>
@@ -188,19 +197,28 @@ const Popup = (props : any) => {
                                                     styles.d24
                                                 }
                                                 type="checkbox"
-                                                defaultChecked={
-                                                    props.user.translations.includes(tr.key)
+                                                checked={
+                                                    props.v?props.user.translations.includes(tr.key):(props.user.surahTranslation===tr.key)
                                                 }
                                                 onChange={
                                                     async () => {
-                                                        if (props.user.translations.includes(tr.key)) {
-                                                            props.setTranslations(props.user.translations.filter((ft : any) => ft !== tr.key));
-                                                        } else {
-                                                            props.setTranslations([
-                                                                tr.key,
-                                                                ...props.user.translations
-                                                            ]);
-                                                        }
+                                                        if(props.v){
+                                                            if (props.user.translations.includes(tr.key)) {
+                                                                props.setTranslations(props.user.translations.filter((ft : any) => ft !== tr.key));
+                                                            } else {
+                                                                props.setTranslations([
+                                                                    tr.key,
+                                                                    ...props.user.translations
+                                                                ]);
+                                                            }
+                                                        }else{
+                                                            if(props.user.surahTranslation===tr.key){
+                                                                console.log('cancel')
+                                                                props.setTranslations(null)
+                                                            }else{
+                                                                props.setTranslations(tr.key)
+                                                            }
+                                                        }          
                                                     }
                                                 }/>
                                             <h4 className={
@@ -218,7 +236,7 @@ const Popup = (props : any) => {
                 })
             } </div>
         </div>
-    );
+    )
 }
 
 export default Popup

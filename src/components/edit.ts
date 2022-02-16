@@ -7,7 +7,9 @@ export const defaultUser: User = {
     wbwtranslation: "english",
     rasm: "uthmani",
     autoplay: false,
-    surahAudio: "Amer Al Kadhimi"
+    surahAudio: "Amer Al Kadhimi",
+    surahTranslation: "enqarai",
+    surahTafseer: null
 };
 
 
@@ -20,7 +22,7 @@ const returnUser = (cookies : any) => {
 }
 
 const edit = (query : any, clientUser : any) => {
-    let user = returnUser(clientUser);
+    let user = {...defaultUser, ...returnUser(clientUser)};
     Object.keys(query).filter((e) => e !== "s" && e !== "v").forEach((e) => {
         switch (e) {
             case "t":
@@ -53,7 +55,7 @@ const returnUser2 = (req : any) => {
 };
 
 export const edit2 = (query : any, req : any) => {
-    let user = returnUser2(req);
+    let user = {...returnUser2(req), ...defaultUser};
     Object.keys(query).filter((e) => e !== "s" && e !== "v").forEach((e) => {
         switch (e) {
             case "t":

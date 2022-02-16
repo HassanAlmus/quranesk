@@ -1,8 +1,6 @@
 @import "./mixins.scss";
 
 .d1 {
-  height: 100vh;
-  width: 100vw;
   display: flex;
   @media (max-width: 709px) {
     flex-direction: column-reverse;
@@ -18,7 +16,7 @@
     }
     @media (max-width: 709px) {
       overflow-x: scroll;
-      height: 6rem;
+      height: 40px;
       @include noscrollbar;
       align-items: center;
     }
@@ -69,7 +67,7 @@
     @media (max-width: 709px) {
       padding: 1rem;
       margin: 0.5rem;
-      height: calc(100vh - 6rem);
+      height: calc(100vh - 100px);
       @include noscrollbar;
     }
   }

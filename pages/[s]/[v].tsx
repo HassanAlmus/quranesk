@@ -19,7 +19,7 @@ import { state } from "../../src/components/useV";
 import { edit2 } from "../../src/components/edit";
 import Link from 'next/link'
 
-const Popup = dynamic(() => import ('../../src/components/popup'));
+const Popup = dynamic(() => import ('../../src/components/Popup'));
 
 const V = (props : {
     data: {
@@ -115,6 +115,7 @@ const V = (props : {
                     styles.d9
                 }><VerseComponent user={user}
                         loc={loc}
+                        component='v'
                         verse={snap.verse}
                         translationMap={snap.translationMap}
                         tafseerMap={snap.tafseerMap}/></div>

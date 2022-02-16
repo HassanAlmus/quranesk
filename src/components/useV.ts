@@ -242,6 +242,7 @@ const useV = () => {
         tse
         ayah
         surah
+        page
       }
      }
    }

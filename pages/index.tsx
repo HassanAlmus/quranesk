@@ -158,7 +158,7 @@ const Index = () => {
                 <div className="announcement">
                     <h1>Celebrating Quranesk&apos;s <strong>First Year Anniversary</strong></h1>
                 </div>
-                <h3 className={styles.e2}>Read surah by surah</h3>
+                <h3 className={styles.e2}>Read page by page</h3>
                 <div className={
                     styles.d11
                 }>

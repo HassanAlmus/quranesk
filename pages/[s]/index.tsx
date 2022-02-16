@@ -5,29 +5,26 @@ import styles from "../../styles/s.module.scss";
 import VerseComponent from '../../src/components/VerseComponent';
 import Loader from '../../src/components/Loader';
 import {User, Surah, Verse} from '../../utils';
-import edit, { defaultUser } from '../../src/components/edit';
-import maps from '../../src/data/maps';
-import {returnKey} from '../../src/components/useV';
+import { defaultUser } from '../../src/components/edit';
 import useS from "../../src/components/useS";
 import Link from "next/link";
 import Image from "next/image";
-import {useSnapshot } from "valtio";
 import {client} from '../../urql-client'
 import { gql} from "urql";
-import ReactAudioPlayer from 'react-audio-player';
-
-const Popup = dynamic(() => import ('../../src/components/popup'));
-
+import { useSnapshot } from "valtio";
+import { state } from "../../src/components/useS";
+const Popup = dynamic(() => import ('../../src/components/Popup'));
 const S = (props:{isFirstPage: boolean, p: number, s: number, data: {cs: Surah, ps: Surah, ns: Surah, page: Verse[]}}) => {
+    const snap = useSnapshot(state)
     const {
         tafseerMap,
         audioMap,
         translationMap,
-        setTafseers,
+        setTafseer,
         setWbwtranslation,
         user,
         setRasm,
-        setTranslations,
+        setTranslation,
         nextPage,
         prevPage,   
         s,
@@ -37,12 +34,11 @@ const S = (props:{isFirstPage: boolean, p: number, s: number, data: {cs: Surah, 
 verses,
 ps, ns,loading, showPopup, setShowPopup
     } = useS(props)
-
     return (
         <div id={
             styles.d1
         }>
-                    <Head>
+        <Head>
             <title> {
                 `${s+1}. ${
                     cs.title.split(" (")[1].substring(0, cs.title.split(" (")[1].length - 1).replace("'", "&apos;")
@@ -75,16 +71,17 @@ ps, ns,loading, showPopup, setShowPopup
                     `Verses ${verses[0].meta.ayah}-${verses[verses.length-1].meta.ayah}`
             }></meta>
         </Head>
+        {snap.init&&<>
             {
             showPopup && <Popup setTranslations={
-                    (v : any) => setTranslations(v)
+                    (v : any) => setTranslation(v)
                 }
                 v={false}
                 tafseerMap={tafseerMap}
                 audioMap={audioMap}
                 translationMap={translationMap}
                 setTafseers={
-                    (v : any) => setTafseers(v)
+                    (v : any) => setTafseer(v)
                 }
                 setWbwtranslation={
                     (v : any) => setWbwtranslation(v)
@@ -180,7 +177,8 @@ ps, ns,loading, showPopup, setShowPopup
                     position: 'fixed',
                     top: '50vh'
                 }
-            }><Loader/></div> : <div id={
+            }><Loader/></div> : 
+            <div id={
                 styles.d30
             }>
                 {
@@ -204,7 +202,10 @@ ps, ns,loading, showPopup, setShowPopup
                 }
                 tafseerMap = {
                     tafseerMap
-                } />)
+                }
+                component='s'
+                />
+                )
             } </div>
         }
             {
@@ -252,7 +253,9 @@ ps, ns,loading, showPopup, setShowPopup
                        {` ›`}</h1>
                 </div>
             } </div>
-        } </div>
+        }
+        </>}
+     </div>
     )
 };
 
@@ -301,7 +304,7 @@ const returnQuery = (s : number ) => {
         (s - 1).toString()
     } ){
             id
-            ${defaultUser.translations[0]}
+            ${defaultUser.surahTranslation}
             words {
             english
             uthmani
@@ -322,6 +325,7 @@ const returnQuery = (s : number ) => {
   export async function getStaticProps({ params }) {
     let data
     await client.query(returnQuery(Number(params.s))).toPromise().then((result=>{
+        if(result.error)console.log(result.error)
         data=result.data
     })) 
     return { props: { s: Number(params.s)-1, data, p: data.cs.startPage, isFirstPage: true} }

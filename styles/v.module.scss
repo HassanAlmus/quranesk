@@ -233,8 +233,14 @@
         margin-bottom: 10px;
     }
     .d19 {
+        #d105{
+            color: #d72323;
+            margin: 10px;
+            font-weight: bolder;
+            margin-left: 0;
+        }
         background-color: white;
-        padding: 10px 10px 100px;
+        padding: 20px 20px 100px;
         border-radius: 10px;
         @media(min-width: 700px) {
             max-height: calc(100vh - 4rem);
@@ -250,7 +256,7 @@
         }
         h2 {
             color: $c1;
-            font-family: "cinzel-regular";
+            font-family: "cinzel-bold";
             font-size: 1rem;;
         }
         .d25 {

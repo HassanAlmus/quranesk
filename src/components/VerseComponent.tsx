@@ -1,12 +1,17 @@
 import styles from '../../styles/VerseComponent.module.scss'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Word, User, TranslationLanguage, Verse, Tafseer, NamoonaTopic, Scalars, Maybe } from '../../utils';
-const VerseComponent = (props:{user: User, loc: number[], verse:Verse, translationMap: TranslationLanguage[], tafseerMap: Tafseer[]}) => {
+import Link from 'next/link';
+import { setInterval } from 'timers/promises';
+
+const VerseComponent = (props:{user: User, loc: number[], verse:Verse, translationMap: TranslationLanguage[], tafseerMap: Tafseer[], component: ('s'|'v')}) => {
   const user = props.user;
   const loc = props.loc;
   const verse = props.verse;
   const translationMap = props.translationMap;
   const tafseerMap = props.tafseerMap;
+  const [showNotif, setShowNotif] = useState(false)
+  const [notif, setNotif] = useState(null)
   const copy = (str: any) => {
     const el = document.createElement("textarea");
     el.value = str;
@@ -23,7 +28,6 @@ const VerseComponent = (props:{user: User, loc: number[], verse:Verse, translati
       loc[1]+1
     }?${type}=${key}`;
     copy(link);
-    alert("Link copied!");
   };
   const WordDisplay = (props: { nav: [number, number, number] }) => {
     const [s, setS] = useState(false);
@@ -86,7 +90,11 @@ const VerseComponent = (props:{user: User, loc: number[], verse:Verse, translati
       </div>
     );
   };
-  
+  useEffect(()=>{
+if(showNotif){
+  setTimeout(()=>setShowNotif(false), 4000)
+}
+  }, [showNotif])
   return (
     <div className='verse'>
     <div className={styles.d11}>
@@ -118,13 +126,20 @@ const VerseComponent = (props:{user: User, loc: number[], verse:Verse, translati
         </h3>
       )}
       <div className={styles.d44}>
-      <svg
+        <div>
+        <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
               className="share"
-              onClick={() => {copy(`https://quranesk.com/${loc[0]+1}/${loc[1]+1}`);alert('Link copied!')}}
+              onClick={() => {
+                copy(`https://quranesk.com/${loc[0]+1}/${loc[1]+1}`);
+              setNotif('Link copied!')
+                setShowNotif(true)
+                }
+              
+              }
               style={{marginRight: '5px', transform: 'translateY(-0px)'}}
             >
               <path
@@ -133,33 +148,42 @@ const VerseComponent = (props:{user: User, loc: number[], verse:Verse, translati
                 strokeWidth={2}
                 d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
               />
-            </svg>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        className="copy "
-        onClick={() => {
-          copy(
-            verse.words.map((w:any) => (w )[user.rasm]).join(" ") 
-          );
-          alert("Arabic copied!");
-        }}
-        style={{height: '30px', width:'30px'}}
-      >
-        <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                />
-      </svg>
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          className="copy "
+          onClick={() => {
+            copy(
+              verse.words.map((w:any) => (w )[user.rasm]).join(" ") 
+            );
+            setNotif('Arabic copied!')
+            setShowNotif(true)
+            
+          }}
+          style={{height: '30px', width:'30px'}}
+        >
+          <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                  />
+        </svg>
         </div>
+        {showNotif&&<h3 id={styles.notif}>{notif}</h3>}
+        <Link href={props.component==="v"?`/${verse.meta.surah}?p=${verse.meta.page}`:`/${verse.meta.surah}/${verse.meta.ayah}`}>
+          <div id={props.component==='v'?styles.d100:styles.d101}>
+            <h3>GO TO {props.component==='v'?"PAGE":"VERSE"}</h3>
+          </div>
+        </Link>
       </div>
-    </div>{(user.translations.length>=1||user.tafseers.length>=1)&&
+      </div>
+    </div>{(props.component==='v'?(user.translations.length>=1||user.tafseers.length>=1):(user.surahTranslation||user.surahTafseer))&&
     <div className={styles.d26}>
-      {user.translations.map((key:any) => (
+      {(props.component==='v'?user.translations:(props.user.surahTranslation?[props.user.surahTranslation]:[])).map((key:any) => (
         <div className={styles.d27} key={key}>
           <div
             className={styles.d41}
@@ -170,13 +194,19 @@ const VerseComponent = (props:{user: User, loc: number[], verse:Verse, translati
                   : "row",
             }}
           >
+            <div style={{display: 'flex'}}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
               className="share"
-              onClick={() => rsl("t", key)}
+              onClick={() => {
+                rsl("t", key);
+                
+                  setNotif('Link copied!')
+                  setShowNotif(true)}
+              }
             >
               <path
                 strokeLinecap="round"
@@ -206,6 +236,7 @@ const VerseComponent = (props:{user: User, loc: number[], verse:Verse, translati
                   .find((translation:any) => translation.key === key).name
               }
             </h1>
+            </div>
             {Object.keys(verse).includes(key) 
              && (
               <svg
@@ -216,7 +247,8 @@ const VerseComponent = (props:{user: User, loc: number[], verse:Verse, translati
                 className="copy "
                 onClick={() => {
                   copy((verse )[key]);
-                  alert("Translation copied!");
+                  setNotif('Text copied!')
+            setShowNotif(true)
                 }}
               >
                 <path
@@ -249,7 +281,7 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
           </p>
         </div>
       ))}
-      {user.tafseers.map(
+      {(props.component==='v'?user.tafseers:(user.surahTafseer?[user.surahTafseer]:[])).map(
         (key:string) =>
           Object.keys(verse).includes(key) &&(key!=='khorramdelfa'?
           ((verse as Verse)[key] as Array<Maybe<Scalars["String"]>>)[0] !== null && (
@@ -262,7 +294,11 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                   className="share"
-                  onClick={() => rsl("c", key)}
+                  onClick={() => {
+                    rsl("c", key);
+                    setNotif('Link copied!')
+                 setShowNotif(true)}
+                  }
                 >
                   <path
                     strokeLinecap="round"
@@ -295,7 +331,8 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
                     className="copy "
                     onClick={() => {
                       copy((verse as any)[key][1]);
-                      alert("Tafseer copied!");
+                      setNotif('Text copied!')
+            setShowNotif(true)
                     }}
                   >
                     <path
@@ -328,7 +365,10 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                   className="share"
-                  onClick={() => rsl("c", key)}
+                  onClick={() => {
+                    setNotif('Link copied!')
+                    setShowNotif(true)
+                  }}
                 >
                   <path
                     strokeLinecap="round"
@@ -401,7 +441,8 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
                     className="copy "
                     onClick={() => {
                       copy((verse )[key]);
-                      alert("Tafseer copied!");
+                      setNotif('Text copied!')
+                      setShowNotif(true)
                     }}
                   >
                     <path
