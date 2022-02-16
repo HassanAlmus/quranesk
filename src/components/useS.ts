@@ -201,6 +201,8 @@ const useS = (props) => {
                         state.loadedVerses = true
                     })
                 })
+            }else{
+                state.loadedVerses=true
             }
         }
     }, [])
@@ -305,6 +307,7 @@ const useS = (props) => {
 
     useEffect(() => {
         if (verses && snap.loadedVerses) {
+            console.log('should fetch')
             if (verses.some((verse)=>!Object.keys(verse).includes(user.surahTranslation)||!Object.keys(verse).includes(user.surahTafseer))) {
                 console.log('gon fetch')
                 const key = [
