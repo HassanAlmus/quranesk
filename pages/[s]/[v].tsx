@@ -1,4 +1,3 @@
-import {GetServerSideProps} from "next";
 import React, {useEffect} from "react";
 import Head from "next/head";
 import dynamic from 'next/dynamic';
@@ -6,18 +5,11 @@ import styles from "../../styles/v.module.scss";
 import VerseComponent from '../../src/components/VerseComponent';
 import Loader from '../../src/components/Loader';
 import {User, Surah, Verse} from '../../utils';
-import edit from '../../src/components/edit';
-import maps from '../../src/data/maps';
 import useV from '../../src/components/useV';
 import Navbar from '../../src/components/Navbar';
-import {returnKey} from '../../src/components/useV';
 import ReactAudioPlayer from 'react-audio-player';
-import {client, ssrCache} from '../../urql-client'
-import { useQuery, gql} from "urql";
 import { useSnapshot, proxy} from "valtio"
 import { state } from "../../src/components/useV";
-import { edit2 } from "../../src/components/edit";
-import Link from 'next/link'
 
 const Popup = dynamic(() => import ('../../src/components/Popup'));
 
@@ -236,13 +228,8 @@ const V = (props : {
         } </div>)
     }else{
         return (
-            <div style={
-            {
-                position: 'fixed',
-                top: '50vh',
-                right: '50vw'
-            }
-        }><Loader/></div>)
+            <div className='hsloading'><Loader/></div>
+            )
     }
 };
 
