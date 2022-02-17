@@ -45,9 +45,7 @@ const V = (props : {
     const snap = useSnapshot(state)
 
     if(snap.init){
-        return (<div className={
-            styles.d1
-        }>
+        return (<>
             <Head>
                 <title> {
                     `[${
@@ -103,7 +101,8 @@ const V = (props : {
                     setShowPopup={
                         (v : boolean) => setShowPopup(v)
                     }/>
-                <div className={
+                    <div id={styles.d200}>
+                    <div className={
                     styles.d9
                 }><VerseComponent user={user}
                         loc={loc}
@@ -111,6 +110,7 @@ const V = (props : {
                         verse={snap.verse}
                         translationMap={snap.translationMap}
                         tafseerMap={snap.tafseerMap}/></div>
+                    </div>
                 {
                 showPopup && <Popup setTranslations={
                         (v : any) => setTranslations(v)
@@ -225,7 +225,7 @@ const V = (props : {
                     top: '50vh'
                 }
             }><Loader/></div>
-        } </div>)
+        } </>)
     }else{
         return (
             <div className='hsloading'><Loader/></div>

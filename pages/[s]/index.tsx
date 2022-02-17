@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Head from "next/head";
 import dynamic from 'next/dynamic';
 import styles from "../../styles/s.module.scss";
@@ -32,12 +32,12 @@ const S = (props:{isFirstPage: boolean, p: number, s: number, data: {cs: Surah, 
         cs,
         isFirstPage,
 verses,
-ps, ns,loading, showPopup, setShowPopup
+ps, ns,loading, showPopup, setShowPopup, myRef
     } = useS(props)
+
     return (
-        <div id={
-            styles.d1
-        }>
+        <>
+            <div ref={myRef}></div>
         <Head>
             <title> {
                 `${s+1}. ${
@@ -178,11 +178,13 @@ ps, ns,loading, showPopup, setShowPopup
                     top: '50vh'
                 }
             }><Loader/></div> : 
-            <div id={
+            <div id={styles.d200}>
+<div id={
                 styles.d30
             }>
                 {
-                verses.map((verse, i) =>< VerseComponent user = {
+                verses.map((verse, i) =><>
+                < VerseComponent user = {
                     user
                 }
                 loc = {
@@ -205,8 +207,10 @@ ps, ns,loading, showPopup, setShowPopup
                 }
                 component='s'
                 />
+                </>
                 )
             } </div>
+            </div>
         }
             {
             loading === false && <div id={
@@ -255,7 +259,7 @@ ps, ns,loading, showPopup, setShowPopup
             } </div>
         }
         </>}
-     </div>
+     </>
     )
 };
 

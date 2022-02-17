@@ -1,10 +1,10 @@
 @import './mixins.scss';
 //
-#d1 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 15px;
+
+#d11{
+    margin: 0 15px
+}
+
     #d2 {
         display: flex;
         flex-direction: column;
@@ -16,7 +16,7 @@
             margin-bottom: 15px;
         }
     }
-}
+
 
 #home {
        display: flex;
@@ -160,7 +160,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
     position: sticky;
     top: 0;
     z-index: 5;
@@ -176,6 +175,13 @@
 #d30{
     margin-top: 50px;
     max-width: 1000px;
+}
+
+#d200{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    padding: 0 15px;
 }
 
 #d31{

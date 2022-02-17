@@ -1,11 +1,9 @@
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 import Cookies from "js-cookie";
 import {useRouter} from "next/router";
 import {useState} from "react";
 import {
     User,
-    Surah,
-    Verse,
     Audio,
     Tafseer,
     TranslationLanguage,
@@ -92,6 +90,7 @@ export const returnQuery = (s : number, p : (undefined | number), _user : User) 
 export const state = proxy({loadedVerses: false, verses: null, init: false})
 
 const useS = (props) => {
+    const myRef = useRef();
     const snap = useSnapshot(state)
     const client = useClient()
     const router = useRouter();
@@ -158,6 +157,7 @@ const useS = (props) => {
     }
 
     useEffect(() => {
+        (myRef.current as any).scrollIntoView()
         const NewPageQuery = () => gql `
         query Query {
           page(s: ${
@@ -432,7 +432,8 @@ const useS = (props) => {
         ns,
         loading,
         showPopup,
-        setShowPopup
+        setShowPopup, 
+        myRef
     };
 };
 export default useS;

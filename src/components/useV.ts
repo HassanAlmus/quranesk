@@ -115,6 +115,12 @@ const useV = () => {
             (loc[1] + 1).toString().padStart(3, "0")
         }.mp3`)
     }
+    return () => {
+        state.init=false;
+        state.verse=null;
+        state.ps=null;
+        state.cs=null;
+    }
         }, [router.query])
 
     useEffect(() => {
@@ -311,7 +317,7 @@ const useV = () => {
     }, [user.translations, user.tafseers]);
 
     useEffect(() => {
-        if (snap.verse) {
+        if (snap.verse&&snap.init) {
             router.push(`/${
                 loc[0] + 1
             }/${

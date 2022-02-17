@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import styles from "../styles/index.module.scss";
 import Image from "next/image";
 import Select from "react-select";
@@ -28,9 +28,11 @@ const Index = () => {
         state2.tafseerMap= null,
         state2.audioMap= null
     }, [])
-
+    const myRef = useRef()
+    useEffect(()=>(myRef.current as any).scrollIntoView(),[])
     return (
         <>
+        <div ref={myRef}></div>
             <Head>
                 <title>The Holy Quran | Quranesk.com</title>
                 <meta property="og:title" content="The Holy Quran | Quranesk.com"/>
