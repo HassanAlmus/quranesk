@@ -172,12 +172,7 @@ ps, ns,loading, showPopup, setShowPopup, myRef
                 </div>
             </div>
             {
-            loading ? <div style={
-                {
-                    position: 'fixed',
-                    top: '50vh'
-                }
-            }><Loader/></div> : 
+            loading ? <div className="hsloading"><Loader/></div> : 
             <div id={styles.d200}>
 <div id={
                 styles.d30
