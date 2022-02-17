@@ -20,7 +20,7 @@ const Index = () => {
     const [sm, setSm] = useState(false);
     const [loading, setLoading] = useState(false)
     const myRef = useRef()
-    useEffect(()=>{(myRef.current as any).scrollIntoView();useEffect(()=>state2.reset(),[])},[])
+    useEffect(()=>{(myRef.current as any).scrollIntoView();state2.reset()},[])
     return (
         <>
         <div ref={myRef}></div>
