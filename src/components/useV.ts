@@ -23,9 +23,12 @@ export const state = proxy({
     cs: null,
     ps: null,
     verse: null,
-    translationMap: null,
-    tafseerMap: null,
-    audioMap: null
+    reset: () => {
+        state.verse=null;
+        state.ps=null;
+        state.cs=null;
+        state.init=false;
+    }
 })
 
 export const returnKey = (key : string) : string => key === "namoonaur" ? "namoonaur{\ntitle\nrange\nlink\n}" : key;
@@ -93,20 +96,17 @@ const useV = () => {
 
     useEffect(()=>{
         if(!snap.init&&router.query.v!==undefined&& router.query.s!==undefined){
-            const Query = returnQuery(Number(router.query.s), Number(router.query.v), user);
-            client.query(Query).toPromise().then(result=>{
+            client.query(returnQuery(Number(router.query.s), Number(router.query.v), user)).toPromise().then(result=>{
                 if(result.error){
                     console.log(result.error)
                 }
                 state.verse=result.data.verse
                 state.ps=result.data.ps
                 state.cs=result.data.cs
-                state.tafseerMap=maps.tafseers;
-                state.translationMap=maps.translationLanguages;
-                state.audioMap=maps.audio;
                 setLoc([Number(router.query.s)-1, Number(router.query.v)-1])
                 state.init=true;
         })
+        client.query(returnQuery(Number(router.query.s), Number(router.query.v)+1, user)).toPromise()
         setAudio2(`${
             maps.audio.find((e : any) => e.key === user.audio) ?. url
         }${
@@ -114,12 +114,6 @@ const useV = () => {
         }${
             (loc[1] + 1).toString().padStart(3, "0")
         }.mp3`)
-    }
-    return () => {
-        state.init=false;
-        state.verse=null;
-        state.ps=null;
-        state.cs=null;
     }
         }, [router.query])
 
@@ -207,10 +201,10 @@ const useV = () => {
     }
    `;
 
-    const VerseQuery = () => gql `
+    const VerseQuery = (s, v) => gql `
    query Query {
      cs: surah(s: ${
-        loc[0].toString()
+        s.toString()
     }){
        id
        titleAr
@@ -218,15 +212,15 @@ const useV = () => {
        count
      }
      ps: surah(s: ${
-        (loc[0] !== 0 ? loc[0] - 1 : 0).toString()
+        (s !== 0 ? s - 1 : 0).toString()
     }){
        id
        count
      }
      verse(s: ${
-        loc[0].toString()
+        s.toString()
     }, v: ${
-        loc[1].toString()
+        v.toString()
     }) {
       id
       ${
@@ -323,11 +317,12 @@ const useV = () => {
             }/${
                 loc[1] + 1
             }`, undefined, {shallow: true});
-            client.query(VerseQuery()).toPromise().then(result => {
+            client.query(VerseQuery(loc[0], loc[1])).toPromise().then(result => {
                 state.verse = (result.data.verse);
                 state.cs = (result.data.cs);
                 state.ps = (result.data.ps);
             })
+            client.query(VerseQuery(loc[0], loc[1]+1)).toPromise()
         }
         setAudio2(`${
             maps.audio.find((e : any) => e.key === user.audio) ?. url

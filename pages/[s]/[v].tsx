@@ -9,6 +9,7 @@ import useV from '../../src/components/useV';
 import Navbar from '../../src/components/Navbar';
 import ReactAudioPlayer from 'react-audio-player';
 import { useSnapshot, proxy} from "valtio"
+import maps from '../../src/data/maps'
 import { state } from "../../src/components/useV";
 
 const Popup = dynamic(() => import ('../../src/components/popup'));
@@ -42,7 +43,11 @@ const V = (props : {
         user
     } = useV();
 
-    const snap = useSnapshot(state)
+    const snap = useSnapshot(state);
+
+    const translationMap = maps.translationLanguages;
+    const tafseerMap = maps.tafseers;
+    const audioMap=maps.audio
 
     if(snap.init){
         return (<>
@@ -108,8 +113,8 @@ const V = (props : {
                         loc={loc}
                         component='v'
                         verse={snap.verse}
-                        translationMap={snap.translationMap}
-                        tafseerMap={snap.tafseerMap}/></div>
+                        translationMap={translationMap}
+                        tafseerMap={tafseerMap}/></div>
                     </div>
                 {
                 showPopup && <Popup setTranslations={
@@ -117,9 +122,9 @@ const V = (props : {
                     }
                     v={true}
                     loc={loc}
-                    tafseerMap={snap.tafseerMap}
-                    audioMap={snap.audioMap}
-                    translationMap={snap.translationMap}
+                    tafseerMap={tafseerMap}
+                    audioMap={audioMap}
+                    translationMap={translationMap}
                     setTafseers={
                         (v : any) => setTafseers(v)
                     }
@@ -219,12 +224,7 @@ const V = (props : {
                         </div>
                     </div>
                 </div>)
-            } </> : <div style={
-                {
-                    position: 'fixed',
-                    top: '50vh'
-                }
-            }><Loader/></div>
+            } </> : <div className="hsloading"><Loader/></div>
         } </>)
     }else{
         return (

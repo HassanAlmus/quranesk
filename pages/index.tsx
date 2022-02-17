@@ -19,17 +19,8 @@ const Index = () => {
     } > (null);
     const [sm, setSm] = useState(false);
     const [loading, setLoading] = useState(false)
-    useEffect(()=>{
-        state2.init= false,
-        state2.cs= null,
-        state2.ps= null,
-        state2.verse= null,
-        state2.translationMap= null,
-        state2.tafseerMap= null,
-        state2.audioMap= null
-    }, [])
     const myRef = useRef()
-    useEffect(()=>(myRef.current as any).scrollIntoView(),[])
+    useEffect(()=>{(myRef.current as any).scrollIntoView();useEffect(()=>state2.reset(),[])},[])
     return (
         <>
         <div ref={myRef}></div>

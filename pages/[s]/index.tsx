@@ -13,6 +13,7 @@ import {client} from '../../urql-client'
 import { gql} from "urql";
 import { useSnapshot } from "valtio";
 import { state } from "../../src/components/useS";
+import {state as state2} from '../../src/components/useV'
 const Popup = dynamic(() => import ('../../src/components/popup'));
 const S = (props:{isFirstPage: boolean, p: number, s: number, data: {cs: Surah, ps: Surah, ns: Surah, page: Verse[]}}) => {
     const snap = useSnapshot(state)
@@ -34,7 +35,7 @@ const S = (props:{isFirstPage: boolean, p: number, s: number, data: {cs: Surah, 
 verses,
 ps, ns,loading, showPopup, setShowPopup, myRef
     } = useS(props)
-
+    useEffect(()=>state2.reset(),[])
     return (
         <>
             <div ref={myRef}></div>
@@ -258,8 +259,6 @@ ps, ns,loading, showPopup, setShowPopup, myRef
     )
 };
 
-//ya allah
-
 export async function getStaticPaths() {
     return {
       paths: Array.from(Array(114).keys()).map((_s)=>{
@@ -303,7 +302,43 @@ const returnQuery = (s : number ) => {
         (s - 1).toString()
     } ){
             id
-            ${defaultUser.surahTranslation}
+            puyaen
+            chinoyen
+            namoonaur{
+                title
+                range 
+                link
+            }
+            khorramdelfa
+            enahmedali
+            enqarai
+            ensarwar
+            enchinoy
+            enyusufali
+            trgolpinarli
+            urahmedali
+            urnajafi
+            urjawadi
+            azmammadaliyev
+            deaburida
+            tjayati
+            frfakhri
+            hijawadi
+            faansarian
+            famakarem
+            fagharaati
+            faghomshei
+            fafoolavand
+            azmehdiyev
+            ruzeynalov
+            ursafdar
+            famoezzi
+            fasadeqi
+            famojtabavi
+            fabahrampour
+            faayati
+            fakhorramdel
+            fakhorramshahi
             words {
             english
             uthmani
@@ -321,13 +356,13 @@ const returnQuery = (s : number ) => {
 `;
 };
 
-  export async function getStaticProps({ params }) {
+export async function getStaticProps({ params }) {
     let data
     await client.query(returnQuery(Number(params.s))).toPromise().then((result=>{
         if(result.error)console.log(result.error)
         data=result.data
     })) 
     return { props: { s: Number(params.s)-1, data, p: data.cs.startPage, isFirstPage: true} }
-  }
+}
 
 export default S

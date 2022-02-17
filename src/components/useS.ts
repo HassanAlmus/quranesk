@@ -139,6 +139,7 @@ const useS = (props) => {
    `;
 
     useEffect(() => {
+        (myRef.current as any).scrollIntoView()
         if (isFirstPage !== 'none') {
             router.push(`/${
                 s + 1
@@ -182,12 +183,17 @@ const useS = (props) => {
             setP(Number(window.location.href.split('?p=')[1]));
             getPage(Number(window.location.href.split('?p=')[1]))
             state.init = true
+            client.query(PageQuery(Number(window.location.href.split('?p=')[1])+1)).toPromise()
         } else {
             router.push(`/${
                 s + 1
             }`, undefined, {shallow: true})
             state.init = true;
-            if(user.wbwtranslation!==defaultUser.wbwtranslation||user.surahTafseer!==null||user.surahTranslation!==defaultUser.surahTranslation){
+            state.loadedVerses=true;
+            client.query(PageQuery(props.p+1)).toPromise()
+            client.query(PageQuery(props.p)).toPromise()
+            /* if(user.wbwtranslation!==defaultUser.wbwtranslation||user.surahTafseer!==null||user.surahTranslation!==defaultUser.surahTranslation){
+                console.log('here')
                 client.query(NewPageQuery()).toPromise().then(result => {
                     [user.surahTranslation, user.surahTranslation].forEach((key) => {
                         const newVerses = props.data.page
@@ -202,8 +208,9 @@ const useS = (props) => {
                     })
                 })
             }else{
+                console.log('here')
                 state.loadedVerses=true
-            }
+            } */
         }
     }, [])
 
@@ -306,10 +313,8 @@ const useS = (props) => {
     `;
 
     useEffect(() => {
-        if (verses && snap.loadedVerses) {
-            console.log('should fetch')
+        if (verses && snap.loadedVerses && isFirstPage===false) {
             if (verses.some((verse)=>!Object.keys(verse).includes(user.surahTranslation)||!Object.keys(verse).includes(user.surahTafseer))) {
-                console.log('gon fetch')
                 const key = [
                     user.surahTranslation,
                     user.surahTafseer
@@ -380,6 +385,7 @@ const useS = (props) => {
         setLoading(true);
         if (verses[verses.length - 1].meta.ayah === cs.count) {
             getSurah('next', s + 1)
+            client.query(PageQuery(ns.startPage+1)).toPromise()
             setCs(ns)
             setPs(cs)
             setIsFirstPage(true)
@@ -389,6 +395,7 @@ const useS = (props) => {
             getPage(p + 1)
             setIsFirstPage(false)
             setP(p + 1)
+            client.query(PageQuery(p+2)).toPromise()
         }
     }
 
@@ -396,12 +403,14 @@ const useS = (props) => {
         setLoading(true);
         if (isFirstPage) {
             getSurah('prev', s - 1)
+            client.query(PageQuery(ps.startPage-1)).toPromise()
             setNs(cs)
             setCs(ps)
             setS(s - 1)
             setP(ps.startPage)
         } else {
             getPage(p - 1)
+            client.query(PageQuery(p - 2)).toPromise()
             if (p - 1 === cs.startPage) {
                 setIsFirstPage(true);
             }
