@@ -37,6 +37,7 @@ export default function App({Component, pageProps}) {
             <Script
                 strategy="afterInteractive"
                 src={`https://www.googletagmanager.com/gtag/js?id=G-26ZWR4QT9E`}
+                id='l'
             />
             <Script
                 strategy="afterInteractive"
@@ -49,6 +50,7 @@ export default function App({Component, pageProps}) {
                 gtag('config', 'G-26ZWR4QT9E');
                 `,
                 }}
+                id='k'
             />
             <Provider value={client}>
                 <Component {...pageProps}/>
