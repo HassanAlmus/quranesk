@@ -17,22 +17,6 @@ const A = (props : {
         <div id={
             styles.d1
         }>
-{/*             <div id={
-                styles.d2
-            }>
-                <h2>{
-                    props.audioType === "surah" ? props.user.surahAudio : props.user.audio
-                }
-                    <span>{
-                        props.audioType === "surah" ? "" : `${
-                            currentVerse[0] + 1
-                        }:${
-                            currentVerse[1] + 1
-                        }`
-                    }</span>
-                </h2>
-            </div> */}
-
             <button onClick={()=>setPlaying(!playing)}>{playing?"stop":"play"}</button>
             <ReactPlayer playing={playing} url="https://shiavoice.com/media/quran/krim_mensuri/telawe/gzywgiwk7606.mp3"/>
         </div>

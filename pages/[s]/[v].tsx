@@ -233,13 +233,4 @@ const V = (props : {
     }
 };
 
-/* export async function getServerSideProps({req, params, query}) {
-      const user = edit2(query, req);
-      let data;
-      await client.query(returnQuery(Number(params.s), Number(params.v), user)).toPromise().then(result=>{
-          data=result.data
-      })
-      return {props: {s: Number(params.s)-1, v: Number(params.v)-1, data, user}}
-}
- */
 export default V

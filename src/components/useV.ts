@@ -94,29 +94,6 @@ const useV = () => {
     const [loc, setLoc] = useState([undefined, undefined])
     const [user, setUser] = useState < User > (edit(router.query, Cookies.get('user')))
 
-    useEffect(()=>{
-        if(!snap.init&&router.query.v!==undefined&& router.query.s!==undefined){
-            client.query(returnQuery(Number(router.query.s), Number(router.query.v), user)).toPromise().then(result=>{
-                if(result.error){
-                    console.log(result.error)
-                }
-                state.verse=result.data.verse
-                state.ps=result.data.ps
-                state.cs=result.data.cs
-                setLoc([Number(router.query.s)-1, Number(router.query.v)-1])
-                state.init=true;
-        })
-        client.query(returnQuery(Number(router.query.s), Number(router.query.v)+1, user)).toPromise()
-        setAudio2(`${
-            maps.audio.find((e : any) => e.key === user.audio) ?. url
-        }${
-            (loc[0] + 1).toString().padStart(3, "0")
-        }${
-            (loc[1] + 1).toString().padStart(3, "0")
-        }.mp3`)
-    }
-        }, [router.query])
-
     useEffect(() => {
         if (user.audio) {
             setPlaying(false);
@@ -168,6 +145,29 @@ const useV = () => {
             Cookies.set("user", JSON.stringify(user), {expires: 365});
         }
     }, [user]);
+
+    useEffect(()=>{
+        if(!snap.init&&router.query.v!==undefined&& router.query.s!==undefined){
+            client.query(returnQuery(Number(router.query.s), Number(router.query.v), user)).toPromise().then(result=>{
+                if(result.error){
+                    console.log(result.error)
+                }
+                state.verse=result.data.verse
+                state.ps=result.data.ps
+                state.cs=result.data.cs
+                setLoc([Number(router.query.s)-1, Number(router.query.v)-1])
+                state.init=true;
+        })
+        client.query(VerseQuery(Number(router.query.s)-1, Number(router.query.v))).toPromise()
+        setAudio2(`${
+            maps.audio.find((e : any) => e.key === user.audio) ?. url
+        }${
+            (loc[0] + 1).toString().padStart(3, "0")
+        }${
+            (loc[1] + 1).toString().padStart(3, "0")
+        }.mp3`)
+    }
+        }, [router.query])
 
     const WBWQuery = (t : string) => gql `
      query Query {

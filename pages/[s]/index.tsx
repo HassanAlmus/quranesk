@@ -279,6 +279,7 @@ const returnQuery = (s : number ) => {
             title
             count
             startPage
+            endPage
         }
         ps: surah(s: ${
         (s - 1 !== 0 ? s - 2 : s - 1).toString()
@@ -288,6 +289,7 @@ const returnQuery = (s : number ) => {
             title
             count
             startPage
+            endPage
         }
         ns: surah(s: ${
         (s - 1 !== 113 ? s : s - 1).toString()
@@ -297,6 +299,7 @@ const returnQuery = (s : number ) => {
                 title
                 count
                 startPage
+                endPage
             }
         page(s: ${
         (s - 1).toString()

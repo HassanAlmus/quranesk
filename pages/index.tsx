@@ -7,6 +7,7 @@ import Head from 'next/head'
 import Loader from '../src/components/Loader'
 import surahs from '../src/data/surahs.json'
 import { state as state2 } from "../src/components/useV";
+import {event} from '../lib/ga/gtag'
 
 const Index = () => {
     const [ss, setSs] = useState < null | {
@@ -20,7 +21,7 @@ const Index = () => {
     const [sm, setSm] = useState(false);
     const [loading, setLoading] = useState(false)
     const myRef = useRef()
-    useEffect(()=>{(myRef.current as any).scrollIntoView();state2.reset()},[])
+    useEffect(()=>{/* (myRef.current as any).scrollIntoView(); */state2.reset()},[])
     return (
         <>
         <div ref={myRef}></div>
@@ -337,7 +338,7 @@ const Index = () => {
                         <nav>
                             <h1>Navigate</h1>
                             <Link passHref={true} href="/info/about">
-                                <div>
+                                <div onClick={()=>event({action: 'go to about', category: 'navigation', label: 'go to about', value: 'goed'})}>
                                     <h2>About</h2>
                                 </div>
                             </Link>
