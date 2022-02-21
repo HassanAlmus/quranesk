@@ -114,6 +114,7 @@ const useS = (props) => {
     const [verses, setVerses] = useState(props.data.page)
     const [showPopup, setShowPopup] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [loadingSurah, setLoadingSurah] = useState(false)
 
     const setTranslation = (v : any) => setUser({
         ...user,
@@ -217,33 +218,44 @@ const useS = (props) => {
         if (window.location.href.split('?p=')[1] !== undefined && Number(window.location.href.split('?p=')[1]) !== cs.startPage) {
             setIsFirstPage(false)
             setLoading(true)
-            setP(Number(window.location.href.split('?p=')[1]));
-            getPage(Number(window.location.href.split('?p=')[1]))
+            const queryp = Number(window.location.href.split('?p=')[1]);
+            setP(queryp);
+            getPage(queryp)
             state.init = true
-            client.query(PageQuery(s, Number(window.location.href.split('?p=')[1]) + 1)).toPromise()
-            client.query(PageQuery(s, Number(window.location.href.split('?p=')[1]) - 1)).toPromise()
+            if(queryp===cs.endPage){
+                client.query(PageQuery(s+1, ns.startPage)).toPromise()
+                client.query(SurahQuery('next', s)).toPromise()
+            }else{
+                client.query(PageQuery(s, queryp + 1)).toPromise()
+            } 
+            client.query(PageQuery(s, queryp - 1)).toPromise()
         } else {
             state.init = true;
             state.loadedVerses = true;
             if (cs.count === props.data.page[props.data.page.length - 1].meta.ayah) {
-                client.query(PageQuery(s+1, ns.startPage)).toPromise();
-                client.query(SurahQuery('next', props.s+1)).toPromise();
+                client.query(PageQuery(s+1, ns.startPage)).toPromise().then(()=>console.log('k'));
+                client.query(SurahQuery('next', props.s+1)).toPromise().then(()=>console.log('k'));
             } else {
-                client.query(PageQuery(s, p + 1)).toPromise();
+                client.query(PageQuery(s, p + 1)).toPromise().then(()=>console.log('k'));
             };
-            client.query(PageQuery(s, p)).toPromise();
-            client.query(PageQuery(s - 1, ps.startPage)).toPromise();
+            client.query(PageQuery(s - 1, ps.startPage)).toPromise().then(()=>console.log('k'));
+            client.query(PageQuery(s, p)).toPromise().then(()=>console.log('k'));         
         }
     }, [])
 
-    const getSurah = async(type : ('next' | 'prev'), s : number) => {
+    const getSurah = (type : ('next' | 'prev'), s : number) => {
         client.query(SurahQuery(type, s)).toPromise().then(result => {
             if (type === 'next') {
                 setNs(result.data.ns)
+                if(ns.startPage===ns.endPage){
+                    client.query(PageQuery(s+1, result.data.ns.startPage)).toPromise()
+                }
             }
             if (type === 'prev') {
                 setPs(result.data.ps)
+                client.query(PageQuery(s-1, result.data.ps.startPage)).toPromise().then(result=>console.log(result.data))
             }
+            setLoadingSurah(false)
         })
         client.query(PageQuery(s, (type === 'next' ? ns : ps).startPage)).toPromise().then(result => {
             setVerses(result.data.page);
@@ -254,12 +266,13 @@ const useS = (props) => {
     const nextPage = () => {
         setLoading(true);
         if (verses[verses.length - 1].meta.ayah === cs.count) {
+            setLoadingSurah(true)
             router.push(`/${
                 s + 2
             }`, undefined, {shallow: true})
             getSurah('next', s + 1)
             if(ns.startPage===ns.endPage){
-                client.query(SurahQuery('next', s+2)).toPromise()
+                client.query(SurahQuery('next', s+1)).toPromise()
             }else{
                 client.query(PageQuery(s + 1, ns.startPage + 1)).toPromise()
             }
@@ -271,17 +284,25 @@ const useS = (props) => {
         } else {
             router.push(`/${
                 s + 1
-            }?p=${p}`, undefined, {shallow: true})
+            }?p=${p+1}`, undefined, {shallow: true})
             getPage(p + 1)
             setIsFirstPage(false)
-            p + 1 === cs.endPage ? client.query(SurahQuery('next', s + 1)).toPromise() : client.query(PageQuery(s, p + 2)).toPromise()
+            if(p + 1 === cs.endPage){
+                client.query(SurahQuery('next', s)).toPromise()
+                client.query(PageQuery(s+1, ns.startPage)).toPromise()
+            }else{
+                client.query(PageQuery(s, p + 2)).toPromise()
+            }
             setP(p + 1)
         }
     }
 
+   useEffect(()=>console.log(ps.id), [ps])
+
     const prevPage = () => {
         setLoading(true);
         if (isFirstPage) {
+            setLoadingSurah(true)
             router.push(`/${
                 s
             }`, undefined, {shallow: true})
@@ -414,7 +435,8 @@ const useS = (props) => {
         loading,
         showPopup,
         setShowPopup,
-        myRef
+        myRef,
+        loadingSurah
     };
 };
 export default useS;

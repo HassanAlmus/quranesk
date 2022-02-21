@@ -33,7 +33,7 @@ const S = (props:{isFirstPage: boolean, p: number, s: number, data: {cs: Surah, 
         cs,
         isFirstPage,
 verses,
-ps, ns,loading, showPopup, setShowPopup, myRef
+ps, ns,loading, showPopup, setShowPopup, myRef, loadingSurah
     } = useS(props)
     useEffect(()=>state2.reset(),[])
     return (
@@ -209,7 +209,7 @@ ps, ns,loading, showPopup, setShowPopup, myRef
             </div>
         }
             {
-            loading === false && <div id={
+            loadingSurah === false && <div id={
                 styles.d31
             }>
                 {
