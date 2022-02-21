@@ -137,16 +137,8 @@ const useS = (props) => {
     });
 
     useEffect(() => {
-        //(myRef.current as any).scrollIntoView()
-        if (isFirstPage !== 'none') {
-            router.push(`/${
-                s + 1
-            }${
-                isFirstPage ? "" : `?p=${p}`
-            }`, undefined, {shallow: true})
-        }
+        (myRef.current as any).scrollIntoView()
     }, [p, s])
-
 
     useEffect(() => {
         Cookies.set("user", JSON.stringify(user), {
@@ -221,7 +213,7 @@ const useS = (props) => {
     }
 
     useEffect(() => {
-        //(myRef.current as any).scrollIntoView();
+        (myRef.current as any).scrollIntoView();
         if (window.location.href.split('?p=')[1] !== undefined && Number(window.location.href.split('?p=')[1]) !== cs.startPage) {
             setIsFirstPage(false)
             setLoading(true)
@@ -262,6 +254,9 @@ const useS = (props) => {
     const nextPage = () => {
         setLoading(true);
         if (verses[verses.length - 1].meta.ayah === cs.count) {
+            router.push(`/${
+                s + 2
+            }`, undefined, {shallow: true})
             getSurah('next', s + 1)
             if(ns.startPage===ns.endPage){
                 client.query(SurahQuery('next', s+2)).toPromise()
@@ -274,6 +269,9 @@ const useS = (props) => {
             setS(s + 1)
             setP(ns.startPage)
         } else {
+            router.push(`/${
+                s + 1
+            }?p=${p}`, undefined, {shallow: true})
             getPage(p + 1)
             setIsFirstPage(false)
             p + 1 === cs.endPage ? client.query(SurahQuery('next', s + 1)).toPromise() : client.query(PageQuery(s, p + 2)).toPromise()
@@ -284,6 +282,9 @@ const useS = (props) => {
     const prevPage = () => {
         setLoading(true);
         if (isFirstPage) {
+            router.push(`/${
+                s
+            }`, undefined, {shallow: true})
             getSurah('prev', s - 1)
             client.query(PageQuery(s-1, ps.startPage+1)).toPromise()
             setNs(cs)
@@ -291,6 +292,9 @@ const useS = (props) => {
             setS(s - 1)
             setP(ps.startPage)
         } else {
+            router.push(`/${
+                s+1
+            }?p=${p-1}`, undefined, {shallow: true})
             getPage(p - 1)
             if (p - 2 >= cs.startPage) {
                 client.query(PageQuery(s, p - 2)).toPromise();
