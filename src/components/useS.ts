@@ -11,8 +11,8 @@ import {
 } from "../../utils";
 import {returnKey} from "./useV";
 import {useSnapshot, proxy} from "valtio";
-import {useClient, gql, useQuery} from "urql";
-import edit, {defaultUser} from "./edit";
+import {useClient, gql } from "urql";
+import edit from "./edit";
 import maps from '../data/maps'
 
 export const returnQuery = (s : number, p : (undefined | number), _user : User) => {
@@ -233,13 +233,13 @@ const useS = (props) => {
             state.init = true;
             state.loadedVerses = true;
             if (cs.count === props.data.page[props.data.page.length - 1].meta.ayah) {
-                client.query(PageQuery(s+1, ns.startPage)).toPromise().then(()=>console.log('k'));
-                client.query(SurahQuery('next', props.s+1)).toPromise().then(()=>console.log('k'));
+                client.query(PageQuery(s+1, ns.startPage)).toPromise();
+                client.query(SurahQuery('next', props.s+1)).toPromise();
             } else {
-                client.query(PageQuery(s, p + 1)).toPromise().then(()=>console.log('k'));
+                client.query(PageQuery(s, p + 1)).toPromise();
             };
-            client.query(PageQuery(s - 1, ps.startPage)).toPromise().then(()=>console.log('k'));
-            client.query(PageQuery(s, p)).toPromise().then(()=>console.log('k'));         
+            client.query(PageQuery(s - 1, ps.startPage)).toPromise();
+            client.query(PageQuery(s, p)).toPromise();         
         }
     }, [])
 
@@ -247,13 +247,13 @@ const useS = (props) => {
         client.query(SurahQuery(type, s)).toPromise().then(result => {
             if (type === 'next') {
                 setNs(result.data.ns)
-                if(ns.startPage===ns.endPage){
+                if(result.data.ns&&ns.startPage===ns.endPage){
                     client.query(PageQuery(s+1, result.data.ns.startPage)).toPromise()
                 }
             }
             if (type === 'prev') {
                 setPs(result.data.ps)
-                client.query(PageQuery(s-1, result.data.ps.startPage)).toPromise().then(result=>console.log(result.data))
+                if(result.data.ps)client.query(PageQuery(s-1, result.data.ps.startPage)).toPromise()
             }
             setLoadingSurah(false)
         })
@@ -296,8 +296,6 @@ const useS = (props) => {
             setP(p + 1)
         }
     }
-
-   useEffect(()=>console.log(ps.id), [ps])
 
     const prevPage = () => {
         setLoading(true);
