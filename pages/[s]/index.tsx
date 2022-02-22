@@ -14,7 +14,7 @@ import { gql} from "urql";
 import { useSnapshot } from "valtio";
 import { state } from "../../src/components/useS";
 import {state as state2} from '../../src/components/useV'
-const Popup = dynamic(() => import ('../../src/components/popup'));
+import Popup from "../../src/components/popup";
 const S = (props:{isFirstPage: boolean, p: number, s: number, data: {cs: Surah, ps: Surah, ns: Surah, page: Verse[]}}) => {
     const snap = useSnapshot(state)
     const {
