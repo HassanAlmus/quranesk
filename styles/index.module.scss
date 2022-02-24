@@ -23,18 +23,21 @@
       width: 100vw;
       @include zero;
       @include br;
-      background: #43C6AC;  /* fallback for old browsers */
-      background: -webkit-linear-gradient(to right, #191654, #43C6AC);  /* Chrome 10-25, Safari 5.1-6 */
-      background: linear-gradient(to right, #191654, #43C6AC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      //background: #43C6AC;  /* fallback for old browsers */
+      //background: -webkit-linear-gradient(to right, #191654, #43C6AC);  /* Chrome 10-25, Safari 5.1-6 */
+      //background: linear-gradient(to right, #191654, #43C6AC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      @include img('../public/bg7.jpg');
+      height: 280px;
       .d3 {
         box-sizing: content-box;
+        height: 300px;
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         padding-bottom: 20px;
         background: linear-gradient(to left, #146fb436, #146fb46e);
-        backdrop-filter: blur(5px);
+        backdrop-filter: blur(8px);
         @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
           background: 0;
         }
@@ -114,7 +117,11 @@
         flex-wrap: wrap;
         border: 1px solid $c2;
         *{
-          font-family: "gentium-regular";
+          font-family: "gentium-regular" !important;
+          font-weight: bolder;
+        }
+        .react-select__option {
+          font-family: "gentium-regular" !important;
           font-weight: bolder;
         }
         @media (max-width: 700px) {
@@ -175,8 +182,8 @@
       .d19 {
         .d12 {
           width: 300px;
-          border-radius: 1rem;
-          background-color: #002f53;
+          border-radius: 15px;
+          @include img('../public/bg13.jpg');
           position: relative;
           .d13 {
             h1,
@@ -195,12 +202,17 @@
             @include button;
             width: 100%;
             height: 100%;
-            padding: 1rem;
-            border-radius: 1rem;
+            padding: 10px 15px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+              background: 0;
+            }
+            transform: translate(8px, 8px);
           }
         }
         .d24 .d23,
@@ -328,7 +340,7 @@
     @include center;
     .d31{
      @include button;
-     background: linear-gradient(to left, $c3, $c2);
+     background: linear-gradient(to left, $c1, $c2);
      h2 {color: whitesmoke;}
      width: 10rem;
      height: 3rem;
