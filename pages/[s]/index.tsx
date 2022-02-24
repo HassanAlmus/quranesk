@@ -127,9 +127,7 @@ ps, ns,loading, showPopup, setShowPopup, myRef, loadingSurah
             <div id={
                 styles.d11
             }>
-                <div className={
-                    styles.home
-                }>
+                <div className="cursor">
                     <Link passHref={true}
                         href="/">
                         <Image alt="logo" src="/logo.png"

@@ -28,7 +28,7 @@ const V = (props : {
 
     const {
         setRasm,
-        setAudio,
+        setVerseAudio,
         setTafseers,
         showPopup,
         setShowPopup,
@@ -38,9 +38,11 @@ const V = (props : {
         audio,
         setPlaying,
         setAutoplay,
-        setAudio2,
         loc, setLoc,
-        user
+        user,
+        nextVerse,
+        prevVerse,
+        myRef
     } = useV();
 
     const snap = useSnapshot(state);
@@ -51,6 +53,7 @@ const V = (props : {
 
     if(snap.init){
         return (<>
+        <div ref={myRef}></div>
             <Head>
                 <title> {
                     `[${
@@ -136,7 +139,7 @@ const V = (props : {
                         (v : any) => setRasm(v)
                     }
                     setAudio={
-                        (v : any) => setAudio(v)
+                        (v : any) => setVerseAudio(v)
                     }
                     setShowPopup={
                         (v : any) => setShowPopup(v)
@@ -188,16 +191,7 @@ const V = (props : {
                                     styles.d35
                                 }
                                 onClick={
-                                    () => {
-                                        if (!(loc[0] === 0 && loc[1] === 0)) {
-                                            setLoc(loc[1] === 0 ? [
-                                                loc[0] - 1,
-                                                snap.ps.count - 1
-                                            ] : [
-                                                loc[0], loc[1] - 1
-                                            ]);
-                                        }
-                                    }
+                                    () => prevVerse()
                             }>
                                 <h1>ˆ</h1>
                             </div>
@@ -208,16 +202,7 @@ const V = (props : {
                                     styles.d36
                                 }
                                 onClick={
-                                    () => {
-                                        if (!(loc[0] === 113 && loc[1] === 6)) {
-                                            setLoc(loc[1] + 1 === snap.cs.count ? [
-                                                loc[0] + 1,
-                                                0
-                                            ] : [
-                                                loc[0], loc[1] + 1
-                                            ]);
-                                        }
-                                    }
+                                    () => nextVerse()
                             }>
                                 <h1>ˇ</h1>
                             </div>

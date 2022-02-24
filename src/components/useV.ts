@@ -1,14 +1,9 @@
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 import Cookies from "js-cookie";
 import {useRouter} from "next/router";
 import {useState} from "react";
 import {
     User,
-    Surah,
-    Verse,
-    Audio,
-    Tafseer,
-    TranslationLanguage,
     Word
 } from "../../utils";
 import {useSnapshot, proxy} from "valtio";
@@ -33,71 +28,21 @@ export const state = proxy({
 
 export const returnKey = (key : string) : string => key === "namoonaur" ? "namoonaur{\ntitle\nrange\nlink\n}" : key;
 
-const returnQuery = (s : number, v : number, user : User) => {
-    return gql `
-    query Query {
-        cs: surah(s: ${
-        (s - 1).toString()
-    }){
-            id
-            titleAr
-            title
-            count
-        }
-        ps: surah(s: ${
-        (s - 1 !== 0 ? s - 2 : s - 1).toString()
-    }){
-            id
-            count
-        }
-        verse(s: ${
-        (s - 1).toString()
-    }, v: ${
-        (v - 1).toString()
-    }) {
-            id
-            ${
-        (user.translations.map((t) => `${t}\n`)).toString()
-    }
-            ${
-        (user.tafseers.map((t) => `${
-            returnKey(t)
-        }\n`)).toString()
-    }
-            words {
-            ${
-        user.rasm.split("-")[0]
-    }
-            ${
-        user.wbwtranslation
-    }
-            transliteration
-            }
-            meta {
-                tse
-                ayah
-                surah
-                page
-            }
-        }
-    }
-`;
-};
-
 const useV = () => {
+    const myRef = useRef();
     const client = useClient()
     const snap = useSnapshot(state)
     const router = useRouter();
     const [showPopup, setShowPopup] = useState(false);
     const [playing, setPlaying] = useState(false);
-    const [audio, setAudio2] = useState("");
+    const [audio, setAudio] = useState("");
     const [loc, setLoc] = useState([undefined, undefined])
     const [user, setUser] = useState < User > (edit(router.query, Cookies.get('user')))
 
     useEffect(() => {
         if (user.audio) {
             setPlaying(false);
-            setAudio2(`${
+            setAudio(`${
                 maps.audio.find((e : any) => e.key === user.audio) ?. url
             }${
                 (loc[0] + 1).toString().padStart(3, "0")
@@ -121,7 +66,7 @@ const useV = () => {
         ...user,
         wbwtranslation: v
     });
-    const setAudio = (v : any) => setUser({
+    const setVerseAudio = (v : any) => setUser({
         ...user,
         audio: v
     });
@@ -146,20 +91,112 @@ const useV = () => {
         }
     }, [user]);
 
+    const WBWQuery = (t : string) => gql `
+    query Query {
+      verse(s: ${
+       loc[0].toString()
+   }, v: ${
+       loc[1].toString()
+   }){
+        id
+        words{
+          ${
+       t === "r" ? user.rasm : user.wbwtranslation
+   }
+        }
+      }
+    }
+   `;
+
+   const LineQuery = (key : string) => gql `
+   query Query {
+     verse(s: ${
+       (+ (router.query.s as string) - 1).toString()
+   }, v: ${
+       (+ (router.query.s as string) - 1).toString()
+   }){
+       id
+       ${
+       returnKey(key)
+   }
+     }
+   }
+  `;
+
+   const VerseQuery = (s, v) => gql `
+  query Query {
+    cs: surah(s: ${
+       s.toString()
+   }){
+      id
+      titleAr
+      title
+      count
+    }
+    ps: surah(s: ${
+       (s !== 0 ? s - 1 : 0).toString()
+   }){
+      id
+      count
+    }
+    verse(s: ${
+       s.toString()
+   }, v: ${
+       v.toString()
+   }) {
+     id
+     ${
+       [
+           ...user.translations,
+           ...user.tafseers
+       ].map((key) => returnKey(key)).join("\n")
+   }
+     words {
+       ${
+       user.wbwtranslation
+   }
+       ${
+       user.rasm
+   }
+       transliteration
+     }
+     meta{
+       tse
+       ayah
+       surah
+       page
+     }
+    }
+  }
+ `;
+
     useEffect(()=>{
+        if(myRef.current!==undefined)(myRef.current as any).scrollIntoView()
         if(!snap.init&&router.query.v!==undefined&& router.query.s!==undefined){
-            client.query(returnQuery(Number(router.query.s), Number(router.query.v), user)).toPromise().then(result=>{
-                if(result.error){
-                    console.log(result.error)
-                }
-                state.verse=result.data.verse
-                state.ps=result.data.ps
-                state.cs=result.data.cs
-                setLoc([Number(router.query.s)-1, Number(router.query.v)-1])
-                state.init=true;
+        const s = Number(router.query.s)-1;
+        const v = Number(router.query.v)-1;
+        client.query(VerseQuery(s, v)).toPromise().then(result=>{
+            if(result.error){
+                console.log(result.error)
+            }
+            state.verse=result.data.verse
+            state.ps=result.data.ps
+            state.cs=result.data.cs
+            setLoc([s, v])
+            state.init=true;
+            if(v===0&&s>0){
+                client.query(VerseQuery(s-1, result.data.ps.count-1)).toPromise()
+            }else{
+                client.query(VerseQuery(s, v-1)).toPromise()
+            }
+            if(v===result.data.cs.count-1){
+                client.query(VerseQuery(s+1, 0)).toPromise()
+            }else{
+                client.query(VerseQuery(s, v+1)).toPromise()
+            }
         })
-        client.query(VerseQuery(Number(router.query.s)-1, Number(router.query.v))).toPromise()
-        setAudio2(`${
+        
+        setAudio(`${
             maps.audio.find((e : any) => e.key === user.audio) ?. url
         }${
             (loc[0] + 1).toString().padStart(3, "0")
@@ -168,85 +205,6 @@ const useV = () => {
         }.mp3`)
     }
         }, [router.query])
-
-    const WBWQuery = (t : string) => gql `
-     query Query {
-       verse(s: ${
-        loc[0].toString()
-    }, v: ${
-        loc[1].toString()
-    }){
-         id
-         words{
-           ${
-        t === "r" ? user.rasm : user.wbwtranslation
-    }
-         }
-       }
-     }
-    `;
-
-    const LineQuery = (key : string) => gql `
-    query Query {
-      verse(s: ${
-        (+ (router.query.s as string) - 1).toString()
-    }, v: ${
-        (+ (router.query.s as string) - 1).toString()
-    }){
-        id
-        ${
-        returnKey(key)
-    }
-      }
-    }
-   `;
-
-    const VerseQuery = (s, v) => gql `
-   query Query {
-     cs: surah(s: ${
-        s.toString()
-    }){
-       id
-       titleAr
-       title
-       count
-     }
-     ps: surah(s: ${
-        (s !== 0 ? s - 1 : 0).toString()
-    }){
-       id
-       count
-     }
-     verse(s: ${
-        s.toString()
-    }, v: ${
-        v.toString()
-    }) {
-      id
-      ${
-        [
-            ...user.translations,
-            ...user.tafseers
-        ].map((key) => returnKey(key)).join("\n")
-    }
-      words {
-        ${
-        user.wbwtranslation
-    }
-        ${
-        user.rasm
-    }
-        transliteration
-      }
-      meta{
-        tse
-        ayah
-        surah
-        page
-      }
-     }
-   }
-  `;
 
     useEffect(() => {
         if (snap.verse) {
@@ -322,9 +280,8 @@ const useV = () => {
                 state.cs = (result.data.cs);
                 state.ps = (result.data.ps);
             })
-            client.query(VerseQuery(loc[0], loc[1]+1)).toPromise()
         }
-        setAudio2(`${
+        setAudio(`${
             maps.audio.find((e : any) => e.key === user.audio) ?. url
         }${
             (loc[0] + 1).toString().padStart(3, "0")
@@ -332,6 +289,30 @@ const useV = () => {
             (loc[1] + 1).toString().padStart(3, "0")
         }.mp3`);
     }, [loc]);
+
+    const prevVerse = () => {
+        if (!(loc[0] === 0 && loc[1] === 0)) {
+            client.query(VerseQuery(loc[1]-1===0?loc[0]-1:loc[0], loc[1]-1===0?snap.ps.count-1:loc[1]-2)).toPromise().then(result=>console.log(result.data))
+            setLoc(loc[1] === 0 ? [
+                loc[0] - 1,
+                snap.ps.count - 1
+            ] : [
+                loc[0], loc[1] - 1
+            ]);      
+        }
+    }
+
+    const nextVerse = () => {
+        if (!(loc[0] === 113 && loc[1] === 6)) {
+            setLoc(loc[1] + 1 === snap.cs.count ? [
+                loc[0] + 1,
+                0
+            ] : [
+                loc[0], loc[1] + 1
+            ]);
+            client.query(VerseQuery(loc[1]+1===snap.cs.count?loc[0]+1:loc[0], loc[1]+1===snap.cs.count?0:loc[1]+1)).toPromise()
+        }
+    }
 
     return {
         setRasm,
@@ -346,11 +327,14 @@ const useV = () => {
         audio,
         setPlaying,
         setAutoplay,
-        setAudio2,
+        setVerseAudio,
         loc,
         setLoc,
         user,
-        setUser
+        setUser,
+        nextVerse,
+        prevVerse,
+        myRef
     };
 };
 export default useV;
