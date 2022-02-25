@@ -26,7 +26,8 @@ const Logo = (props : {
             layout="fill"
             objectFit="contain"
             alt={props.name}
-            title={props.name}/>
+            title={props.name}
+            key={props.name}/>
     </div>
 )
 
