@@ -279,7 +279,7 @@ const useV = () => {
                 state.verse = (result.data.verse);
                 state.cs = (result.data.cs);
                 state.ps = (result.data.ps);
-            })
+            }).then(()=>console.log('fetched'))
         }
         setAudio(`${
             maps.audio.find((e : any) => e.key === user.audio) ?. url
@@ -292,7 +292,7 @@ const useV = () => {
 
     const prevVerse = () => {
         if (!(loc[0] === 0 && loc[1] === 0)) {
-            client.query(VerseQuery(loc[1]-1===0?loc[0]-1:loc[0], loc[1]-1===0?snap.ps.count-1:loc[1]-2)).toPromise().then(result=>console.log(result.data))
+            client.query(VerseQuery(loc[1]-1===0?loc[0]-1:loc[0], loc[1]-1===0?snap.ps.count-1:loc[1]-2)).toPromise()
             setLoc(loc[1] === 0 ? [
                 loc[0] - 1,
                 snap.ps.count - 1
@@ -304,13 +304,13 @@ const useV = () => {
 
     const nextVerse = () => {
         if (!(loc[0] === 113 && loc[1] === 6)) {
+            client.query(VerseQuery(loc[1]+1===snap.cs.count?loc[0]+1:loc[0], loc[1]+1===snap.cs.count?0:loc[1]+2)).toPromise()
             setLoc(loc[1] + 1 === snap.cs.count ? [
                 loc[0] + 1,
                 0
             ] : [
                 loc[0], loc[1] + 1
-            ]);
-            client.query(VerseQuery(loc[1]+1===snap.cs.count?loc[0]+1:loc[0], loc[1]+1===snap.cs.count?0:loc[1]+1)).toPromise()
+            ]);     
         }
     }
 
