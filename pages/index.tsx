@@ -26,8 +26,7 @@ const Logo = (props : {
             layout="fill"
             objectFit="contain"
             alt={props.name}
-            title={props.name}
-            key={props.name}/>
+            title={props.name}/>
     </div>
 )
 
@@ -190,7 +189,7 @@ const Index = () => {
                             'ts',
                             'valtio',
                             'sass'
-                        ].map(name =>< Logo name = {
+                        ].map(name =>< Logo key={name} name = {
                             name
                         } />)
                     } </div>
