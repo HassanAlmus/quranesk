@@ -176,9 +176,6 @@ const Index = () => {
                     </div>
                 </div>
                 <div className="announcement">
-                    <h1>Celebrating Our{` `}
-                        <span>First Year Anniversary</span>
-                    </h1>
                     <div className="logo-container"> {
                         [
                             'nextjs',
