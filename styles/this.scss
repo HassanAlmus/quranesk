@@ -273,13 +273,28 @@ width: 100vw;
 .announcement {
   @include center;
   margin: 20px 0;
+  margin-bottom: 60px;
   flex-direction: column;
-  padding: 0 20px;
+  padding-top: 15px;
   h1{
-    margin-bottom: 40px;
+    margin: 0 20px;
+    margin-bottom: 10px;
     text-align: center;
+    font-family: 'cinzel-regular';
+    color: $c1;
+    span{
+      font-family: 'cinzel-bold';
+      @include gt($c2, $c1)
+    }
   }
-
+  .logo-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    div{
+      margin: 5px
+    }
+  }
 }
 
 .cursor {

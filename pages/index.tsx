@@ -6,7 +6,29 @@ import Link from "next/link";
 import Head from 'next/head'
 import Loader from '../src/components/Loader'
 import surahs from '../src/data/surahs.json'
-import { state as state2 } from "../src/components/useV";
+import {state as state2} from "../src/components/useV";
+
+const Logo = (props : {
+    name: string
+}) => (
+    <div style={
+        {
+            position: "relative",
+            height: 50,
+            width: 100
+        }
+    }>
+        <Image src={
+                `/${
+                    props.name
+                }.png`
+            }
+            layout="fill"
+            objectFit="contain"
+            alt={props.name}
+            title={props.name}/>
+    </div>
+)
 
 const Index = () => {
     const [ss, setSs] = useState < null | {
@@ -20,10 +42,13 @@ const Index = () => {
     const [sm, setSm] = useState(false);
     const [loading, setLoading] = useState(false)
     const myRef = useRef()
-    useEffect(()=>{(myRef.current as any).scrollIntoView();state2.reset()},[])
+    useEffect(() => {
+        (myRef.current as any).scrollIntoView();
+        state2.reset()
+    }, [])
     return (
         <>
-        <div ref={myRef}></div>
+            <div ref={myRef}></div>
             <Head>
                 <title>The Holy Quran | Quranesk.com</title>
                 <meta property="og:title" content="The Holy Quran | Quranesk.com"/>
@@ -72,7 +97,9 @@ const Index = () => {
                     <div className={
                         styles.d8
                     }>
-                        <h3 className={styles.e}>Read verse by verse</h3>
+                        <h3 className={
+                            styles.e
+                        }>Read verse by verse</h3>
                         <div className={
                             styles.d9
                         }>
@@ -128,47 +155,70 @@ const Index = () => {
                                 )
                             } </div>
                         </div>
-                        <Link passHref={true} href={
-                            ss ? `/${
-                                ss.value
-                            }/${
-                                sv ? sv.value : "1"
-                            }` : ``
+                        <Link passHref={true}
+                            href={
+                                ss ? `/${
+                                    ss.value
+                                }/${
+                                    sv ? sv.value : "1"
+                                }` : ``
                         }>
                             <div className={
                                     ss ? styles.d17 : styles.d18
                                 }
                                 /* onClick={
                                     () => setLoading(true)
-                            } */>
+                            } */
+                            >
                                 <h2>GO</h2>
                             </div>
                         </Link>
                     </div>
                 </div>
                 <div className="announcement">
-                    <h1>Celebrating Quranesk&apos;s <strong>First Year Anniversary</strong></h1>
+                    <h1>Celebrating Quranesk&apos;s{` `}
+                        <span>First Year Anniversary</span>
+                    </h1>
+                    <div className="logo-container"> {
+                        [
+                            'nextjs',
+                            'reactjs',
+                            'gql',
+                            'apollo',
+                            'urql',
+                            'ts',
+                            'valtio',
+                            'sass'
+                        ].map(name =>< Logo name = {
+                            name
+                        } />)
+                    } </div>
                 </div>
-                <h3 className={styles.e2}>Read page by page</h3>
+                <h3 className={
+                    styles.e2
+                }>Read page by page</h3>
                 <div className={
                     styles.d11
                 }>
                     {
                     surahs.filter((s : any, i : number, arr : any) => i >= 0 && i <= (sm ? arr.length - 1 : 35)).map((s : any, i : number) => (
                         <div className={
-                            styles.d15
-                        } key={i}>
-                            <Link passHref={true} href={
-                                `/${
-                                    i + 1
-                                }/`
+                                styles.d15
+                            }
+                            key={i}>
+                            <Link passHref={true}
+                                href={
+                                    `/${
+                                        i + 1
+                                    }/`
                             }>
                                 <div className={
                                         styles.d16
                                     }
                                     /* onClick={
                                         () => setLoading(true)
-                                } */>
+                                } */
+                                >
                                     <h1 style={
                                         {fontFamily: 'cinzel-bold'}
                                     }>
@@ -177,17 +227,19 @@ const Index = () => {
                                     }</h1>
                                 </div>
                             </Link>
-                            <Link passHref={true} href={
-                                `/${
-                                    i + 1
-                                }/`
+                            <Link passHref={true}
+                                href={
+                                    `/${
+                                        i + 1
+                                    }/`
                             }>
                                 <div className={
                                         styles.d19
                                     }
                                     /* onClick={
                                         () => setLoading(true)
-                                } */>
+                                } */
+                                >
                                     <div className={
                                         styles.d12
                                     }>
@@ -248,10 +300,11 @@ const Index = () => {
                                                     }`
                                                 }</h2>
                                             </div>
-                                        ) : (s.juz.map((j : any, i: number) => (
+                                        ) : (s.juz.map((j : any, i : number) => (
                                             <div className={
-                                                styles.d23
-                                            } key={i}>
+                                                    styles.d23
+                                                }
+                                                key={i}>
                                                 <h2> {
                                                     `Juz ${ + (j ?. index as string)
                                                     }: ${
@@ -334,22 +387,26 @@ const Index = () => {
                     }>
                         <nav>
                             <h1>Navigate</h1>
-                            <Link passHref={true} href="/info/about">
+                            <Link passHref={true}
+                                href="/info/about">
                                 <div>
                                     <h2>About</h2>
                                 </div>
                             </Link>
-                            <Link passHref={true} href="/info/contact">
+                            <Link passHref={true}
+                                href="/info/contact">
                                 <div>
                                     <h2>Contact</h2>
                                 </div>
                             </Link>
-                            <Link passHref={true} href="/info/contribute">
+                            <Link passHref={true}
+                                href="/info/contribute">
                                 <div>
                                     <h2>Contribute</h2>
                                 </div>
                             </Link>
-                            <Link passHref={true} href="/info/credits">
+                            <Link passHref={true}
+                                href="/info/credits">
                                 <div>
                                     <h2>Credits</h2>
                                 </div>
@@ -371,7 +428,7 @@ const Index = () => {
                         <p className="latin">
                             <br></br>© 2022
                             <a className='a' href="https://quranesk.com">quranesk.com</a>. All
-                                                                                                              Rights Reserved.
+                                                                                                                                                                              Rights Reserved.
                         </p>
                     </div>
                 </footer>
