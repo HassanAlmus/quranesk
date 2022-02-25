@@ -395,7 +395,7 @@ const useS = (props) => {
     `;
 
     useEffect(() => {
-        if (verses && snap.loadedVerses && isFirstPage === false) {
+        if (verses && snap.loadedVerses) {
             if (verses.some((verse) => !Object.keys(verse).includes(user.surahTranslation) || !Object.keys(verse).includes(user.surahTafseer))) {
                 const key = [user.surahTranslation, user.surahTafseer].find((key) => !Object.keys(verses[0]).includes(key));
                 client.query(LineQuery(key)).toPromise().then(result => {
