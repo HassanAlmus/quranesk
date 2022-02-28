@@ -111,9 +111,9 @@ const useV = () => {
    const LineQuery = (key : string) => gql `
    query Query {
      verse(s: ${
-       (+ (router.query.s as string) - 1).toString()
+       loc[0].toString()
    }, v: ${
-       (+ (router.query.s as string) - 1).toString()
+       loc[1].toString()
    }){
        id
        ${
@@ -260,6 +260,7 @@ const useV = () => {
             ].find((key) => !Object.keys(snap.verse).includes(key))as string
             if (key) {
                 client.query(LineQuery(key)).toPromise().then(result => {
+                    console.log(result, key)
                     let newVerse = JSON.parse(JSON.stringify(snap.verse));
                     newVerse[key] = result.data.verse[key];
                     state.verse = (newVerse);
