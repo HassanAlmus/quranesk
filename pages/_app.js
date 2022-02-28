@@ -6,10 +6,11 @@ import {useEffect} from "react";
 import {Provider} from "urql"
 import {client} from '../urql-client'
 import * as ga from '../lib/analytics'
+import { useRouter } from "next/router";
 
 export default function App({Component, pageProps}) {
     useEffect(() => document.documentElement.lang = 'en-us', []);
-    
+
     const router = useRouter()
 
     useEffect(() => {
