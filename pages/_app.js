@@ -5,26 +5,43 @@ import "../styles/this.scss";
 import {useEffect} from "react";
 import {Provider} from "urql"
 import {client} from '../urql-client'
-import * as ga from '../lib/analytics'
+import * as ga from '../lib/gtag'
 import { useRouter } from "next/router";
+import Script from "next/script";
 
 export default function App({Component, pageProps}) {
     useEffect(() => document.documentElement.lang = 'en-us', []);
 
-    const router = useRouter()
-
+    const router = useRouter();
     useEffect(() => {
       const handleRouteChange = (url) => {
-        ga.pageview(url)
-      }
-      router.events.on('routeChangeComplete', handleRouteChange)
+        ga.pageview(url);
+      };
+      router.events.on("routeChangeComplete", handleRouteChange);
       return () => {
-        router.events.off('routeChangeComplete', handleRouteChange)
-      }
-    }, [router.events])
+        router.events.off("routeChangeComplete", handleRouteChange);
+      };
+    }, [router.events]);
 
     return (
         <>
+              <Script
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=G-X29MNPW1TZ`}
+      />
+      <Script
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-X29MNPW1TZ', {
+              page_path: window.location.pathname,
+            });
+          `,
+        }}
+      />
             <Head>
                 <link rel="icon" type="image/png" href="/logo.png"/>
                 <meta property="og:image" content="https://cdn.discordapp.com/attachments/719941252090691705/825624790953754624/logo.png"/>
