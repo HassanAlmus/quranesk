@@ -5,9 +5,23 @@ import "../styles/this.scss";
 import {useEffect} from "react";
 import {Provider} from "urql"
 import {client} from '../urql-client'
+import * as ga from '../lib/analytics'
 
 export default function App({Component, pageProps}) {
-    useEffect(() => document.documentElement.lang = 'en-us', [])
+    useEffect(() => document.documentElement.lang = 'en-us', []);
+    
+    const router = useRouter()
+
+    useEffect(() => {
+      const handleRouteChange = (url) => {
+        ga.pageview(url)
+      }
+      router.events.on('routeChangeComplete', handleRouteChange)
+      return () => {
+        router.events.off('routeChangeComplete', handleRouteChange)
+      }
+    }, [router.events])
+
     return (
         <>
             <Head>

@@ -71,7 +71,7 @@ const VerseComponent = (props:{user: User, loc: number[], verse:Verse, translati
           className={styles.d14}
           onClick={() => {
             setS(true);
-            if (typeof Audio !== "undefined")
+            if (typeof audio !== "undefined")
               (audio as HTMLAudioElement).play();
           }}
           onMouseEnter={() => setS(true)}
