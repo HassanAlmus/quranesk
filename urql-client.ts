@@ -15,5 +15,12 @@ import {
       return { headers: {} };
     },
   });
+  const client2 = createClient({
+    url: "https://quranesk-api-3.herokuapp.com/",
+    exchanges: [dedupExchange, cacheExchange, ssrCache, fetchExchange],
+    fetchOptions: () => {
+      return { headers: {} };
+    },
+  });
   
-  export { client, ssrCache };
+  export { client, client2, ssrCache };

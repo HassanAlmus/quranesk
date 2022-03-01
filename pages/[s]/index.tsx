@@ -9,7 +9,7 @@ import { defaultUser } from '../../src/components/edit';
 import useS from "../../src/components/useS";
 import Link from "next/link";
 import Image from "next/image";
-import {client} from '../../urql-client'
+import {client2} from '../../urql-client'
 import { gql} from "urql";
 import { useSnapshot } from "valtio";
 import { state } from "../../src/components/useS";
@@ -359,7 +359,7 @@ const returnQuery = (s : number ) => {
 
 export async function getStaticProps({ params }) {
     let data
-    await client.query(returnQuery(Number(params.s))).toPromise().then((result=>{
+    await client2.query(returnQuery(Number(params.s))).toPromise().then((result=>{
         if(result.error)console.log(result.error)
         data=result.data
     })) 

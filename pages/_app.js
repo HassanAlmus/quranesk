@@ -28,7 +28,7 @@ export default function App({Component, pageProps}) {
       <Script
       id=''
         strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=G-X29MNPW1TZ`}
+        src={`https://www.googletagmanager.com/gtag/js?id=UA-221050684-1`}
       />
       <Script
         id=''
@@ -38,7 +38,7 @@ export default function App({Component, pageProps}) {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-X29MNPW1TZ', {
+            gtag('config', 'UA-221050684-1', {
               page_path: window.location.pathname,
             });
           `,
