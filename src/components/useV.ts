@@ -18,6 +18,7 @@ export const state = proxy({
     cs: null,
     ps: null,
     verse: null,
+    highlighted: undefined,
     reset: () => {
         state.verse=null;
         state.ps=null;
@@ -123,7 +124,7 @@ const useV = () => {
    }
   `;
 
-   const VerseQuery = (s, v) => gql `
+   const VerseQuery = (s, v, additional?:(string|undefined)) => gql `
   query Query {
     cs: surah(s: ${
        s.toString()
@@ -146,10 +147,11 @@ const useV = () => {
    }) {
      id
      ${
-       [
+       (additional!==undefined?[additional as string, ...user.translations,
+        ...user.tafseers]:[
            ...user.translations,
            ...user.tafseers
-       ].map((key) => returnKey(key)).join("\n")
+       ]).map((key) => returnKey(key)).join("\n")
    }
      words {
        ${
@@ -175,10 +177,20 @@ const useV = () => {
         if(!snap.init&&router.query.v!==undefined&& router.query.s!==undefined){
         const s = Number(router.query.s)-1;
         const v = Number(router.query.v)-1;
-        client.query(VerseQuery(s, v)).toPromise().then(result=>{
+        console.log(router.query.t?router.query.t as string:(router.query.c?router.query.c as string:undefined))
+        if (router.query.t){
+            state.highlighted=router.query.t
+            setTranslations([router.query.t, ...user.translations])
+        } 
+        if (router.query.c){
+            state.highlighted=router.query.c
+            setTafseers([router.query.c, ...user.tafseers])
+        }
+        client.query(VerseQuery(s, v, router.query.t?router.query.t as string:(router.query.c?router.query.c as string:undefined))).toPromise().then(result=>{
             if(result.error){
                 console.log(result.error)
             }
+            console.log(result.data)
             state.verse=result.data.verse
             state.ps=result.data.ps
             state.cs=result.data.cs
@@ -271,6 +283,7 @@ const useV = () => {
 
     useEffect(() => {
         if (snap.verse&&snap.init) {
+            state.highlighted=undefined;
             router.push(`/${
                 loc[0] + 1
             }/${

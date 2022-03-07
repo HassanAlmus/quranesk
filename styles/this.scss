@@ -301,3 +301,13 @@ width: 100vw;
 .cursor {
   cursor: pointer !important;
 }
+
+#highlighted-text{
+  background: #ECE9E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  border-radius: 15px;
+  -webkit-box-shadow: -2px 6px 51px -16px rgba(0,0,0,1);
+-moz-box-shadow: -2px 6px 51px -16px rgba(0,0,0,1);
+box-shadow: -2px 6px 51px -16px rgba(0,0,0,1);
+}

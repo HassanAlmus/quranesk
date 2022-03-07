@@ -2,9 +2,8 @@ import styles from '../../styles/VerseComponent.module.scss'
 import React, {useEffect, useState} from 'react'
 import { Word, User, TranslationLanguage, Verse, Tafseer, NamoonaTopic, Scalars, Maybe } from '../../utils';
 import Link from 'next/link';
-import { setInterval } from 'timers/promises';
 
-const VerseComponent = (props:{user: User, loc: number[], verse:Verse, translationMap: TranslationLanguage[], tafseerMap: Tafseer[], component: ('s'|'v')}) => {
+const VerseComponent = (props:{highlighted: (undefined|string),user: User, loc: number[], verse:Verse, translationMap: TranslationLanguage[], tafseerMap: Tafseer[], component: ('s'|'v')}) => {
   const user = props.user;
   const loc = props.loc;
   const verse = props.verse;
@@ -184,7 +183,7 @@ if(showNotif){
     </div>{(props.component==='v'?(user.translations.length>=1||user.tafseers.length>=1):(user.surahTranslation||user.surahTafseer))&&
     <div className={styles.d26}>
       {(props.component==='v'?user.translations:(props.user.surahTranslation?[props.user.surahTranslation]:[])).map((key:any) => (
-        <div className={styles.d27} key={key}>
+        <div className={styles.d27} id={props.highlighted&&props.highlighted===key?'highlighted-text':''} key={key}>
           <div
             className={styles.d41}
             style={{
@@ -203,7 +202,6 @@ if(showNotif){
               className="share"
               onClick={() => {
                 rsl("t", key);
-                
                   setNotif('Link copied!')
                   setShowNotif(true)}
               }
@@ -286,7 +284,7 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
           Object.keys(verse).includes(key) &&(key!=='khorramdelfa'?
           ((verse as Verse)[key] as Array<Maybe<Scalars["String"]>>)[0] !== null && (
             key!=='namoonaur'?
-            <div className={styles.d27}>
+            <div className={styles.d27} id={props.highlighted&&props.highlighted===key?'highlighted-text':''}>
               <div className={styles.d41}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -357,7 +355,7 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
               </p>
             </div>
             :(
-              <div className={styles.d27}>
+              <div className={styles.d27} id={props.highlighted&&props.highlighted===key?'highlighted-text':''}>
               <div className={styles.d41}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -407,7 +405,7 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
             )
           ):
           (verse[key]!==""&&
-          <div className={styles.d27}>
+          <div className={styles.d27} id={props.highlighted&&props.highlighted===key?'highlighted-text':''}>
               <div className={styles.d41}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

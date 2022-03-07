@@ -117,7 +117,8 @@ const V = (props : {
                         component='v'
                         verse={snap.verse}
                         translationMap={translationMap}
-                        tafseerMap={tafseerMap}/></div>
+                        tafseerMap={tafseerMap}
+                        highlighted={snap.highlighted}/></div>
                     </div>
                 {
                 showPopup && <Popup setTranslations={
