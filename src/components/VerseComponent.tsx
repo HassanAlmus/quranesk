@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import { Word, User, TranslationLanguage, Verse, Tafseer, NamoonaTopic, Scalars, Maybe } from '../../utils';
 import Link from 'next/link';
 
-const VerseComponent = (props:{highlighted: (undefined|string),user: User, loc: number[], verse:Verse, translationMap: TranslationLanguage[], tafseerMap: Tafseer[], component: ('s'|'v')}) => {
+const VerseComponent = (props:{highlighted?: (undefined|string),user: User, loc: number[], verse:Verse, translationMap: TranslationLanguage[], tafseerMap: Tafseer[], component: ('s'|'v')}) => {
   const user = props.user;
   const loc = props.loc;
   const verse = props.verse;
