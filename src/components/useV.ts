@@ -180,11 +180,11 @@ const useV = () => {
         console.log(router.query.t?router.query.t as string:(router.query.c?router.query.c as string:undefined))
         if (router.query.t){
             state.highlighted=router.query.t
-            setTranslations([router.query.t, ...user.translations])
+            setTranslations([...new Set([router.query.t, ...user.translations])])
         } 
         if (router.query.c){
             state.highlighted=router.query.c
-            setTafseers([router.query.c, ...user.tafseers])
+            setTafseers([...new Set([router.query.c, ...user.tafseers])])
         }
         client.query(VerseQuery(s, v, router.query.t?router.query.t as string:(router.query.c?router.query.c as string:undefined))).toPromise().then(result=>{
             if(result.error){
