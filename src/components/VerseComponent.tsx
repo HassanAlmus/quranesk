@@ -193,26 +193,6 @@ if(showNotif){
                   : "row",
             }}
           >
-            <div style={{display: 'flex'}}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="share"
-              onClick={() => {
-                rsl("t", key);
-                  setNotif('Link copied!')
-                  setShowNotif(true)}
-              }
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-              />
-            </svg>
             <h1
               className={
                 key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
@@ -234,7 +214,26 @@ if(showNotif){
                   .find((translation:any) => translation.key === key).name
               }
             </h1>
-            </div>
+            <div style={{display: 'flex'}}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="share"
+              onClick={() => {
+                rsl("t", key);
+                  setNotif('Link copied!')
+                  setShowNotif(true)}
+              }
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+              />
+            </svg>
             {Object.keys(verse).includes(key) 
              && (
               <svg
@@ -257,6 +256,8 @@ if(showNotif){
                 />
               </svg>
             )}
+            </div>
+            
           </div>
           <p
 className={
@@ -286,6 +287,21 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
             key!=='namoonaur'?
             <div className={styles.d27} id={props.highlighted&&props.highlighted===key?'highlighted-text':''}>
               <div className={styles.d41}>
+              <h1>
+                  {`${
+                    (tafseerMap as any).find(
+                      (tafseer: any) => tafseer.key === key
+                    ).name
+                  }, ${+(verse as any)[key][0].split("-")[0] + 1}:${
+                    +(verse as any )[key][0].split("-")[1] + 1
+                  }${
+                    (verse as any)[key][0].split("-")[1] !==
+                    (verse as any)[key][0].split("-")[2]
+                      ? `-${+(verse as any)[key][0].split("-")[2] + 1}`
+                      : ""
+                  }`}
+                </h1>
+                <div style={{display: 'flex'}}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -305,20 +321,7 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
                     d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
                   />
                 </svg>
-                <h1>
-                  {`${
-                    (tafseerMap as any).find(
-                      (tafseer: any) => tafseer.key === key
-                    ).name
-                  }, ${+(verse as any)[key][0].split("-")[0] + 1}:${
-                    +(verse as any )[key][0].split("-")[1] + 1
-                  }${
-                    (verse as any)[key][0].split("-")[1] !==
-                    (verse as any)[key][0].split("-")[2]
-                      ? `-${+(verse as any)[key][0].split("-")[2] + 1}`
-                      : ""
-                  }`}
-                </h1>
+                
                 {Object.keys(verse).includes(key) &&
                  (
                   <svg
@@ -341,6 +344,7 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
                     />
                   </svg>
                 )}
+                </div>
               </div>
               <p className='latin'>
                 {Object.keys(verse).includes(key)            
@@ -357,6 +361,11 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
             :(
               <div className={styles.d27} id={props.highlighted&&props.highlighted===key?'highlighted-text':''}>
               <div className={styles.d41}>
+              <h1 className='urdu'>
+                 {tafseerMap.find(tafseer=>tafseer.key===key)?.name}
+                </h1>
+                <div>
+                
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -375,9 +384,7 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
                     d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
                   />
                 </svg>
-                <h1 className='urdu'>
-                 {tafseerMap.find(tafseer=>tafseer.key===key)?.name}
-                </h1>
+                </div>
               </div>
               <div id={styles.d18}>
               {Object.keys(verse).includes(key)            
@@ -407,6 +414,14 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
           (verse[key]!==""&&
           <div className={styles.d27} id={props.highlighted&&props.highlighted===key?'highlighted-text':''}>
               <div className={styles.d41}>
+                 <h1 className='farsi'>
+                  {
+                    (tafseerMap as any).find(
+                      (tafseer: any) => tafseer.key === key
+                    ).name
+                  }
+                </h1>
+                <div style={{display: 'flex'}}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -422,13 +437,7 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
                     d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
                   />
                 </svg>
-                <h1 className='farsi'>
-                  {
-                    (tafseerMap as any).find(
-                      (tafseer: any) => tafseer.key === key
-                    ).name
-                  }
-                </h1>
+                
                 {Object.keys(verse).includes(key) &&
                  (
                   <svg
@@ -450,7 +459,7 @@ style={{fontSize: key.substr(0, 2) === "ur" || key.substr(0, 2) === "fa"
                       d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
                     />
                   </svg>
-                )}
+                )}</div>
               </div>
               <p className='farsi'>
                 {Object.keys(verse).includes(key)            
