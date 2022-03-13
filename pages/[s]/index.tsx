@@ -1,11 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
-import dynamic from 'next/dynamic';
 import styles from "../../styles/s.module.scss";
 import VerseComponent from '../../src/components/VerseComponent';
 import Loader from '../../src/components/Loader';
-import {User, Surah, Verse} from '../../utils';
-import { defaultUser } from '../../src/components/edit';
+import {Surah, Verse} from '../../utils';
 import useS from "../../src/components/useS";
 import Link from "next/link";
 import Image from "next/image";
@@ -15,6 +13,7 @@ import { useSnapshot } from "valtio";
 import { state } from "../../src/components/useS";
 import {state as state2} from '../../src/components/useV'
 import Popup from "../../src/components/popup";
+
 const S = (props:{isFirstPage: boolean, p: number, s: number, data: {cs: Surah, ps: Surah, ns: Surah, page: Verse[]}}) => {
     const snap = useSnapshot(state)
     const {
@@ -321,7 +320,6 @@ const returnQuery = (s : number ) => {
             urnajafi
             urjawadi
             azmammadaliyev
-            deaburida
             tjayati
             frfakhri
             hijawadi

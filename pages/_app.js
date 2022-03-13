@@ -53,8 +53,8 @@ export default function App({Component, pageProps}) {
                 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/logo.png"></link>
                 <link rel="apple-touch-icon-precomposed" href="/logo.png"></link>
                 <link rel="shortcut icon" href="/logo.png"></link>
-                <meta name="description" content="The Holy Quran accompanied by Tafseers, Recitations and Translations in 10 languages all by Shia authors and reciters and available in an easy application. Enjoy learning the Quran with the word by word pronunciation, transliteration and translations in 9 different languages. | Quranesk.com"></meta>
-                <meta name="og:description" content="The Holy Quran accompanied by Tafseers, Recitations and Translations in 10 languages all by Shia authors and reciters and available in an easy application. Enjoy learning the Quran with the word by word pronunciation, transliteration and translations in 9 different languages. | Quranesk.com"></meta>
+                <meta name="description" content="The Holy Quran accompanied by Tafseers, Recitations and Translations in 9 languages all by Shia authors and reciters and available in an easy application. Learn the Quran with word translation, tramsliteration and pronunciation. | Quranesk.com"></meta>
+                <meta name="og:description" content="The Holy Quran accompanied by Tafseers, Recitations and Translations in 9 languages all by Shia authors and reciters and available in an easy application. Learn the Quran with word translation, tramsliteration and pronunciation. | Quranesk.com"></meta>
             </Head>
             <Provider value={client}>
                 <Component {...pageProps}/>

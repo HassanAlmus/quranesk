@@ -13,8 +13,16 @@ export const defaultUser: User = {
 };
 
 
+const returnObjectWithDeletedValue = (user:User) => {
+    let newUser = user;
+ 
+    newUser.translations=user.translations.filter(t=>t!=='deaburida')
+
+    return newUser
+}
+
 const returnUser = (cookies : any) => {
-    const userCookie = ( cookies !== undefined ? JSON.parse(cookies) : undefined);
+    const userCookie = ( cookies !== undefined ? returnObjectWithDeletedValue(JSON.parse(cookies)) : undefined);
     let user = userCookie !== undefined ? userCookie : defaultUser;
     user.translations = [...new Set(user.translations)as any] as string[]
     user.tafseers = [...new Set(user.tafseers)as any] as string[]

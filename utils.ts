@@ -71,7 +71,6 @@ export type Verse = {
   urnajafi: Scalars["String"]
   urjawadi: Scalars["String"]
   azmammadaliyev: Scalars["String"]
-  deaburida: Scalars["String"]
   tjayati: Scalars["String"]
   frfakhri: Scalars["String"]
   hijawadi: Scalars["String"]

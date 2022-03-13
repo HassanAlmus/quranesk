@@ -81,16 +81,6 @@ export default {
                 }
             ]
         }, {
-            "name": "German",
-            "name2": "Deutsch",
-            "img": "flag_de.svg",
-            "translations": [
-                {
-                    "name": "Abu Rida Muhammad ibn Ahmad ibn Rassoul",
-                    "key": "deaburida"
-                }
-            ]
-        }, {
             "name": "French",
             "name2": "Français",
             "img": "flag_fr.svg",
