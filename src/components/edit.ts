@@ -18,6 +18,10 @@ const returnObjectWithDeletedValue = (user:User) => {
  
     newUser.translations=user.translations.filter(t=>t!=='deaburida')
 
+    if(user.surahTranslation==='deaburida'){
+        newUser.surahTranslation='enqarai'
+    }
+
     return newUser
 }
 
