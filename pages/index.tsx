@@ -176,6 +176,7 @@ const Index = () => {
                     </div>
                 </div>
                 <div className="announcement">
+                    <h3>Built using</h3>
                     <div className="logo-container"> {
                         [
                             'nextjs',
