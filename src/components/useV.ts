@@ -51,7 +51,7 @@ const useV = () => {
                 (loc[1] + 1).toString().padStart(3, "0")
             }.mp3`);
         }
-    }, [snap]);
+    }, [user]);
 
     const returnCondition = () => loc[0] + 1 === snap.verse.meta.surah && loc[1] + 1 === snap.verse.meta.ayah;
 
@@ -177,7 +177,6 @@ const useV = () => {
         if(!snap.init&&router.query.v!==undefined&& router.query.s!==undefined){
         const s = Number(router.query.s)-1;
         const v = Number(router.query.v)-1;
-        console.log(router.query.t?router.query.t as string:(router.query.c?router.query.c as string:undefined))
         if (router.query.t){
             state.highlighted=router.query.t
             setTranslations([...new Set([router.query.t, ...user.translations])])
@@ -190,7 +189,6 @@ const useV = () => {
             if(result.error){
                 console.log(result.error)
             }
-            console.log(result.data)
             state.verse=result.data.verse
             state.ps=result.data.ps
             state.cs=result.data.cs
@@ -272,7 +270,6 @@ const useV = () => {
             ].find((key) => !Object.keys(snap.verse).includes(key))as string
             if (key) {
                 client.query(LineQuery(key)).toPromise().then(result => {
-                    console.log(result, key)
                     let newVerse = JSON.parse(JSON.stringify(snap.verse));
                     newVerse[key] = result.data.verse[key];
                     state.verse = (newVerse);
@@ -293,7 +290,7 @@ const useV = () => {
                 state.verse = (result.data.verse);
                 state.cs = (result.data.cs);
                 state.ps = (result.data.ps);
-            }).then(()=>console.log('fetched'))
+            })
         }
         setAudio(`${
             maps.audio.find((e : any) => e.key === user.audio) ?. url

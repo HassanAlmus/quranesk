@@ -34,10 +34,8 @@ const TafseereNamoona = () => {
 
     useEffect(()=>{
       if(router.query.s&&router.query.v&&router.query.id){
-          console.log(Number(router.query.s)-1, router.query.id as string)
           client.query(returnQuery(router.query.id as string)).toPromise().then(result=>{
             if(result.error) console.log(result.error);
-            console.log(result.data)
             state.data=result.data
             state.s=Number(router.query.s)-1
             state.v=Number(router.query.v)-1

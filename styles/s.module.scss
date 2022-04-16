@@ -1,21 +1,21 @@
 @import './mixins.scss';
-//
+
 
 #d11{
     margin: 0 15px
 }
 
-    #d2 {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        max-width: 1000px;
-        #d3{
-            font-size: 2.5rem;
-            color: $c1;
-            margin-bottom: 15px;
-        }
+#d2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1000px;
+    #d3{
+        font-size: 2.5rem;
+        color: $c1;
+        margin-bottom: 15px;
     }
+}
 
 
 #home {
@@ -173,8 +173,17 @@
 }
 
 #d30{
-    margin-top: 50px;
+    margin-top: 25px;
     max-width: 1000px;
+    #d34{
+        margin-bottom: 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h1{
+            color: $c1
+        }
+    }
 }
 
 #d200{
