@@ -5,7 +5,7 @@ import Select from "react-select";
 import Link from "next/link";
 import Head from 'next/head'
 import Loader from '../src/components/Loader'
-import surahs from '../src/data/surahs.json'
+import surahs from '../src/data/surahinfo.json'
 import {state as state2} from "../src/components/useV";
 
 const Logo = (props : {

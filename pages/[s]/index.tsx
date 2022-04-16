@@ -14,6 +14,7 @@ import { state } from "../../src/components/useS";
 import {state as state2} from '../../src/components/useV'
 import Popup from "../../src/components/popup";
 import ReactAudioPlayer from 'react-audio-player';
+import surahs from '../../src/data/surahinfo.json'
 
 const S = (props:{isFirstPage: boolean, p: number, s: number, data: {cs: Surah, ps: Surah, ns: Surah, page: Verse[]}}) => {
     const snap = useSnapshot(state)
@@ -176,12 +177,13 @@ ps, ns,loading, showPopup, setShowPopup, myRef, loadingSurah
 <div id={
                 styles.d30
             }>
-                <div id={styles.d34}>
-                <h1>Amer Al-Kadhemi</h1>
+                {/* <div id={styles.d34}>
+                <h1>{user.surahAudio}</h1>
                 <ReactAudioPlayer
                             controls
+                            src={surahs[s].reciters[user.surahAudio.split(' ').join('')]}
                             />
-                </div>
+                </div> */}
                 
                 {
                 verses.map((verse, i) =><>

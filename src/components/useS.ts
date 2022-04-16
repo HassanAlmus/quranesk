@@ -116,6 +116,10 @@ const useS = (props) => {
     const [loading, setLoading] = useState(false)
     const [loadingSurah, setLoadingSurah] = useState(false)
 
+    useEffect(()=>{
+console.log(cs)
+    }, [cs])
+
     const setTranslation = (v : any) => setUser({
         ...user,
         surahTranslation: v
@@ -327,7 +331,6 @@ const useS = (props) => {
             setP(p - 1)
         }
     }
-
 
     const WBWQuery = (key : string) => gql `
      query Query {
