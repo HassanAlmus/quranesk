@@ -205,8 +205,8 @@ export default {
         }
     ],
     "surahAudio":[
-        "Amer Al Kadhimi",
         "Maytham Al Tammar",
+        "Amer Al Kadhimi",
         "Ahmed Al Dabagh",
         "Shahriar Parhizgar",
         "Qassem Redheii",

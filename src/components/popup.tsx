@@ -27,6 +27,26 @@ const Popup = (props : any) => {
                     </svg>
                 </div>
                 {!props.v&&<h3 id={styles.d105}>In order to view more than one translation/tafseer simultaneously, navigate to specific verse.</h3>}
+                {!props.v&&<>
+                    <h1>Surah Audio</h1>
+                    <select 
+                    onChange={
+                        (e) => {
+                            props.setSurahAudio(e.target.value);
+                        }
+                    }
+                    className={
+                        styles.d25
+                }>
+                    {
+                    props.surahAudioMap.map((reciter) => (
+                        <option key={reciter} selected={reciter===props.user.surahAudio?true:false} value={
+                            reciter.split(' ').join('')
+                        }>
+                            {reciter}</option>
+                    ))
+                } </select>
+                </>}
                 <h2>Commentaries</h2>
                 <div className={
                     styles.d22

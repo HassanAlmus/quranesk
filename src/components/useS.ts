@@ -7,7 +7,8 @@ import {
     Audio,
     Tafseer,
     TranslationLanguage,
-    Word
+    Word,
+    RecitersList
 } from "../../utils";
 import {returnKey} from "./useV";
 import {useSnapshot, proxy} from "valtio";
@@ -96,6 +97,21 @@ export const returnQuery = (s : number, p : (undefined | number), _user : User) 
 
 export const state = proxy({loadedVerses: false, verses: null, init: false})
 
+const list = {
+    "AmerAlKadhimi":"Amer Al Kadhimi",
+    "MaythamAlTammar":"Maytham Al Tammar",
+    "AhmedAlDabagh":"Ahmed Al Dabagh",
+    "ShahriarParhizgar":"Shahriar Parhizgar",
+    "QassemRedheii":"Qassem Redheii",
+    "JawadBanohiTusi":"Jawad Banohi Tusi",
+    "MahdiSiafZadeh":"Mahdi Siaf Zadeh",
+    "MustafaAlSarraf":"Mustafa Al Sarraf",
+    "MuhammadAliAlDehdeshti":"Muhammad Ali Al Dehdeshti",
+    "MuhammadHosseinSaidian":"Muhammad Hossein Saidian",
+    "AbdulKabeerHaidari":"Abdul Kabeer Haidari",
+    "KarimMansouri":"Karim Mansouri"
+}
+
 const useS = (props) => {
     const myRef = useRef();
     const snap = useSnapshot(state)
@@ -104,6 +120,7 @@ const useS = (props) => {
     const translationMap: TranslationLanguage[] = maps.translationLanguages;
     const audioMap: Audio[] = maps.audio;
     const tafseerMap: Tafseer[] = maps.tafseers;
+    const surahAudioMap: string[] = maps.surahAudio;
     const [user, setUser] = useState < User > (edit(router.query, Cookies.get('user')));
     const [s, setS] = useState(props.s)
     const [p, setP] = useState(props.p)
@@ -115,10 +132,8 @@ const useS = (props) => {
     const [showPopup, setShowPopup] = useState(false)
     const [loading, setLoading] = useState(false)
     const [loadingSurah, setLoadingSurah] = useState(false)
-
-    useEffect(()=>{
-console.log(cs)
-    }, [cs])
+    const [surahAudioIndex, setSurahAudioIndex] = useState(props.s)
+    const [showAudio, setShowAudio] = useState(false)
 
     const setTranslation = (v : any) => setUser({
         ...user,
@@ -139,6 +154,10 @@ console.log(cs)
     const setRasm = (v : any) => setUser({
         ...user,
         rasm: v
+    });
+    const setSurahAudio = (v : any) => setUser({
+        ...user,
+        surahAudio: v.includes(' ')?v:list[v]
     });
 
     useEffect(() => {
@@ -437,7 +456,13 @@ console.log(cs)
         showPopup,
         setShowPopup,
         myRef,
-        loadingSurah
+        loadingSurah,
+        surahAudioIndex,
+        showAudio,
+        setShowAudio,
+        setSurahAudioIndex,
+        surahAudioMap,
+        setSurahAudio
     };
 };
 export default useS;

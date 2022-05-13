@@ -68,7 +68,7 @@
       height: 45px;
       width: 45px;
       border-radius: 22.5px;
-        border: 1px solid $c2;
+      border: 1px solid $c2;
       @include button;
       @include center;
       h1{
@@ -98,13 +98,13 @@
         margin-right: 5px;
         cursor: pointer;
     }
-
-    border: .5px solid $c1;
+    box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+    background: whitesmoke;
     align-items: center;
     padding: 5px 10px;
     padding-top: 10px;
-    background: white;
     border-radius: 10px;
+    border: 0.1px solid grey;
     @include selectnone;
     h2 {
         color: $c1;

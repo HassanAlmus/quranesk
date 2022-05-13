@@ -7,17 +7,17 @@ import {Surah, Verse} from '../../utils';
 import useS from "../../src/components/useS";
 import Link from "next/link";
 import Image from "next/image";
-import {client2} from '../../urql-client'
+import {client2} from '../../urql-client';
 import { gql} from "urql";
 import { useSnapshot } from "valtio";
 import { state } from "../../src/components/useS";
-import {state as state2} from '../../src/components/useV'
+import {state as state2} from '../../src/components/useV';
 import Popup from "../../src/components/popup";
 import ReactAudioPlayer from 'react-audio-player';
-import surahs from '../../src/data/surahinfo.json'
+import surahs from '../../src/data/surahinfo.json';
 
 const S = (props:{isFirstPage: boolean, p: number, s: number, data: {cs: Surah, ps: Surah, ns: Surah, page: Verse[]}}) => {
-    const snap = useSnapshot(state)
+    const snap = useSnapshot(state);
     const {
         tafseerMap,
         audioMap,
@@ -34,9 +34,13 @@ const S = (props:{isFirstPage: boolean, p: number, s: number, data: {cs: Surah, 
         cs,
         isFirstPage,
 verses,
-ps, ns,loading, showPopup, setShowPopup, myRef, loadingSurah
-    } = useS(props)
-    useEffect(()=>state2.reset(),[])
+ps, ns,loading, showPopup, setShowPopup, myRef, loadingSurah,
+surahAudioIndex, setSurahAudioIndex,
+showAudio, setShowAudio,
+surahAudioMap,
+setSurahAudio
+    } = useS(props);
+    useEffect(()=>state2.reset(),[]);
     return (
         <>
             <div ref={myRef}></div>
@@ -73,6 +77,47 @@ ps, ns,loading, showPopup, setShowPopup, myRef, loadingSurah
                     `Verses ${verses[0].meta.ayah}-${verses[verses.length-1].meta.ayah}`
             }></meta>
         </Head>
+     
+            {showAudio?<div id={styles.d40}><div id={styles.d34}>
+                    <div id={styles.d35}>
+                        <div>
+                        <h2>{user.surahAudio}</h2>
+                      <h3>{surahAudioIndex+1}. {surahs[surahAudioIndex].title}</h3>
+                        </div>
+                          <div id={styles.d36}>
+                    <div className={
+                                    styles.c37
+                                } onClick={()=>{if(surahAudioIndex>0){setSurahAudioIndex(surahAudioIndex-1)}}}>
+                                <h1>‹</h1>
+                            </div>
+                                <h1 id={styles.d38}>{surahAudioIndex+1}</h1>                          
+                            <div className={
+                                    styles.c37
+                                }
+                                onClick={()=>{if(surahAudioIndex<113){setSurahAudioIndex(surahAudioIndex+1)}}}
+                            >
+                                <h1>›</h1>
+                            </div>
+                    </div>
+                      
+                    </div>
+                  <div id={styles.d42}>
+                  <div id={styles.d41} onClick={()=>setShowAudio(false)}>     
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+  <path fillRule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clipRule="evenodd" />
+  <path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z" />
+</svg>
+                </div>
+                  <ReactAudioPlayer
+                    controls
+                    src={surahs[surahAudioIndex].reciters[user.surahAudio.split(' ').join('')]}
+                    />
+                  
+                  </div>
+                </div>
+                </div>:<div id={styles.d39} onClick={()=>setShowAudio(true)}><h2>
+              Audio ♪
+            </h2></div>}
         {snap.init&&<>
             {
             showPopup && <Popup setTranslations={
@@ -82,6 +127,7 @@ ps, ns,loading, showPopup, setShowPopup, myRef, loadingSurah
                 tafseerMap={tafseerMap}
                 audioMap={audioMap}
                 translationMap={translationMap}
+                surahAudioMap={surahAudioMap}
                 setTafseers={
                     (v : any) => setTafseer(v)
                 }
@@ -94,7 +140,11 @@ ps, ns,loading, showPopup, setShowPopup, myRef, loadingSurah
                 }
                 setShowPopup={
                     (v : any) => setShowPopup(v)
-                }/>
+                }
+                setSurahAudio={
+                    (v : any) => setSurahAudio(v)
+                }
+                />
         }
             {
             isFirstPage && <div id={
@@ -113,7 +163,7 @@ ps, ns,loading, showPopup, setShowPopup, myRef, loadingSurah
                         styles.transliteration
                     }>
                         {
-                        cs.title.split(" (")[1].slice(0, -1)
+                        `${s+1}. ${cs.title.split(" (")[1].slice(0, -1)}`
                     }</h1>
                     <h2 id={
                             styles.arabic
@@ -176,15 +226,7 @@ ps, ns,loading, showPopup, setShowPopup, myRef, loadingSurah
             <div id={styles.d200}>
 <div id={
                 styles.d30
-            }>
-                {/* <div id={styles.d34}>
-                <h1>{user.surahAudio}</h1>
-                <ReactAudioPlayer
-                            controls
-                            src={surahs[s].reciters[user.surahAudio.split(' ').join('')]}
-                            />
-                </div> */}
-                
+            }>  
                 {
                 verses.map((verse, i) =><>
                 < VerseComponent user = {
@@ -263,7 +305,7 @@ ps, ns,loading, showPopup, setShowPopup, myRef, loadingSurah
         }
         </>}
      </>
-    )
+    );
 };
 
 export async function getStaticPaths() {
@@ -273,7 +315,7 @@ export async function getStaticPaths() {
     }),
       fallback: false
     };
-  }
+  };
 
 const returnQuery = (s : number ) => {
     return gql `
@@ -366,12 +408,12 @@ const returnQuery = (s : number ) => {
 };
 
 export async function getStaticProps({ params }) {
-    let data
+    let data;
     await client2.query(returnQuery(Number(params.s))).toPromise().then((result=>{
-        if(result.error)console.log(result.error)
-        data=result.data
+        if(result.error)console.log(result.error);
+        data=result.data;
     })) 
-    return { props: { s: Number(params.s)-1, data, p: data.cs.startPage, isFirstPage: true} }
-}
+    return { props: { s: Number(params.s)-1, data, p: data.cs.startPage, isFirstPage: true} };
+};
 
 export default S

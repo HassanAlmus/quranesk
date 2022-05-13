@@ -129,9 +129,9 @@
 }
 .d26 {
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     background-color: white;
-    @include shadow;
+    box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
     border-radius: 10px;
     .d27:nth-child(1) {
         margin-top: 0;
