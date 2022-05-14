@@ -33,18 +33,37 @@ const TafseereNamoona = () => {
                 if (result.error) 
                     console.log(result.error);
                 
-
-
                 state.data = result.data
                 state.s = Number(router.query.s) - 1
                 state.v = Number(router.query.v) - 1
                 state.init = true
             })
         }
-    }, [router.query]);
+    }, [router.query])
 
-    const Body = () => (snap.init ? (
+    return(snap.init ? (
         <>
+            <Head>
+                <title> {
+                    `تفسير نمونه - ${
+                        snap.data.namoonaTopic.title
+                    }`
+                }</title>
+                <meta property="og:title"
+                    content={
+                        `تفسير نمونه - ${
+                            snap.data.namoonaTopic.title
+                        }`
+                }></meta>
+                <meta name="description"
+                    content={
+                        snap.data.namoonaTopic.text
+                }></meta>
+                <meta name="og:description"
+                    content={
+                        snap.data.namoonaTopic.text
+                }></meta>
+            </Head>
             <div id={
                 styles.d1
             }>
@@ -68,7 +87,9 @@ const TafseereNamoona = () => {
                                     snap.data.namoonaTopic.range[0] + 1
                                 }` : (snap.data.namoonaTopic.range[0] === -1 ? `Surah ${
                                     snap.s + 1
-                                }` : (snap.data.namoonaTopic.range[0] === snap.data.namoonaTopic.range[1] ? snap.data.namoonaTopic.range[1] + 1 : snap.data.namoonaTopic.range.map((n) => n + 1).join('-')))
+                                }` : (snap.data.namoonaTopic.range[0] === snap.data.namoonaTopic.range[1] ? snap.data.namoonaTopic.range[1] + 1 : snap.data.namoonaTopic.range.map((n) => {
+                                    return n + 1
+                                }).join('-')))
                             } </h4>
                         </div>
                     </div>
@@ -77,11 +98,14 @@ const TafseereNamoona = () => {
                     }>
                         {
                         snap.data.namoonaTopic.text.split('\n').map((t, i) => {
-                            return <p key={i}
-                                className='urdu'>
-                                {t} </p>
-                    })
+                            return (
+                                <p key={i}
+                                    className='urdu'>
+                                    {t}</p>
+                            )
+                        })
                     } </div>
+
                 </div>
             </div>
         </>
@@ -94,33 +118,6 @@ const TafseereNamoona = () => {
             }
         }><Loader/></div>
     ));
-
-    return (
-        <>
-            <Head>
-                <title> {
-                    `تفسير نمونه - ${
-                        snap.data.namoonaTopic.title
-                    }`
-                }</title>
-                <meta property="og:title"
-                    content={
-                        `تفسير نمونه - ${
-                            snap.data.namoonaTopic.title
-                        }`
-                }></meta>
-                <meta name="description"
-                    content={
-                        snap.data.namoonaTopic.text
-                }></meta>
-                <meta name="og:description"
-                    content={
-                        snap.data.namoonaTopic.text
-                }></meta>
-            </Head>
-            <Body/>
-        </>
-    );
 };
 
 export default TafseereNamoona
