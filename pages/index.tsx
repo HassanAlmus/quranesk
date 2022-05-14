@@ -25,8 +25,12 @@ const Logo = (props : {
             }
             layout="fill"
             objectFit="contain"
-            alt={props.name}
-            title={props.name}/>
+            alt={
+                props.name
+            }
+            title={
+                props.name
+            }/>
     </div>
 )
 
@@ -177,7 +181,8 @@ const Index = () => {
                 </div>
                 <div className="announcement">
                     <h3>Built using</h3>
-                    <div className="logo-container"> {
+                    <div className="logo-container">
+                        {
                         [
                             'nextjs',
                             'reactjs',
@@ -187,7 +192,10 @@ const Index = () => {
                             'ts',
                             'valtio',
                             'sass'
-                        ].map(name =>< Logo key={name} name = {
+                        ].map(name =>< Logo key = {
+                            name
+                        }
+                        name = {
                             name
                         } />)
                     } </div>
@@ -426,7 +434,7 @@ const Index = () => {
                         <p className="latin">
                             <br></br>© 2022
                             <a className='a' href="https://quranesk.com">quranesk.com</a>. All
-                                                                                                                                                                              Rights Reserved.
+                                                                                                                                                                                                              Rights Reserved.
                         </p>
                     </div>
                 </footer>

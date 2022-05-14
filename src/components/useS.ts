@@ -12,7 +12,7 @@ import {
 } from "../../utils";
 import {returnKey} from "./useV";
 import {useSnapshot, proxy} from "valtio";
-import {useClient, gql } from "urql";
+import {useClient, gql} from "urql";
 import edit from "./edit";
 import maps from '../data/maps'
 
@@ -98,18 +98,18 @@ export const returnQuery = (s : number, p : (undefined | number), _user : User) 
 export const state = proxy({loadedVerses: false, verses: null, init: false})
 
 const list = {
-    "AmerAlKadhimi":"Amer Al Kadhimi",
-    "MaythamAlTammar":"Maytham Al Tammar",
-    "AhmedAlDabagh":"Ahmed Al Dabagh",
-    "ShahriarParhizgar":"Shahriar Parhizgar",
-    "QassemRedheii":"Qassem Redheii",
-    "JawadBanohiTusi":"Jawad Banohi Tusi",
-    "MahdiSiafZadeh":"Mahdi Siaf Zadeh",
-    "MustafaAlSarraf":"Mustafa Al Sarraf",
-    "MuhammadAliAlDehdeshti":"Muhammad Ali Al Dehdeshti",
-    "MuhammadHosseinSaidian":"Muhammad Hossein Saidian",
-    "AbdulKabeerHaidari":"Abdul Kabeer Haidari",
-    "KarimMansouri":"Karim Mansouri"
+    "AmerAlKadhimi": "Amer Al Kadhimi",
+    "MaythamAlTammar": "Maytham Al Tammar",
+    "AhmedAlDabagh": "Ahmed Al Dabagh",
+    "ShahriarParhizgar": "Shahriar Parhizgar",
+    "QassemRedheii": "Qassem Redheii",
+    "JawadBanohiTusi": "Jawad Banohi Tusi",
+    "MahdiSiafZadeh": "Mahdi Siaf Zadeh",
+    "MustafaAlSarraf": "Mustafa Al Sarraf",
+    "MuhammadAliAlDehdeshti": "Muhammad Ali Al Dehdeshti",
+    "MuhammadHosseinSaidian": "Muhammad Hossein Saidian",
+    "AbdulKabeerHaidari": "Abdul Kabeer Haidari",
+    "KarimMansouri": "Karim Mansouri"
 }
 
 const useS = (props) => {
@@ -157,7 +157,7 @@ const useS = (props) => {
     });
     const setSurahAudio = (v : any) => setUser({
         ...user,
-        surahAudio: v.includes(' ')?v:list[v]
+        surahAudio: v.includes(' ') ? v : list[v]
     });
 
     useEffect(() => {
@@ -245,24 +245,23 @@ const useS = (props) => {
             setP(queryp);
             getPage(queryp)
             state.init = true
-            if(queryp===cs.endPage){
-                client.query(PageQuery(s+1, ns.startPage)).toPromise()
+            if (queryp === cs.endPage) {
+                client.query(PageQuery(s + 1, ns.startPage)).toPromise()
                 client.query(SurahQuery('next', s)).toPromise()
-            }else{
+            } else {
                 client.query(PageQuery(s, queryp + 1)).toPromise()
-            } 
-            client.query(PageQuery(s, queryp - 1)).toPromise()
+            } client.query(PageQuery(s, queryp - 1)).toPromise()
         } else {
             state.init = true;
             state.loadedVerses = true;
             if (cs.count === props.data.page[props.data.page.length - 1].meta.ayah) {
-                client.query(PageQuery(s+1, ns.startPage)).toPromise();
-                client.query(SurahQuery('next', props.s+1)).toPromise();
+                client.query(PageQuery(s + 1, ns.startPage)).toPromise();
+                client.query(SurahQuery('next', props.s + 1)).toPromise();
             } else {
                 client.query(PageQuery(s, p + 1)).toPromise();
             };
             client.query(PageQuery(s - 1, ps.startPage)).toPromise();
-            client.query(PageQuery(s, p)).toPromise();         
+            client.query(PageQuery(s, p)).toPromise();
         }
     }, [])
 
@@ -270,13 +269,15 @@ const useS = (props) => {
         client.query(SurahQuery(type, s)).toPromise().then(result => {
             if (type === 'next') {
                 setNs(result.data.ns)
-                if(result.data.ns&&ns.startPage===ns.endPage){
-                    client.query(PageQuery(s+1, result.data.ns.startPage)).toPromise()
+                if (result.data.ns && ns.startPage === ns.endPage) {
+                    client.query(PageQuery(s + 1, result.data.ns.startPage)).toPromise()
                 }
             }
             if (type === 'prev') {
                 setPs(result.data.ps)
-                if(result.data.ps)client.query(PageQuery(s-1, result.data.ps.startPage)).toPromise()
+                if (result.data.ps) 
+                    client.query(PageQuery(s - 1, result.data.ps.startPage)).toPromise()
+                
             }
             setLoadingSurah(false)
         })
@@ -294,9 +295,9 @@ const useS = (props) => {
                 s + 2
             }`, undefined, {shallow: true})
             getSurah('next', s + 1)
-            if(ns.startPage===ns.endPage){
-                client.query(SurahQuery('next', s+1)).toPromise()
-            }else{
+            if (ns.startPage === ns.endPage) {
+                client.query(SurahQuery('next', s + 1)).toPromise()
+            } else {
                 client.query(PageQuery(s + 1, ns.startPage + 1)).toPromise()
             }
             setCs(ns)
@@ -307,13 +308,15 @@ const useS = (props) => {
         } else {
             router.push(`/${
                 s + 1
-            }?p=${p+1}`, undefined, {shallow: true})
+            }?p=${
+                p + 1
+            }`, undefined, {shallow: true})
             getPage(p + 1)
             setIsFirstPage(false)
-            if(p + 1 === cs.endPage){
+            if (p + 1 === cs.endPage) {
                 client.query(SurahQuery('next', s)).toPromise()
-                client.query(PageQuery(s+1, ns.startPage)).toPromise()
-            }else{
+                client.query(PageQuery(s + 1, ns.startPage)).toPromise()
+            } else {
                 client.query(PageQuery(s, p + 2)).toPromise()
             }
             setP(p + 1)
@@ -328,15 +331,17 @@ const useS = (props) => {
                 s
             }`, undefined, {shallow: true})
             getSurah('prev', s - 1)
-            client.query(PageQuery(s-1, ps.startPage+1)).toPromise()
+            client.query(PageQuery(s - 1, ps.startPage + 1)).toPromise()
             setNs(cs)
             setCs(ps)
             setS(s - 1)
             setP(ps.startPage)
         } else {
             router.push(`/${
-                s+1
-            }?p=${p-1}`, undefined, {shallow: true})
+                s + 1
+            }?p=${
+                p - 1
+            }`, undefined, {shallow: true})
             getPage(p - 1)
             if (p - 2 >= cs.startPage) {
                 client.query(PageQuery(s, p - 2)).toPromise();

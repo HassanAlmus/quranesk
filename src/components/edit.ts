@@ -13,20 +13,20 @@ export const defaultUser: User = {
 };
 
 
-const returnObjectWithDeletedValue = (user:User) => {
+const returnObjectWithDeletedValue = (user : User) => {
     let newUser = user;
- 
-    newUser.translations=user.translations.filter(t=>t!=='deaburida')
 
-    if(user.surahTranslation==='deaburida'){
-        newUser.surahTranslation='enqarai'
+    newUser.translations = user.translations.filter(t => t !== 'deaburida')
+
+    if (user.surahTranslation === 'deaburida') {
+        newUser.surahTranslation = 'enqarai'
     }
 
     return newUser
 }
 
 const returnUser = (cookies : any) => {
-    const userCookie = ( cookies !== undefined ? returnObjectWithDeletedValue(JSON.parse(cookies)) : undefined);
+    const userCookie = (cookies !== undefined ? returnObjectWithDeletedValue(JSON.parse(cookies)) : undefined);
     let user = userCookie !== undefined ? userCookie : defaultUser;
     user.translations = [...new Set(user.translations)as any] as string[]
     user.tafseers = [...new Set(user.tafseers)as any] as string[]
@@ -34,18 +34,23 @@ const returnUser = (cookies : any) => {
 }
 
 const edit = (query : any, clientUser : any) => {
-    let user = {...defaultUser, ...returnUser(clientUser)};
+    let user = {
+        ... defaultUser,
+        ... returnUser(clientUser)
+    };
     Object.keys(query).filter((e) => e !== "s" && e !== "v").forEach((e) => {
         switch (e) {
             case "t":
                 if (! user.translations.includes(query[e])) 
                     user.translations.unshift(query[e]);
                 
+
                 break;
             case "c":
                 if (! user.tafseers.includes(query[e])) 
                     user.tafseers.unshift(query[e]);
                 
+
                 break;
             case "w": user.wbwtranslation = query[e];
                 break;
@@ -67,17 +72,22 @@ const returnUser2 = (req : any) => {
 };
 
 export const edit2 = (query : any, req : any) => {
-    let user = {...returnUser2(req), ...defaultUser};
+    let user = {
+        ... returnUser2(req),
+        ... defaultUser
+    };
     Object.keys(query).filter((e) => e !== "s" && e !== "v").forEach((e) => {
         switch (e) {
             case "t":
                 if (! user.translations.includes(query[e])) 
                     user.translations.unshift(query[e]);
+                
 
                 break;
             case "c":
                 if (! user.tafseers.includes(query[e])) 
                     user.tafseers.unshift(query[e]);
+                
 
                 break;
             case "w": user.wbwtranslation = query[e];

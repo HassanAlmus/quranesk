@@ -10,11 +10,13 @@
     flex-direction: column;
     align-items: center;
     max-width: 1000px;
+
     #d3 {
         font-size: 2.5rem;
         color: $c1;
         margin-bottom: 15px;
     }
+
 }
 
 #home {
@@ -25,10 +27,13 @@
         margin-left: 5px;
         cursor: pointer !important;
     }
+
+
     .d8 {
         @include button;
         background: none !important;
     }
+
 }
 
 .d4_ {
@@ -38,71 +43,113 @@
     padding: 0 10px;
     border-radius: 5px;
     background-color: $c1;
+
     .d6_ {
         display: flex;
         align-items: center;
+
         @media(max-width: 430px) {
             * {
                 font-size: 1rem;
             }
+
+            ;
         }
+
+        ;
+
         #translation {
             color: whitesmoke;
+
             @media(max-width: 600px) {
                 display: none;
             }
+
+            ;
         }
+
+        ;
+
         #translation,
         #p {
             margin-left: 10px;
         }
+
+        ;
+
         #p,
         h3 {
             color: gold;
         }
+
+        ;
+
         h3 {
             transform: translateY(-0.5px);
             font-size: 1.5rem;
         }
+
+        ;
+
         .d7 {
             margin-left: 0.25rem;
         }
+
+        ;
+
         span {
             margin-left: 0.5rem;
         }
+
+        ;
     }
+
 }
 
 #d4 {
     padding: 25px;
     @include img('../public/bg7.png');
     width: 100vw;
+
     #d5 {
         display: flex;
         justify-content: space-around;
+
         @media(max-width: 500px) {
             flex-direction: column;
         }
+
+        ;
         align-items: center;
+
         #english,
         #arabic {
-            background: -webkit-linear-gradient(#cfdbcf,#fff);
+            background: -webkit-linear-gradient(#cfdbcf, #fff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-size: 2rem;
             font-weight: 700;
         }
+
+        ;
+
         #english {
             font-family: "cinzel-bold"
         }
+
+        ;
+
         #transliteration {
-            background: -webkit-linear-gradient(goldenrod,gold);
+            background: -webkit-linear-gradient(goldenrod, gold);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-size: 3rem;
             font-weight: 700
         }
+
+        ;
     }
+
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     @include shadow;
@@ -121,12 +168,14 @@
     h1 {
         color: rgb(180, 129, 0);
     }
+
 }
 
 #d7 {
     h1 {
         color: $c1
     }
+
 }
 
 #d8 {
@@ -141,10 +190,12 @@
     padding: 0 5px;
     border-radius: 5px;
     margin: 5px;
+
     h4 {
         color: white;
         transform: translateY(-1px);
     }
+
 }
 
 #d9,
@@ -179,9 +230,11 @@
 #d30 {
     margin-top: 25px;
     max-width: 1000px;
-    .verse{
+
+    .verse {
         width: 100%;
     }
+
 }
 
 #d200 {
@@ -197,6 +250,7 @@
     justify-content: space-around;
     width: 100vw;
     flex-wrap: wrap;
+
     #d32,
     #d33 {
         @include button;
@@ -205,103 +259,153 @@
         display: flex;
         align-items: center;
         margin: 25px;
+
         h1 {
             color: whitesmoke;
             font-family: "gentium-regular";
             font-weight: 700;
         }
+
+        ;
     }
+
+
     #d33 {
         background: linear-gradient(to right, $c2, $c1);
     }
+
+
     #d32 {
         background: $g5;
+
         h1 {
-            background: -webkit-linear-gradient($c1,$c2);
+            background: -webkit-linear-gradient($c1, $c2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        ;
     }
+
 }
 
-#d39{
+#d39 {
     @include button;
-     background: linear-gradient(to left, $c1, $c2);
-     h2 {color: whitesmoke;}
-     width: 10rem;
-     height: 3rem;
-     border-radius: 1.5rem;
-     @include center;
-     width: 150px;
-     bottom: 5vh;
-     left: 10vw;
-     position: fixed;
-     z-index: 10; 
+    background: linear-gradient(to left, $c1, $c2);
+
+    h2 {
+        color: whitesmoke;
+    }
+
+    width: 10rem;
+    height: 3rem;
+    border-radius: 1.5rem;
+    @include center;
+    width: 150px;
+    bottom: 5vh;
+    left: 10vw;
+    position: fixed;
+    z-index: 10;
 }
 
-#d40{
-    @media (max-width: 600px){@include center;}
-    @media (min-width: 600px){
+#d40 {
+    @media (max-width: 600px) {
+        @include center;
+    }
+
+
+    @media (min-width: 600px) {
         left: 10vw;
         display: flex;
         align-items: center;
     }
+
 }
 
-#d42{
+#d42 {
     display: flex;
     align-items: center;
-   #d41{
-    width: 45px;
-    height: 45px;
-    @include center;
-    border-radius: 50%;
-    cursor: pointer;
-    margin: 0 10px;
-    svg{
-        fill: $c1
+
+    #d41 {
+        width: 45px;
+        height: 45px;
+        @include center;
+        border-radius: 50%;
+        cursor: pointer;
+        margin: 0 10px;
+
+        h1 {
+            color: $c1
+        }
+
+        ;
     }
-   } 
+
 }
 
 #d34 {
-    //display: none!important;
-    bottom: 5vh;
-    left: 10vw;
     position: fixed;
-    z-index: 10; 
+    bottom: 5vh;
+
+    @media(max-width: 650px) {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    @media(min-width: 651px) {
+        left: 10vw;
+    }
+
+    z-index: 10;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     border-radius: 15px;
-    background:whitesmoke;
+    background: whitesmoke!important;
     padding: 10px;
     display: inline-block;
     border: 0.1px solid grey;
-    audio{
+
+    audio {
         width: calc(100% - 20px);
         outline: none;
     }
+
+
     #d35 {
         h2 {
             color: $c1
         }
+
+        ;
+
         h3 {
             color: rgb(87, 87, 87);
         }
+
+        ;
         display: flex;
         margin-bottom: 10px;
         margin-left: 10px;
     }
+
+    #d43 {
+        min-width: 200px;
+    }
+
     #d36 {
         display: flex;
         align-items: center;
         margin-left: 10px;
-        #d38{
+
+        #d38 {
             margin: 0 10px;
             color: $c1
         }
+
+        ;
+
         .c37 {
             display: flex;
             align-items: center;
@@ -316,11 +420,19 @@
             margin: 5px 0;
             border: 1px solid $c1;
             background: white;
+
             h1 {
                 transform: translateY(-7px);
                 font-size: 50px;
                 color: $c1;
             }
+
+            ;
         }
+
+        ;
     }
+
 }
+
+;

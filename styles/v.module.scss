@@ -4,20 +4,14 @@
     0% {
         background-position: 0 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0 50%;
     }
-}
-
-.d40 {
-    position: absolute;
-    bottom: 30px;
-    display: flex;
-    width: 100vw;
-    justify-content: center;
 }
 
 .d31 {
@@ -27,15 +21,18 @@
     @include glass;
     backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+
     @supports not((-webkit-backdrop-filter: none) or(backdrop-filter: none)) {
         background: white;
         border: 0;
     }
+
     border-radius: 0.4rem;
     cursor: pointer;
     padding: 10px 0;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
+
     .d32 {
         height: 40px;
         width: 40px;
@@ -45,6 +42,7 @@
         @include button;
         margin: 0 5px;
     }
+
     .d33 {
         display: flex;
         flex-direction: column;
@@ -52,10 +50,12 @@
         justify-content: center;
         margin: 0 5px;
         @include selectnone;
+
         h4 {
             color: $c2;
             font-family: "cinzel-regular";
         }
+
         h4:last-child {
             color: $c1;
         }
@@ -64,52 +64,64 @@
 
 
 .d34 {
-    .d39, .d41{
-      height: 45px;
-      width: 45px;
-      border-radius: 22.5px;
-      border: 1px solid $c2;
-      @include button;
-      @include center;
-      h1{
-          font-size: .75rem;
-          transform: translateY(-1px);
-      }
-      margin-right: 4px;
+
+    .d39,
+    .d41 {
+        height: 45px;
+        width: 45px;
+        border-radius: 22.5px;
+        border: 1px solid $c2;
+        @include button;
+        @include center;
+
+        h1 {
+            font-size: .75rem;
+            transform: translateY(-1px);
+        }
+
+        margin-right: 4px;
     }
-    
-    .d39{
+
+    .d39 {
         background-color: white;
-        h1{
+
+        h1 {
             color: $c2
         }
     }
 
-    .d41{
+    .d41 {
         background-color: $c2;
-        h1{
+
+        h1 {
             color: white
         }
     }
 
-    .d38{
+    .d38 {
         height: 60px;
         width: 60px;
         margin-right: 5px;
         cursor: pointer;
     }
-    box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-    background: whitesmoke;
+
+    background: whitesmoke!important;
     align-items: center;
     padding: 5px 10px;
     padding-top: 10px;
     border-radius: 10px;
     border: 0.1px solid grey;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
     @include selectnone;
+
     h2 {
         color: $c1;
         margin: 0 5px
     }
+
     .d35,
     .d36 {
         display: flex;
@@ -124,15 +136,16 @@
         justify-content: space-around;
         margin: 5px 0;
         border: 1px solid rgb(73, 73, 73);
-        h1{
+
+        h1 {
             transform: translateY(13px);
             font-size: 50px;
         }
     }
 }
- 
 
-#d50{
+
+#d50 {
     width: 100%;
     @include center;
     top: 0;
@@ -151,24 +164,29 @@
     width: 100%;
     margin: 0 15px;
     border: 1px solid $c1;
-    border-top:0;
+    border-top: 0;
     z-index: 10 !important;
     min-height: 50px;
+
     * {
         color: rgb(172, 108, 108);
     }
+
     .d3 {
         display: flex;
         align-items: center;
         cursor: pointer;
+
         a {
             margin-left: 5px;
         }
+
         .d8 {
             @include button;
             background: none !important;
         }
     }
+
     .d4 {
         @include selectnone;
         display: flex;
@@ -176,53 +194,67 @@
         padding: 0 10px;
         border-radius: 5px;
         background-color: $c1;
+
         .d6 {
             display: flex;
             align-items: center;
+
             @media(max-width: 430px) {
                 * {
                     font-size: 1rem;
                 }
             }
+
             h4 {
                 margin-left: 10px;
+
                 @media(max-width: 600px) {
                     display: none;
                 }
             }
+
             h2 {
                 margin-left: 10px;
             }
+
             h2,
             h3 {
                 color: gold;
             }
+
             h3 {
                 transform: translateY(-0.5px);
             }
+
             h4 {
                 color: white;
             }
+
             .d7 {
                 margin-left: 0.25rem;
             }
+
             span {
                 margin-left: 0.5rem;
             }
         }
     }
+
     .d5 {
         width: 40px;
         height: 40px;
         margin-right: 10px
     }
 }
+
 .d18 {
     @include blurbg(5);
     z-index: 20 !important;
+
     * {
         @include selectnone;
     }
+
     .d29 {
         height: 30px;
         width: 80px;
@@ -232,66 +264,83 @@
         @include button;
         margin-bottom: 10px;
     }
+
     .d19 {
-        #d105{
+        #d105 {
             color: #d72323;
             margin: 10px;
             font-weight: bolder;
             margin-left: 0;
         }
+
         max-width: 600px;
         background-color: white;
         padding: 20px 20px 100px;
         border-radius: 10px;
+
         @media(min-width: 700px) {
             max-height: calc(100vh - 4rem);
         }
+
         overflow-y: overlay;
+
         @supports not((overflow-y: overlay, )) {
             overflow-y: scroll;
         }
+
         @media(max-width: 700px) {
             height: 100vh;
             width: 100vw;
             padding-top: 80px;
         }
+
         h2 {
             color: $c1;
             font-family: "cinzel-bold";
-            font-size: 1rem;;
+            font-size: 1rem;
+            ;
         }
+
         .d25 {
             margin: 0.5rem;
             padding: 0.25rem;
             border-radius: 0.25rem;
             display: flex;
+
             &:focus {
                 border: 1px sold $c1;
             }
         }
+
         .d20 {
             margin: 5px 0;
+
             .d21 {
                 display: flex;
                 align-items: center;
                 margin: 10px;
+
                 h3 {
                     width: 100%;
                 }
             }
         }
+
         .d22 {
             padding: 5px 7.5px;
             margin: 5px;
             border-radius: 10px;
             background-color: rgba(128, 128, 128, 0.2);
+
             .d23 {
                 display: flex;
                 align-items: center;
                 margin-bottom: 5px;
+
                 .d24 {
                     margin-right: 0.5rem;
                 }
+
                 h4 {
                     width: 100%;
                 }
@@ -305,9 +354,11 @@
     width: 100vw;
     position: fixed;
     @include center;
+
     .d44 {
         @include center;
         flex-direction: column;
+
         h1 {
             @include gt($c1, $c2);
         }
@@ -315,7 +366,7 @@
 }
 
 
-#d200{
+#d200 {
     width: 100vw;
     display: flex;
     justify-content: center;
@@ -327,7 +378,7 @@
     align-items: center;
 }
 
-.d9{
+.d9 {
     margin: 20px;
     margin-bottom: 200px;
     max-width: 1000px;
@@ -336,7 +387,7 @@
     justify-content: center;
 }
 
-#d100{
+#d100 {
     display: flex;
     align-items: center;
 }

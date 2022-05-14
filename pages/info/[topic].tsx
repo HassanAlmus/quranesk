@@ -121,11 +121,11 @@ const Topic = () => {
                 loading && stateText === undefined ? (
                     <h1>Loading...</h1>
                 ) : (
-                  <p className="latin">
-<div dangerouslySetInnerHTML={
-                        {__html: stateText}
-                    }/>
-                  </p>
+                    <p className="latin">
+                        <div dangerouslySetInnerHTML={
+                            {__html: stateText}
+                        }/>
+                    </p>
                 )
             } </div>
         </div>

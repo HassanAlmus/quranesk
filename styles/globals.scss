@@ -66,19 +66,21 @@ a {
   transition: transform .25s ease-out;
 }
 
-.a:hover { 
-  color: #fff; 
+.a:hover {
+  color: #fff;
 }
+
 .a:hover::before {
   transform: translateY(0);
   transition: transform .25s ease-out;
 }
 
-html, body{
+html,
+body {
   overflow-y: overlay
 }
 
-.s .verse{
+.s .verse {
   margin: 15px;
   width: 100%;
 }

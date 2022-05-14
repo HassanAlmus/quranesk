@@ -1,5 +1,5 @@
-import { useState} from "react";
-import { User} from "../../utils";
+import {useState} from "react";
+import {User} from "../../utils";
 import styles from '../../styles/audio.module.scss'
 import ReactPlayer from 'react-player/lazy'
 
@@ -17,10 +17,16 @@ const A = (props : {
         <div id={
             styles.d1
         }>
-            <button onClick={()=>setPlaying(!playing)}>{playing?"stop":"play"}</button>
-            <ReactPlayer playing={playing} url="https://shiavoice.com/media/quran/krim_mensuri/telawe/gzywgiwk7606.mp3"/>
+            <button onClick={
+                () => setPlaying(!playing)
+            }>
+                {
+                playing ? "stop" : "play"
+            }</button>
+            <ReactPlayer playing={playing}
+                url="https://shiavoice.com/media/quran/krim_mensuri/telawe/gzywgiwk7606.mp3"/>
         </div>
-        
+
     )
 }
 

@@ -2,24 +2,29 @@
 
 .d1 {
   display: flex;
+
   @media (max-width: 709px) {
     flex-direction: column-reverse;
     justify-content: space-around;
   }
+
   .d2 {
     display: flex;
+
     @media (min-width: 709px) {
       width: 10rem;
       flex-direction: column;
       justify-content: center;
       padding: 1rem;
     }
+
     @media (max-width: 709px) {
       overflow-x: scroll;
       height: 40px;
       @include noscrollbar;
       align-items: center;
     }
+
     .d4,
     .d5 {
       height: 2rem;
@@ -31,39 +36,48 @@
       margin-bottom: 0.5rem;
       border: 1px solid $c1;
       min-width: 8rem;
+
       h2 {
         font-size: 1rem;
       }
+
       @media (max-width: 709px) {
         margin-bottom: 0;
         margin-left: 0.5rem;
       }
     }
+
     .d5 {
       border: 0;
       background: linear-gradient(to left, $c3, $c2);
     }
   }
+
   .d3 {
     padding: 1rem;
     display: flex;
     flex-direction: column;
+
     h1 {
       margin-bottom: 1rem;
     }
+
     ul {
       margin-left: 1rem;
     }
+
     background-color: white;
     border-radius: 1rem;
     @include shadow;
     border: 1px solid $c1;
     overflow-y: scroll;
+
     @media (min-width: 709px) {
       justify-self: center;
       width: calc(100% - 12rem);
       margin: 2rem 0;
     }
+
     @media (max-width: 709px) {
       padding: 1rem;
       margin: 0.5rem;

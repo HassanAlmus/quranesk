@@ -1,43 +1,50 @@
 @import "./mixins.scss";
 
-@keyframes fadeout{
-    0%{
+@keyframes fadeout {
+    0% {
         opacity: 1
     }
-    100%{
+
+    100% {
         opacity: 0
     }
 }
-#notif{
+
+#notif {
     color: $c1;
     font-family: "gentium-regular";
     font-weight: bolder;
     animation: fadeout 1s ease-in-out 3s;
-    animation-fill-mode: forwards;  
+    animation-fill-mode: forwards;
 }
 
-.d44{
+.d44 {
     display: flex;
     justify-content: space-between;
     margin: 20px 0;
     align-items: center;
-    #d100, #d101{
+
+    #d100,
+    #d101 {
         background: linear-gradient(to right, $c2, $c1);
         @include button;
         border-radius: 7px;
         padding: 5px 15px;
         display: flex;
         align-items: center;
-        h3{
-        color: whitesmoke;
-        font-family: "gentium-regular";
-        font-weight: bolder;
-}
+
+        h3 {
+            color: whitesmoke;
+            font-family: "gentium-regular";
+            font-weight: bolder;
+        }
     }
-    #d101{
+
+    #d101 {
         background: whitesmoke;
-        h3{
-            color: $c1 
+
+        h3 {
+            color: $c1
         }
     }
 }
@@ -51,32 +58,40 @@
             font-family: 'gentium-regular';
             font-size: 1.2rem;
         }
+
         position: relative;
+
         span.d30 {
             color: $c1;
             @include selectnone;
             font-size: 1rem;
             font-family: 'gentium-italic';
             vertical-align: text-top;
+
             &:nth-child(1) {
                 margin-right: 5px;
             }
+
             &:last-child {
                 margin-left: 5px;
             }
         }
     }
+
     .d12 {
         padding: 10px;
         border-radius: 10px;
+
         .d42 {
             display: flex;
             flex-direction: row-reverse;
             flex-wrap: wrap;
             align-items: center;
+
             * {
                 @include selectnone;
             }
+
             .d13 {
                 margin-left: 0.25em;
                 display: flex;
@@ -86,16 +101,20 @@
                 justify-content: center;
                 cursor: pointer;
                 position: relative;
+
                 h1 {
                     transition: ease-in 0.25s color;
                 }
+
                 h1:hover {
                     color: $c2;
                     transition: ease-in 0.25s color;
                 }
+
                 h4 {
                     color: whitesmoke;
                 }
+
                 .d15,
                 .d16 {
                     position: absolute;
@@ -103,6 +122,7 @@
                     display: flex;
                     flex-direction: column;
                     z-index: 2;
+
                     div {
                         padding: 0.25rem 0.5rem;
                         background: linear-gradient(to right, $c1, $c2);
@@ -111,14 +131,17 @@
                         white-space: nowrap;
                         font-size: 0.75rem;
                     }
+
                     h4 {
                         font-size: 1rem
                     }
                 }
+
                 .d15 {
                     transform: translateY(-40px);
                     justify-content: flex-end;
                 }
+
                 .d16 {
                     transform: translateY(40px);
                     justify-content: flex-start;
@@ -127,29 +150,35 @@
         }
     }
 }
+
 .d26 {
     width: 100%;
     padding: 15px;
     background-color: white;
     box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
     border-radius: 10px;
+
     .d27:nth-child(1) {
         margin-top: 0;
     }
+
     .d27 {
         margin-top: 10px;
-        padding:10px;
+        padding: 10px;
+
         .d41 {
             display: flex;
             justify-content: space-between;
-            
-            div{
+
+            div {
                 display: flex;
-                align-items: center; ;
-            display: flex;
-            align-items: center;
-            justify-content: space-between; 
+                align-items: center;
+                ;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
             }
+
             h1 {
                 color: $c1;
                 margin: 0 10px;
@@ -157,18 +186,22 @@
                 @include selectnone;
             }
         }
+
         p {
             padding: 10px;
             font-size: 1.25rem;
+
             div {
                 margin-bottom: 10px;
                 display: flex;
                 flex-wrap: wrap;
                 align-items: center;
+
                 span {
                     margin-right: 0.25em;
                 }
             }
+
             div:last-child,
             div:last-of-type {
                 margin: 0;
@@ -183,6 +216,7 @@
     border-radius: 3px;
     background-color: rgb(78, 78, 78);
     display: inline-block;
+
     h4 {
         color: white;
         font-size: 15px;
@@ -190,7 +224,7 @@
     }
 }
 
-#d19{
+#d19 {
     @include button;
     border-radius: 5px;
     background-color: rgb(230, 230, 230);
@@ -200,25 +234,31 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    &:hover h2{
+
+    &:hover h2 {
         color: white;
     }
+
     &:hover svg {
         fill: white;
         stroke: white;
     }
-    &:hover{
+
+    &:hover {
         background-color: $c1;
     }
+
     &:hover {
-        #d21{
+        #d21 {
             background-color: white;
-            h4{
+
+            h4 {
                 color: $c1
             }
         }
     }
-    svg{
+
+    svg {
         width: 30px;
         height: 50px;
         margin-right: 10px;
@@ -226,18 +266,19 @@
     }
 }
 
-#d20{
+#d20 {
     display: flex;
     flex-direction: column;
 }
 
-#d21{
+#d21 {
     background-color: $c1;
     align-self: flex-end;
     padding: 0 10px;
     border-radius: 5px;
     margin-bottom: 10px;
-    h4{
+
+    h4 {
         color: white
     }
 }

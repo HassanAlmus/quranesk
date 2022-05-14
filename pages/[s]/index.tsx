@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import Head from "next/head";
 import styles from "../../styles/s.module.scss";
 import VerseComponent from '../../src/components/VerseComponent';
@@ -8,146 +8,144 @@ import useS from "../../src/components/useS";
 import Link from "next/link";
 import Image from "next/image";
 import {client2} from '../../urql-client';
-import { gql} from "urql";
-import { useSnapshot } from "valtio";
-import { state } from "../../src/components/useS";
+import {gql} from "urql";
+import {useSnapshot} from "valtio";
+import {state} from "../../src/components/useS";
 import {state as state2} from '../../src/components/useV';
 import Popup from "../../src/components/popup";
 import ReactAudioPlayer from 'react-audio-player';
 import surahs from '../../src/data/surahinfo.json';
 
-const S = (props:{isFirstPage: boolean, p: number, s: number, data: {cs: Surah, ps: Surah, ns: Surah, page: Verse[]}}) => {
-    const snap = useSnapshot(state);
-    const {
-        tafseerMap,
-        audioMap,
-        translationMap,
-        setTafseer,
-        setWbwtranslation,
-        user,
-        setRasm,
-        setTranslation,
-        nextPage,
-        prevPage,   
-        s,
-        p,
-        cs,
-        isFirstPage,
-verses,
-ps, ns,loading, showPopup, setShowPopup, myRef, loadingSurah,
-surahAudioIndex, setSurahAudioIndex,
-showAudio, setShowAudio,
-surahAudioMap,
-setSurahAudio
-    } = useS(props);
-    useEffect(()=>state2.reset(),[]);
-    return (
-        <>
-            <div ref={myRef}></div>
-        <Head>
-            <title> {
-                `${s+1}. ${
-                    cs.title.split(" (")[1].substring(0, cs.title.split(" (")[1].length - 1).replace("'", "&apos;")
-                } (${
-                    cs.title.split(" (")[0]
-                })${isFirstPage?"":` - P${p}`}`
-            }</title>
-            <meta property="og:title"
-                content={
-                    `${s+1}. ${
-                        cs.title.split(" (")[1].substring(0, cs.title.split(" (")[1].length - 1).replace("'", "&apos;")
-                    } (${
-                        cs.title.split(" (")[0]
-                    })${isFirstPage?"":` - P${p}`}`
-            }></meta>
-            <meta name="keywords"
-                content={
-                    `${
-                        cs.title
-                    }, ${
-                        cs.titleAr
-                    }`
-            }></meta>
-            <meta name="description"
-                content={
-                    `Verses ${verses[0].meta.ayah}-${verses[verses.length-1].meta.ayah}`
-            }></meta>
-            <meta name="og:description"
-                content={
-                    `Verses ${verses[0].meta.ayah}-${verses[verses.length-1].meta.ayah}`
-            }></meta>
-        </Head>
-     
-            {showAudio?<div id={styles.d40}><div id={styles.d34}>
-                    <div id={styles.d35}>
-                        <div>
-                        <h2>{user.surahAudio}</h2>
-                      <h3>{surahAudioIndex+1}. {surahs[surahAudioIndex].title}</h3>
-                        </div>
-                          <div id={styles.d36}>
-                    <div className={
-                                    styles.c37
-                                } onClick={()=>{if(surahAudioIndex>0){setSurahAudioIndex(surahAudioIndex-1)}}}>
-                                <h1>‹</h1>
-                            </div>
-                                <h1 id={styles.d38}>{surahAudioIndex+1}</h1>                          
-                            <div className={
-                                    styles.c37
+const S = (props : {
+    isFirstPage: boolean,
+    p: number,
+    s: number,
+    data: {
+        cs: Surah,
+        ps: Surah,
+        ns: Surah,
+        page: Verse[]
+    }
+}) => {
+        const snap = useSnapshot(state);
+        const {
+            tafseerMap,
+            audioMap,
+            translationMap,
+            setTafseer,
+            setWbwtranslation,
+            user,
+            setRasm,
+            setTranslation,
+            nextPage,
+            prevPage,
+            s,
+            p,
+            cs,
+            isFirstPage,
+            verses,
+            ps,
+            ns,
+            loading,
+            showPopup,
+            setShowPopup,
+            myRef,
+            loadingSurah,
+            surahAudioIndex,
+            setSurahAudioIndex,
+            showAudio,
+            setShowAudio,
+            surahAudioMap,
+            setSurahAudio
+        } = useS(props);
+        useEffect(() => state2.reset(), []);
+
+        const SurahAudio = () => (showAudio ? <div id={
+            styles.d40
+        }>
+            <div id={
+                styles.d34
+            }>
+                <div id={
+                    styles.d35
+                }>
+                    <div id={styles.d43}>
+                        <h2>{
+                            user.surahAudio
+                        }</h2>
+                        <h3>{
+                            surahAudioIndex + 1
+                        }. {
+                            surahs[surahAudioIndex].title
+                        }</h3>
+                    </div>
+                    <div id={
+                        styles.d36
+                    }>
+                        <div className={
+                                styles.c37
+                            }
+                            onClick={
+                                () => {
+                                    if (surahAudioIndex > 0) {
+                                        setSurahAudioIndex(surahAudioIndex - 1)
+                                    }
                                 }
-                                onClick={()=>{if(surahAudioIndex<113){setSurahAudioIndex(surahAudioIndex+1)}}}
-                            >
-                                <h1>›</h1>
-                            </div>
+                        }>
+                            <h1>‹</h1>
+                        </div>
+                        <h1 id={
+                            styles.d38
+                        }>
+                            {
+                            surahAudioIndex + 1
+                        }</h1>
+                        <div className={
+                                styles.c37
+                            }
+                            onClick={
+                                () => {
+                                    if (surahAudioIndex < 113) {
+                                        setSurahAudioIndex(surahAudioIndex + 1)
+                                    }
+                                }
+                        }>
+                            <h1>›</h1>
+                        </div>
                     </div>
-                      
+
+                </div>
+                <div id={
+                    styles.d42
+                }>
+                    <div id={
+                            styles.d41
+                        }
+                        onClick={
+                            () => setShowAudio(false)
+                    }>
+                        <h1>✖</h1>
                     </div>
-                  <div id={styles.d42}>
-                  <div id={styles.d41} onClick={()=>setShowAudio(false)}>     
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-  <path fillRule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clipRule="evenodd" />
-  <path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z" />
-</svg>
+                    <ReactAudioPlayer controls
+                        src={
+                            surahs[surahAudioIndex].reciters[user.surahAudio.split(' ').join('')]
+                        }/>
+
                 </div>
-                  <ReactAudioPlayer
-                    controls
-                    src={surahs[surahAudioIndex].reciters[user.surahAudio.split(' ').join('')]}
-                    />
-                  
-                  </div>
-                </div>
-                </div>:<div id={styles.d39} onClick={()=>setShowAudio(true)}><h2>
-              Audio ♪
-            </h2></div>}
-        {snap.init&&<>
-            {
-            showPopup && <Popup setTranslations={
-                    (v : any) => setTranslation(v)
-                }
-                v={false}
-                tafseerMap={tafseerMap}
-                audioMap={audioMap}
-                translationMap={translationMap}
-                surahAudioMap={surahAudioMap}
-                setTafseers={
-                    (v : any) => setTafseer(v)
-                }
-                setWbwtranslation={
-                    (v : any) => setWbwtranslation(v)
-                }
-                user={user}
-                setRasm={
-                    (v : any) => setRasm(v)
-                }
-                setShowPopup={
-                    (v : any) => setShowPopup(v)
-                }
-                setSurahAudio={
-                    (v : any) => setSurahAudio(v)
-                }
-                />
-        }
-            {
-            isFirstPage && <div id={
+            </div>
+        </div> : <div id={
+                styles.d39
+            }
+            onClick={
+                () => setShowAudio(true)
+        }>
+            <h2>
+                Audio ♪
+            </h2>
+        </div>)
+
+        const BodyFirstPageBanner = () => (isFirstPage && (
+            <div id={
                 styles.d4
             }>
                 <div id={
@@ -163,7 +161,11 @@ setSurahAudio
                         styles.transliteration
                     }>
                         {
-                        `${s+1}. ${cs.title.split(" (")[1].slice(0, -1)}`
+                        `${
+                            s + 1
+                        }. ${
+                            cs.title.split(" (")[1].slice(0, -1)
+                        }`
                     }</h1>
                     <h2 id={
                             styles.arabic
@@ -174,7 +176,9 @@ setSurahAudio
                     }</h2>
                 </div>
             </div>
-        }
+        ));
+
+        const BodyBanner = () => (
             <div id={
                 styles.d11
             }>
@@ -192,15 +196,33 @@ setSurahAudio
                     <div className={
                         styles.d6_
                     }>
-                        {isFirstPage?<h4 style={{color:'whitesmoke'}}>P{p}</h4>:<><h3>{s+1}. {
-                            cs.title.split(" (")[1].substring(0, cs.title.split(" (")[1].length - 1)
-                        } </h3>
-                        <h3 id={styles.translation}>{
-                            cs.title.split(" (")[0]
-                        }</h3>
-                        {<h3 id={styles.p}>P{isFirstPage?cs.startPage:p}</h3>}
-                        </>}
-                    </div>
+                        {
+                        isFirstPage ? (
+                            <h4 style={
+                                {color: 'whitesmoke'}
+                            }>P{p}</h4>
+                        ) : (
+                            <>
+                                <h3>{
+                                    s + 1
+                                }. {
+                                    cs.title.split(" (")[1].substring(0, cs.title.split(" (")[1].length - 1)
+                                } </h3>
+                                <h3 id={
+                                    styles.translation
+                                }>
+                                    {
+                                    cs.title.split(" (")[0]
+                                }</h3>
+                                <h3 id={
+                                    styles.p
+                                }>
+                                    P {
+                                    isFirstPage ? cs.startPage : p
+                                } </h3>
+                            </>
+                        )
+                    } </div>
                 </div>
                 <div className={
                         styles.d5
@@ -221,103 +243,186 @@ setSurahAudio
                     </svg>
                 </div>
             </div>
-            {
-            loading ? <div className="hsloading"><Loader/></div> : 
-            <div id={styles.d200}>
-<div id={
+        );
+
+        const BodyVerses = () => (loading ? <div className="hsloading"><Loader/></div> : <div id={
+            styles.d200
+        }>
+            <div id={
                 styles.d30
-            }>  
+            }>
                 {
-                verses.map((verse, i) =><>
-                < VerseComponent user = {
-                    user
-                }
-                loc = {
-                    [
-                        verse.meta.surah - 1,
-                        verse.meta.ayah - 1
-                    ]
-                }
-                verse = {
-                    verse
-                }
-                key = {
-                    i
-                }
-                translationMap = {
-                    translationMap
-                }
-                tafseerMap = {
-                    tafseerMap
-                }
-                component='s'
-                />
-                </>
+                verses.map((verse, i) =><> <VerseComponent user={user}
+                    loc={
+                        [
+                            verse.meta.surah - 1,
+                            verse.meta.ayah - 1
+                        ]
+                    }
+                    verse={verse}
+                    key={i}
+                    translationMap={translationMap}
+                    tafseerMap={tafseerMap}
+                    component='s'/>
+            </>
                 )
             } </div>
+        </div>
+    )
+
+    const BodyPageNav = () => (loadingSurah === false && (
+        <div id={
+            styles.d31
+        }>
+            {
+            s !== 0 && <div id={
+                    styles.d32
+                }
+                className="s first"
+                onClick={
+                    () => {
+                        prevPage()
+                    }
+            }>
+                <h1>‹ {
+                    verses[0].meta.ayah === 1 ? `${s}. ${
+                        ps.title.split(' (')[1].slice(0, -1)
+                    }` : `P${
+                        p - 1
+                    }`
+                }</h1>
             </div>
         }
             {
-            loadingSurah === false && <div id={
-                styles.d31
+            s !== 113 && <div id={
+                    styles.d33
+                }
+                className="s second"
+                onClick={
+                    () => {
+                        nextPage()
+                    }
             }>
-                {
-                s !== 0 && <div id={
-                        styles.d32
+                <h1>{
+                    verses[verses.length - 1].meta.ayah === cs.count ? `${
+                        s + 2
+                    }. ${
+                        ns.title.split(' (')[1].slice(0, -1)
+                    }` : `P${
+                        p + 1
+                    }`
+                }
+                    {` ›`}</h1>
+            </div>
+        } </div>
+    ))
+
+    const Body = () => (snap.init && (
+        <> {
+            showPopup && (
+                <Popup setTranslations={
+                        (v : any) => setTranslation(v)
                     }
-                    className="s first"
-                    onClick={
-                        () => {
-                            prevPage()
-                        }
-                }>
-                    <h1>‹ {
-                        verses[0].meta.ayah === 1 ? `${s}. ${
-                            ps.title.split(' (')[1].slice(0, -1)
-                        }` : `P${
-                            p - 1
-                        }`
-                    }</h1>
-                </div>
-            }
-                {
-                s !== 113 && <div id={
-                        styles.d33
+                    v={false}
+                    tafseerMap={tafseerMap}
+                    audioMap={audioMap}
+                    translationMap={translationMap}
+                    surahAudioMap={surahAudioMap}
+                    setTafseers={
+                        (v : any) => setTafseer(v)
                     }
-                    className="s second"
-                    onClick={
-                        () => {
-                            nextPage()
-                        }
-                }>
-                    <h1>{
-                        verses[verses.length - 1].meta.ayah === cs.count ? `${
-                            s + 2
-                        }. ${
-                            ns.title.split(' (')[1].slice(0, -1)
-                        }` : `P${
-                            p + 1
-                        }`
+                    setWbwtranslation={
+                        (v : any) => setWbwtranslation(v)
                     }
-                       {` ›`}</h1>
-                </div>
-            } </div>
+                    user={user}
+                    setRasm={
+                        (v : any) => setRasm(v)
+                    }
+                    setShowPopup={
+                        (v : any) => setShowPopup(v)
+                    }
+                    setSurahAudio={
+                        (v : any) => setSurahAudio(v)
+                    }/>
+            )
         }
-        </>}
-     </>
-    );
+            <BodyFirstPageBanner/>
+            <BodyBanner/>
+            <BodyVerses/>
+            <BodyPageNav/>
+        </>
+    ))
+    return (<>
+        <div ref={myRef}></div>
+        <Head>
+            <title> {
+                `${
+                    s + 1
+                }. ${
+                    cs.title.split(" (")[1].substring(0, cs.title.split(" (")[1].length - 1).replace("'", "&apos;")
+                } (${
+                    cs.title.split(" (")[0]
+                })${
+                    isFirstPage ? "" : ` - P${p}`
+            }`
+                                                            }</title>
+            <meta property="og:title"
+                content={
+                    `${
+                        s + 1
+                    }. ${
+                        cs.title.split(" (")[1].substring(0, cs.title.split(" (")[1].length - 1).replace("'", "&apos;")
+                    } (${
+                        cs.title.split(" (")[0]
+                    })${
+                        isFirstPage ? "" : ` - P${p}`
+                    }`
+            }></meta>
+            <meta name="keywords"
+                content={
+                    `${
+                        cs.title
+                    }, ${
+                        cs.titleAr
+                    }`
+            }></meta>
+            <meta name="description"
+                content={
+                    `Verses ${
+                        verses[0].meta.ayah
+                    }-${
+                        verses[verses.length - 1].meta.ayah
+                    }`
+            }></meta>
+            <meta name="og:description"
+                content={
+                    `Verses ${
+                        verses[0].meta.ayah
+                    }-${
+                        verses[verses.length - 1].meta.ayah
+                    }`
+            }></meta>
+        </Head>
+        <SurahAudio/>
+        <Body/>
+    </>
+);;;;;
 };
 
 export async function getStaticPaths() {
     return {
-      paths: Array.from(Array(114).keys()).map((_s)=>{
-        return {params: {s:(_s+1).toString()}}
-    }),
-      fallback: false
+        paths: Array.from(Array(114).keys()).map((_s) => {
+            return {
+                params: {
+                    s: (_s + 1).toString()
+                }
+            }
+        }),
+        fallback: false
     };
-  };
+};
 
-const returnQuery = (s : number ) => {
+const returnQuery = (s : number) => {
     return gql `
     query Query {
         cs: surah(s: ${
@@ -407,13 +512,24 @@ const returnQuery = (s : number ) => {
 `;
 };
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({params}) {
     let data;
-    await client2.query(returnQuery(Number(params.s))).toPromise().then((result=>{
-        if(result.error)console.log(result.error);
-        data=result.data;
-    })) 
-    return { props: { s: Number(params.s)-1, data, p: data.cs.startPage, isFirstPage: true} };
+    await client2.query(returnQuery(Number(params.s))).toPromise().then((result => {
+        if (result.error) 
+            console.log(result.error);
+        
+
+
+        data = result.data;
+    }))
+    return {
+        props: {
+            s: Number(params.s) - 1,
+            data,
+            p: data.cs.startPage,
+            isFirstPage: true
+        }
+    };
 };
 
 export default S
