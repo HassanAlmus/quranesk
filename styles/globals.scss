@@ -9,6 +9,7 @@ body {
   margin: 0px;
   padding: 0px;
   overflow-x: hidden;
+  overflow-y: overlay
 }
 
 a {
@@ -73,14 +74,4 @@ a {
 .a:hover::before {
   transform: translateY(0);
   transition: transform .25s ease-out;
-}
-
-html,
-body {
-  overflow-y: overlay
-}
-
-.s .verse {
-  margin: 15px;
-  width: 100%;
 }
