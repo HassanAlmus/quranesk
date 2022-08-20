@@ -1,5 +1,5 @@
 import styles from '../../styles/VerseComponent.module.scss'
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import {
     Word,
     User,
@@ -60,19 +60,18 @@ const VerseComponent = (props : {
         }?${type}=${key}`;
         copy(link);
     };
+    
     const WordDisplay = (props : {
         nav: [number, number, number]
     }) => {
         const [s, setS] = useState(false);
-        const [audio] = useState(typeof Audio !== "undefined" && new Audio(`https://words.audios.quranwbw.com/${
-            props.nav[0] + 1
-        }/${
+        const [audio] = useState(typeof Audio !== "undefined" && new Audio(`https://github.com/HassanAlmus/wbw/blob/main/${
             (props.nav[0] + 1).toString().padStart(3, "0")
         }_${
             (props.nav[1] + 1).toString().padStart(3, "0")
         }_${
             (props.nav[2] + 1).toString().padStart(3, "0")
-        }.mp3`));
+        }.mp3?raw=true`));
         const word = (verse ?. words[props.nav[2]] as Word);
         return (
             <div className={
@@ -103,11 +102,7 @@ const VerseComponent = (props : {
                     onClick={
                         () => {
                             setS(true);
-                            if (typeof audio !== "undefined") 
-                                (audio as HTMLAudioElement).play();
-                            
-
-
+                            audio.play()
                         }
                     }
                     onMouseEnter={
@@ -562,4 +557,5 @@ const VerseComponent = (props : {
         } </div>
     );
 };
+
 export default VerseComponent

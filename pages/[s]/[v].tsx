@@ -169,13 +169,9 @@ const V = (props : {
                                 controls
                                 onEnded={
                                     () => {
-                                        if (!user.autoplay) 
-                                            setPlaying(false)
-
-
-                                        
-
-
+                                        if (!user.autoplay) {
+                                            setPlaying(false);
+                                        }
                                         if (user.autoplay) {
                                             if (!(loc[0] === 113 && loc[1] === 6)) {
                                                 setLoc(loc[1] + 1 === snap.cs.count ? [
