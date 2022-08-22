@@ -46,7 +46,7 @@ const useV = () => {
                 (loc[0] + 1).toString().padStart(3, "0")
             }${
                 (loc[1] + 1).toString().padStart(3, "0")
-            }.mp3`);
+            }.mp3?raw=true`);
         }
     }, [user]);
 
@@ -224,7 +224,7 @@ const useV = () => {
                 (loc[0] + 1).toString().padStart(3, "0")
             }${
                 (loc[1] + 1).toString().padStart(3, "0")
-            }.mp3`)
+            }.mp3?raw=true`)
         }
     }, [router.query])
 
@@ -310,7 +310,7 @@ const useV = () => {
             (loc[0] + 1).toString().padStart(3, "0")
         }${
             (loc[1] + 1).toString().padStart(3, "0")
-        }.mp3`);
+        }.mp3?raw=true`);
     }, [loc]);
 
     const prevVerse = () => {

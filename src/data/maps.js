@@ -162,45 +162,45 @@ export default {
         {
             "type": "Murattal",
             "name": "Shahriyar Pargizagar",
-            "url": "https://dl.salamquran.com/ayat/parhizgar-murattal-48/",
+            "url": "https://github.com/HassanAlmus/audio/blob/main/murparhizgar/",
             "key": "murparhizgar"
         },
         {
             "type": "Murattal",
             "name": "Karim Mansouri",
-            "url": "https://dl.salamquran.com/ayat/mansouri-murattal-40/",
+            "url": "https://github.com/HassanAlmus/audio/blob/main/murmansouri/",
             "key": "murmansouri"
         },
         {
             "type": "Murattal",
             "name": "Mohd. Hossein Sabzali",
-            "url": "https://dl.salamquran.com/ayat/sabzali-murattal-32/",
+            "url": "https://github.com/HassanAlmus/audio/blob/main/mursabzali/",
             "key": "mursabzali"
         },
         {
             "type": "Murattal",
             "name": "Hannaneh Khalafi",
-            "url": "https://dl.salamquran.com/ayat/khalafi-murattal-192/",
+            "url": "https://github.com/HassanAlmus/audio/blob/main/murkhalafi/",
             "key": "murkhalafi"
         }, {
             "type": "Murattal",
             "name": "Hossein Saeediyan",
-            "url": "https://dl.salamquran.com/ayat/saeediyan-murattal-16/",
+            "url": "https://github.com/HassanAlmus/audio/blob/main/mursaeediyan/",
             "key": "mursaeediyan"
         }, {
             "type": "Farsi Translation",
             "name": "Naser Makarem Shirazi",
-            "url": "https://dl.salamquran.com/ayat/makarem.fa.kabiri-translation-16/",
-            "key": "fatshirzai"
+            "url": "https://github.com/HassanAlmus/audio/blob/main/fatshirazi/",
+            "key": "fatshirazi"
         }, {
             "type": "Farsi Translation",
             "name": "Mohd. Mahdi Fooladvand",
-            "url": "https://dl.salamquran.com/ayat/foladvand.fa.hedayatfar-translation-40/",
+            "url": "https://github.com/HassanAlmus/audio/blob/main/fatfoolavand/",
             "key": "fatfoolavand"
         }, {
             "type": "Farsi Translation",
             "name": "Hossein Ansarian",
-            "url": "https://dl.salamquran.com/ayat/ansarian.fa.salimi-translation-16/",
+            "url": "https://github.com/HassanAlmus/audio/blob/main/fatansarian/",
             "key": "fatansarian"
         }
     ],
