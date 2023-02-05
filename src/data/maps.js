@@ -162,45 +162,45 @@ export default {
         {
             "type": "Murattal",
             "name": "Shahriyar Pargizagar",
-            "url": "https://github.com/HassanAlmus/audio/blob/main/murparhizgar/",
+            "url": "https://raw.githubusercontent.com/HassanAlmus/audio/main/murparhizgar/",
             "key": "murparhizgar"
         },
         {
             "type": "Murattal",
             "name": "Karim Mansouri",
-            "url": "https://github.com/HassanAlmus/audio/blob/main/murmansouri/",
+            "url": "https://raw.githubusercontent.com/HassanAlmus/audio/main/murmansouri/",
             "key": "murmansouri"
         },
         {
             "type": "Murattal",
             "name": "Mohd. Hossein Sabzali",
-            "url": "https://github.com/HassanAlmus/audio/blob/main/mursabzali/",
+            "url": "https://raw.githubusercontent.com/HassanAlmus/audio/main/mursabzali/",
             "key": "mursabzali"
         },
         {
             "type": "Murattal",
             "name": "Hannaneh Khalafi",
-            "url": "https://github.com/HassanAlmus/audio/blob/main/murkhalafi/",
+            "url": "https://raw.githubusercontent.com/HassanAlmus/audio/main/murkhalafi/",
             "key": "murkhalafi"
         }, {
             "type": "Murattal",
             "name": "Hossein Saeediyan",
-            "url": "https://github.com/HassanAlmus/audio/blob/main/mursaeediyan/",
+            "url": "https://raw.githubusercontent.com/HassanAlmus/audio/main/mursaeediyan/",
             "key": "mursaeediyan"
         }, {
             "type": "Farsi Translation",
             "name": "Naser Makarem Shirazi",
-            "url": "https://github.com/HassanAlmus/audio/blob/main/fatshirazi/",
+            "url": "https://raw.githubusercontent.com/HassanAlmus/audio/main/fatshirazi/",
             "key": "fatshirazi"
         }, {
             "type": "Farsi Translation",
             "name": "Mohd. Mahdi Fooladvand",
-            "url": "https://github.com/HassanAlmus/audio/blob/main/fatfoolavand/",
+            "url": "https://raw.githubusercontent.com/HassanAlmus/audio/main/fatfoolavand/",
             "key": "fatfoolavand"
         }, {
             "type": "Farsi Translation",
             "name": "Hossein Ansarian",
-            "url": "https://github.com/HassanAlmus/audio/blob/main/fatansarian/",
+            "url": "https://raw.githubusercontent.com/HassanAlmus/audio/main/fatansarian/",
             "key": "fatansarian"
         }
     ],

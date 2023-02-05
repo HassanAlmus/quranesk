@@ -11,6 +11,8 @@ import {
     Maybe
 } from '../../utils';
 import Link from 'next/link';
+import {state} from './useV'
+import { snapshot } from 'valtio';
 
 const returnTitle = (verse, tafseerMap, key) => {
     return `${
@@ -65,13 +67,7 @@ const VerseComponent = (props : {
         nav: [number, number, number]
     }) => {
         const [s, setS] = useState(false);
-        const [audio] = useState(typeof Audio !== "undefined" && new Audio(`https://github.com/HassanAlmus/wbw/blob/main/${
-            (props.nav[0] + 1).toString().padStart(3, "0")
-        }_${
-            (props.nav[1] + 1).toString().padStart(3, "0")
-        }_${
-            (props.nav[2] + 1).toString().padStart(3, "0")
-        }.mp3?raw=true`));
+
         const word = (verse ?. words[props.nav[2]] as Word);
         return (
             <div className={
@@ -101,8 +97,15 @@ const VerseComponent = (props : {
                     }
                     onClick={
                         () => {
+                            state.clickedWordLink=`https://raw.githubusercontent.com/HassanAlmus/wbw/main/${
+                                (props.nav[0] + 1).toString().padStart(3, "0")
+                            }_${
+                                (props.nav[1] + 1).toString().padStart(3, "0")
+                            }_${
+                                (props.nav[2] + 1).toString().padStart(3, "0")
+                            }.mp3`
                             setS(true);
-                            audio.play()
+                            //audio.play()
                         }
                     }
                     onMouseEnter={
