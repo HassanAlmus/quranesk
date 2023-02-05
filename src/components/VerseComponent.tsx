@@ -97,15 +97,15 @@ const VerseComponent = (props : {
                     }
                     onClick={
                         () => {
-                            state.clickedWordLink=`https://raw.githubusercontent.com/HassanAlmus/wbw/main/${
+                            const audioPart = new Audio(`https://raw.githubusercontent.com/HassanAlmus/wbw/main/${
                                 (props.nav[0] + 1).toString().padStart(3, "0")
                             }_${
                                 (props.nav[1] + 1).toString().padStart(3, "0")
                             }_${
                                 (props.nav[2] + 1).toString().padStart(3, "0")
-                            }.mp3`
+                            }.mp3`);
+                            audioPart.play()
                             setS(true);
-                            //audio.play()
                         }
                     }
                     onMouseEnter={

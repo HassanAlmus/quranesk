@@ -16,7 +16,6 @@ export const state = proxy({
     ps: null,
     verse: null,
     highlighted: undefined,
-    clickedWordLink: null,
     reset: () => {
         state.verse = null;
         state.ps = null;
@@ -37,13 +36,6 @@ const useV = () => {
     const [audio, setAudio] = useState("");
     const [loc, setLoc] = useState([undefined, undefined])
     const [user, setUser] = useState < User > (edit(router.query, Cookies.get('user')))
-
-    useEffect(()=>{
-        if (snap.clickedWordLink!==null){
-            const audioPart = new Audio(snap.clickedWordLink);
-            audioPart.play()
-        }
-    }, [snap.clickedWordLink])
 
     useEffect(() => {
         if (user.audio) {
