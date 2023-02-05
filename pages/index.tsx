@@ -432,7 +432,7 @@ const Index = () => {
                             </div>
                         </nav>
                         <p className="latin">
-                            <br></br>© 2022
+                            <br></br>© 2023
                             <a className='a' href="https://quranesk.com">quranesk.com</a>. All
                                                                                                                                                                                                               Rights Reserved.
                         </p>
