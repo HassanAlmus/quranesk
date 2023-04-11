@@ -180,25 +180,11 @@ const Index = () => {
                     </div>
                 </div>
                 <div className="announcement">
-                    <h3>Built using</h3>
-                    <div className="logo-container">
-                        {
-                        [
-                            'nextjs',
-                            'reactjs',
-                            'gql',
-                            'apollo',
-                            'urql',
-                            'ts',
-                            'valtio',
-                            'sass'
-                        ].map(name =>< Logo key = {
-                            name
-                        }
-                        name = {
-                            name
-                        } />)
-                    } </div>
+                    <div className={styles.d32}>
+                        <h2 onClick={()=>alert("An immense amount of work was put towards perfecting this website, hence I would genuinely appreciate sharing it with anyone who would find it useful. Let's all help maximaize its benefits!")}>
+                        A Note from the Developer
+                        </h2>
+                    </div>
                 </div>
                 <h3 className={
                     styles.e2
@@ -386,6 +372,27 @@ const Index = () => {
                                 Hadeeths of the Prophet and the Imams</h3>
                         </div>
                     </div>
+                </div>
+                <div className="announcement">
+                    <h3>Built using</h3>
+                    <div className="logo-container">
+                        {
+                        [
+                            'nextjs',
+                            'reactjs',
+                            'gql',
+                            'apollo',
+                            'urql',
+                            'ts',
+                            'valtio',
+                            'sass'
+                        ].map(name =>< Logo key = {
+                            name
+                        }
+                        name = {
+                            name
+                        } />)
+                    } </div>
                 </div>
                 <footer>
                     <div className={
