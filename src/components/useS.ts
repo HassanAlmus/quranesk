@@ -423,7 +423,7 @@ const useS = (props) => {
 
     useEffect(() => {
         if (verses && snap.loadedVerses) {
-            if (verses.some((verse) => !Object.keys(verse).includes(user.surahTranslation) || !Object.keys(verse).includes(user.surahTafseer))) {
+            if (verses.some((verse: {}) => (user.surahTranslation!==null && !Object.keys(verse).includes(user.surahTranslation as string)) || (user.surahTafseer!==null&&!Object.keys(verse).includes(user.surahTafseer as string)))) {
                 const key = [user.surahTranslation, user.surahTafseer].find((key) => !Object.keys(verses[0]).includes(key));
                 client.query(LineQuery(key)).toPromise().then(result => {
                     setVerses(verses.map((verse, i) => {
