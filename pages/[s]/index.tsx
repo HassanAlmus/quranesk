@@ -306,7 +306,7 @@ const S = (props: {
           }`}
         ></meta>
       </Head>
-      <SurahAudio />
+      {/* <SurahAudio /> */}
       <Body />
     </>
   );
