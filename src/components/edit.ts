@@ -1,104 +1,115 @@
-import {User} from "../../utils";
+import { User } from "../../utils";
 
 export const defaultUser: User = {
-    translations: ["enqarai"],
-    tafseers: [],
-    audio: "murparhizgar",
-    wbwtranslation: "english",
-    rasm: "uthmani",
-    autoplay: false,
-    surahAudio: "Amer Al Kadhimi",
-    surahTranslation: "enqarai",
-    surahTafseer: null
+  translations: ["enqarai"],
+  tafseers: [],
+  audio: "murparhizgar",
+  wbwtranslation: "english",
+  rasm: "uthmani",
+  autoplay: false,
+  surahAudio: "Amer Al Kadhimi",
+  surahTranslation: "enqarai",
+  surahTafseer: null,
 };
 
+const returnObjectWithDeletedValue = (user: User) => {
+  let newUser = user;
 
-const returnObjectWithDeletedValue = (user : User) => {
-    let newUser = user;
+  newUser.translations = user.translations.filter((t) => t !== "deaburida");
 
-    newUser.translations = user.translations.filter(t => t !== 'deaburida')
+  if (user.surahTranslation === "deaburida") {
+    newUser.surahTranslation = "enqarai";
+  }
 
-    if (user.surahTranslation === 'deaburida') {
-        newUser.surahTranslation = 'enqarai'
-    }
-
-    return newUser
-}
-
-const returnUser = (cookies : any) => {
-    const userCookie = (cookies !== undefined ? returnObjectWithDeletedValue(JSON.parse(cookies)) : undefined);
-    let user = userCookie !== undefined ? userCookie : defaultUser;
-    user.translations = [...new Set(user.translations)as any] as string[]
-    user.tafseers = [...new Set(user.tafseers)as any] as string[]
-    return user
-}
-
-const edit = (query : any, clientUser : any) => {
-    let user = {
-        ... defaultUser,
-        ... returnUser(clientUser)
-    };
-    Object.keys(query).filter((e) => e !== "s" && e !== "v").forEach((e) => {
-        switch (e) {
-            case "t":
-                if (! user.translations.includes(query[e])) 
-                    user.translations.unshift(query[e]);
-                
-
-                break;
-            case "c":
-                if (! user.tafseers.includes(query[e])) 
-                    user.tafseers.unshift(query[e]);
-                
-
-                break;
-            case "w": user.wbwtranslation = query[e];
-                break;
-            case "a": user.audio = query[e];
-                break;
-            case "r": user.rasm = query[e];
-                break;
-        }
-    });
-    return user;
-}
-
-const returnUser2 = (req : any) => {
-    const userCookie = (typeof req.cookies ?. user !== "undefined" ? JSON.parse(req.cookies ?. user) : undefined);
-    let user = userCookie !== undefined ? userCookie : defaultUser;
-    user.translations = [...new Set(user.translations)as any] as string[]
-    user.tafseers = [...new Set(user.tafseers)as any] as string[]
-    return user
+  return newUser;
 };
 
-export const edit2 = (query : any, req : any) => {
-    let user = {
-        ... returnUser2(req),
-        ... defaultUser
-    };
-    Object.keys(query).filter((e) => e !== "s" && e !== "v").forEach((e) => {
-        switch (e) {
-            case "t":
-                if (! user.translations.includes(query[e])) 
-                    user.translations.unshift(query[e]);
-                
+const returnUser = (cookies: any) => {
+  const userCookie =
+    cookies !== undefined
+      ? returnObjectWithDeletedValue(JSON.parse(cookies))
+      : undefined;
+  let user = userCookie !== undefined ? userCookie : defaultUser;
+  user.translations = [...(new Set(user.translations) as any)] as string[];
+  user.tafseers = [...(new Set(user.tafseers) as any)] as string[];
+  return user;
+};
 
-                break;
-            case "c":
-                if (! user.tafseers.includes(query[e])) 
-                    user.tafseers.unshift(query[e]);
-                
+const edit = (query: any, clientUser: any) => {
+  let user = {
+    ...defaultUser,
+    ...returnUser(clientUser),
+  };
+  Object.keys(query)
+    .filter((e) => e !== "s" && e !== "v")
+    .forEach((e) => {
+      switch (e) {
+        case "t":
+          if (!user.translations.includes(query[e]))
+            user.translations.unshift(query[e]);
 
-                break;
-            case "w": user.wbwtranslation = query[e];
-                break;
-            case "a": user.audio = query[e];
-                break;
-            case "r": user.rasm = query[e];
-                break;
-        }
+          break;
+        case "c":
+          if (!user.tafseers.includes(query[e]))
+            user.tafseers.unshift(query[e]);
+
+          break;
+        case "w":
+          user.wbwtranslation = query[e];
+          break;
+        case "a":
+          user.audio = query[e];
+          break;
+        case "r":
+          user.rasm = query[e];
+          break;
+      }
     });
-    return user;
-}
+  return user;
+};
 
-export default edit
+const returnUser2 = (req: any) => {
+  const userCookie =
+    typeof req.cookies?.user !== "undefined"
+      ? JSON.parse(req.cookies?.user)
+      : undefined;
+  let user = userCookie !== undefined ? userCookie : defaultUser;
+  user.translations = [...(new Set(user.translations) as any)] as string[];
+  user.tafseers = [...(new Set(user.tafseers) as any)] as string[];
+  return user;
+};
+
+export const edit2 = (query: any, req: any) => {
+  let user = {
+    ...returnUser2(req),
+    ...defaultUser,
+  };
+  Object.keys(query)
+    .filter((e) => e !== "s" && e !== "v")
+    .forEach((e) => {
+      switch (e) {
+        case "t":
+          if (!user.translations.includes(query[e]))
+            user.translations.unshift(query[e]);
+
+          break;
+        case "c":
+          if (!user.tafseers.includes(query[e]))
+            user.tafseers.unshift(query[e]);
+
+          break;
+        case "w":
+          user.wbwtranslation = query[e];
+          break;
+        case "a":
+          user.audio = query[e];
+          break;
+        case "r":
+          user.rasm = query[e];
+          break;
+      }
+    });
+  return user;
+};
+
+export default edit;
