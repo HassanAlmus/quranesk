@@ -27,6 +27,17 @@ export default {
             ]
         },
         {
+            "name": "Spanish",
+            "name2 ": "Español",
+            "img": "flag_es.svg",
+            "translations": [
+                {
+                    "name": "Julio Cortés",
+                    "key": "escortes"
+                }
+            ]
+        },
+        {
             "name": "Urdu",
             "name2": "اردو",
             "img": "flag_pk.svg",
