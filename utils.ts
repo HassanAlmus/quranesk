@@ -60,7 +60,6 @@ export type Verse = {
   puyaen: Array<Maybe<Scalars["String"]>>
   chinoyen: Array<Maybe<Scalars["String"]>>
   namoonaur: Array<Maybe<NamoonaTopic>>
-  khorramdelfa: Scalars["String"]
   enahmedali: Scalars["String"]
   enqarai: Scalars["String"]
   ensarwar: Scalars["String"]
@@ -86,7 +85,6 @@ export type Verse = {
   famojtabavi: Scalars["String"]
   fabahrampour: Scalars["String"]
   faayati: Scalars["String"]
-  fakhorramdel: Scalars["String"]
   fakhorramshahi: Scalars["String"]
   [key: string]: (Scalars["String"]|Array<Maybe<Scalars["String"]>>|Array<Maybe<NamoonaTopic>>|"Verse"|undefined|Meta|Array<Maybe<Word>>|undefined)
 }

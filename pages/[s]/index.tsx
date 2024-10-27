@@ -361,7 +361,6 @@ const returnQuery = (s: number) => {
                 range 
                 link
             }
-            khorramdelfa
             enahmedali
             enqarai
             ensarwar
@@ -388,7 +387,6 @@ const returnQuery = (s: number) => {
             famojtabavi
             fabahrampour
             faayati
-            fakhorramdel
             fakhorramshahi
             words {
             english
