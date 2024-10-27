@@ -26,7 +26,7 @@ export default {
                 }
             ]
         },
-        {
+/*         {
             "name": "Spanish",
             "name2": "Español",
             "img": "flag_es.svg",
@@ -36,7 +36,7 @@ export default {
                     "key": "escortes"
                 }
             ]
-        },
+        }, */
         {
             "name": "Urdu",
             "name2": "اردو",
