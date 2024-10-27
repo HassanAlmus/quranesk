@@ -234,11 +234,6 @@ export default {
             "language2": "اردو",
             "name": "تفسیر نمونہ - آیت اللہ مکارم شیرازی",
             "key": "namoonaur"
-        } , {
-            "language": "Farsi",
-            "language2": "فارسى",
-            "name": "مصطفى خرمدل",
-            "key": "khorramdelfa"
         }
     ]
 }
