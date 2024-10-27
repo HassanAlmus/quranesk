@@ -76,6 +76,7 @@ export type Verse = {
   faansarian: Scalars["String"]
   famakarem: Scalars["String"]
   fagharaati: Scalars["String"]
+  escortes: Scalars["String"]
   faghomshei: Scalars["String"]
   fafoolavand: Scalars["String"]
   azmehdiyev: Scalars["String"]
