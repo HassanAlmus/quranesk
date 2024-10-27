@@ -377,6 +377,7 @@ const returnQuery = (s: number) => {
             escortes
             faansarian
             famakarem
+            fakhorramdel
             fagharaati
             faghomshei
             fafoolavand
