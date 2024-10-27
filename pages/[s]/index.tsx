@@ -306,10 +306,10 @@ const S = (props: {
           }`}
         ></meta>
       </Head>
-      {/* <SurahAudio /> */}
       <Body />
     </>
   );
+  return <></>
 };
 
 export async function getStaticPaths() {
@@ -374,10 +374,9 @@ const returnQuery = (s: number) => {
             tjayati
             frfakhri
             hijawadi
-            escortes
             faansarian
             famakarem
-            fakhorramdel
+            escortes
             fagharaati
             faghomshei
             fafoolavand

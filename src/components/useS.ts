@@ -148,7 +148,15 @@ const useS = (props) => {
 
   useEffect(() => {
     if (verses && cs && ps && ns) {
-      Cookies.set("user", JSON.stringify(user), { expires: 365 });
+      let userCopy = JSON.parse(JSON.stringify(user));
+      
+      //removing deprecated keys
+      if (userCopy.surahTafseer === "khorramdelfa") {
+        userCopy.surahtafseer = null;
+      }
+      userCopy.tafseers = userCopy.tafseers.filter(s=>s!=="khorramdelfa")
+
+      Cookies.set("user", JSON.stringify(userCopy), { expires: 365 });
     }
   }, [user]);
 
