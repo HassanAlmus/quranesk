@@ -28,7 +28,7 @@ export default {
         },
         {
             "name": "Spanish",
-            "name2 ": "Español",
+            "name2": "Español",
             "img": "flag_es.svg",
             "translations": [
                 {
