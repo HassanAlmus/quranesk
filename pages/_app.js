@@ -10,6 +10,11 @@ import "../styles/this.scss";
 import { client } from "../urql-client";
 
 export default function App({ Component, pageProps }) {
+  useEffect(() => {
+    // Redirect all pages to thaqalayn.net/quran
+    window.location.href = 'https://thaqalayn.net/quran';
+  }, []);
+
   useEffect(() => (document.documentElement.lang = "en-us"), []);
 
   const router = useRouter();
