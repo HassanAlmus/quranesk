@@ -415,6 +415,7 @@ export async function getStaticProps({ params }) {
       if (result.error) console.log(result.error);
       data = result.data;
     });
+    console.log(data);
   return {
     props: {
       s: Number(params.s) - 1,
