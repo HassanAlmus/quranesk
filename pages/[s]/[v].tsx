@@ -9,6 +9,7 @@ import useV, { state } from "../../src/components/useV";
 import maps from "../../src/data/maps";
 import styles from "../../styles/v.module.scss";
 import { Surah, User, Verse } from "../../utils";
+import { GetServerSideProps } from "next";
 
 const Popup = dynamic(() => import("../../src/components/popup"));
 
@@ -196,6 +197,16 @@ const V = (props: {
       </div>
     );
   }
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { s, v } = context.params || {};
+  return {
+    redirect: {
+      destination: `https://thaqalayn.net/quran/${s}/${v}`,
+      permanent: false,
+    },
+  };
 };
 
 export default V;

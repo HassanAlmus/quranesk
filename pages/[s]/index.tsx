@@ -14,6 +14,7 @@ import surahs from "../../src/data/surahinfo.json";
 import styles from "../../styles/s.module.scss";
 import { client } from "../../urql-client";
 import { Surah, Verse } from "../../utils";
+import { GetServerSideProps } from "next";
 
 const S = (props: {
   isFirstPage: boolean;
@@ -312,117 +313,14 @@ const S = (props: {
   return <></>
 };
 
-export async function getStaticPaths() {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { s } = context.params || {};
   return {
-    paths: Array.from(Array(114).keys()).map((_s) => {
-      return {
-        params: {
-          s: (_s + 1).toString(),
-        },
-      };
-    }),
-    fallback: false,
-  };
-}
-
-const returnQuery = (s: number) => {
-  return gql`
-    query Query {
-        cs: surah(s: ${(s - 1).toString()}){
-            id
-            titleAr
-            title
-            count
-            startPage
-            endPage
-        }
-        ps: surah(s: ${(s - 1 !== 0 ? s - 2 : s - 1).toString()}){
-            id
-            titleAr
-            title
-            count
-            startPage
-            endPage
-        }
-        ns: surah(s: ${(s - 1 !== 113 ? s : s - 1).toString()}){
-                id
-                titleAr
-                title
-                count
-                startPage
-                endPage
-            }
-        page(s: ${(s - 1).toString()} ){
-            id
-            puyaen
-            chinoyen
-            namoonaur{
-                title
-                range 
-                link
-            }
-            enahmedali
-            enqarai
-            ensarwar
-            enchinoy
-            enyusufali
-            trgolpinarli
-            urahmedali
-            urnajafi
-            urjawadi
-            azmammadaliyev
-            tjayati
-            frfakhri
-            hijawadi
-            faansarian
-            famakarem
-            escortes
-            fagharaati
-            faghomshei
-            fafoolavand
-            azmehdiyev
-            ruzeynalov
-            ursafdar
-            famoezzi
-            fasadeqi
-            famojtabavi
-            fabahrampour
-            faayati
-            fakhorramshahi
-            words {
-            english
-            uthmani
-            indopak
-            transliteration
-            }
-            meta {
-                tse
-                ayah
-                surah
-                page
-            }
-        }
-    }
-`;
-};
-
-export async function getStaticProps({ params }) {
-  let data;
-  await client
-    .query(returnQuery(Number(params.s)))
-    .toPromise()
-    .then((result) => {
-      if (result.error) console.log(result.error);
-      data = result.data;
-    });
-  return {
-    props: {
-      s: Number(params.s) - 1,
-      data,
-      p: data.cs.startPage,
-      isFirstPage: true,
+    redirect: {
+      destination: `https://thaqalayn.net/quran/${s}`,
+      permanent: false,
     },
   };
-}
+};
 
 export default S;
