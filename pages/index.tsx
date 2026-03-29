@@ -7,7 +7,6 @@ import Loader from "../src/components/Loader";
 import { state as state2 } from "../src/components/useV";
 import surahs from "../src/data/surahinfo.json";
 import styles from "../styles/index.module.scss";
-import { GetServerSideProps } from "next";
 
 const Logo = (props: { name: string }) => (
   <div
@@ -364,15 +363,6 @@ const Index = () => {
       )}{" "}
     </>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    redirect: {
-      destination: "https://thaqalayn.net/quran",
-      permanent: false,
-    },
-  };
 };
 
 export default Index;

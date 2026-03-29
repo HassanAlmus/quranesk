@@ -199,14 +199,8 @@ const V = (props: {
   }
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { s, v } = context.params || {};
-  return {
-    redirect: {
-      destination: `https://thaqalayn.net/quran/${s}/${v}`,
-      permanent: false,
-    },
-  };
-};
-
 export default V;
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  return { props: {} };
+};

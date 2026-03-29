@@ -313,14 +313,94 @@ const S = (props: {
   return <></>
 };
 
+export default S;
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { s } = context.params || {};
+  const sParam = Number((context.params as any)?.s);
+  if (!Number.isFinite(sParam) || sParam < 1 || sParam > 114) {
+    return { notFound: true };
+  }
+
+  const s = sParam - 1;
+
+  const { getDb } = await import("../../src/server/mongodb");
+  const db = await getDb();
+
+  const cs = await db.collection("surahs").findOne({ surahNumber: s + 1 });
+  if (!cs) return { notFound: true };
+
+  const ps =
+    s > 0
+      ? await db.collection("surahs").findOne({ surahNumber: s })
+      : await db.collection("surahs").findOne({ surahNumber: 1 });
+  const ns =
+    s < 113
+      ? await db.collection("surahs").findOne({ surahNumber: s + 2 })
+      : await db.collection("surahs").findOne({ surahNumber: 114 });
+
+  const p = (cs as any).startPage as number;
+
+  const requiredTranslations = [
+    "enahmedali",
+    "enqarai",
+    "ensarwar",
+    "enyusufali",
+    "enchinoy",
+    "trgolpinarli",
+    "urahmedali",
+    "urjawadi",
+    "urnajafi",
+    "ursafdar",
+    "azmammadaliyev",
+    "azmehdiyev",
+    "deaburida",
+    "ruzeynalov",
+    "tjayati",
+    "fagharaati",
+    "faansarian",
+    "famakarem",
+    "faghomshei",
+    "fafoolavand",
+    "frfakhri",
+    "hijawadi",
+    "famoezzi",
+    "faayati",
+    "fakhorramshahi",
+    "fasadeqi",
+    "fabahrampour",
+    "famojtabavi",
+    "escortes",
+  ];
+
+  const verseDocs = await db
+    .collection("verses")
+    .find({ surahNumber: s + 1, "meta.page": p })
+    .sort({ verseNumber: 1 })
+    .toArray();
+
+  const page = verseDocs.map((v: any) => {
+    const out: any = { ...v, id: String(v._id) };
+    requiredTranslations.forEach((k) => {
+      if (!out[k]) out[k] = "";
+    });
+    out.puyaen = out.puyaen || ["", ""];
+    out.chinoyen = out.chinoyen || ["", ""];
+    out.namoonaur = out.namoonaur || [];
+    out.khorramdelfa = out.khorramdelfa || "";
+    return out;
+  });
+
   return {
-    redirect: {
-      destination: `https://thaqalayn.net/quran/${s}`,
-      permanent: false,
+    props: {
+      isFirstPage: true,
+      p,
+      s,
+      data: {
+        cs: { ...(cs as any), id: (cs as any)._id },
+        ps: { ...(ps as any), id: (ps as any)?._id },
+        ns: { ...(ns as any), id: (ns as any)?._id },
+        page,
+      },
     },
   };
 };
-
-export default S;
