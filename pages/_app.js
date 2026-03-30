@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Script from "next/script";
 import { useEffect } from "react";
 import { Provider } from "urql";
+import { Analytics } from "@vercel/analytics/react";
 import * as ga from "../lib/gtag";
 import "../styles/globals.scss";
 import "../styles/mixins.scss";
@@ -81,6 +82,7 @@ export default function App({ Component, pageProps }) {
       <Provider value={client}>
         <Component {...pageProps} />
       </Provider>
+      <Analytics />
     </>
   );
 }
