@@ -340,38 +340,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const p = (cs as any).startPage as number;
 
-  const requiredTranslations = [
-    "enahmedali",
-    "enqarai",
-    "ensarwar",
-    "enyusufali",
-    "enchinoy",
-    "trgolpinarli",
-    "urahmedali",
-    "urjawadi",
-    "urnajafi",
-    "ursafdar",
-    "azmammadaliyev",
-    "azmehdiyev",
-    "deaburida",
-    "ruzeynalov",
-    "tjayati",
-    "fagharaati",
-    "faansarian",
-    "famakarem",
-    "faghomshei",
-    "fafoolavand",
-    "frfakhri",
-    "hijawadi",
-    "famoezzi",
-    "faayati",
-    "fakhorramshahi",
-    "fasadeqi",
-    "fabahrampour",
-    "famojtabavi",
-    "escortes",
-  ];
-
   const verseDocs = await db
     .collection("verses")
     .find({ surahNumber: s + 1, "meta.page": p })
@@ -380,9 +348,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const page = verseDocs.map((v: any) => {
     const out: any = { ...v, id: String(v._id) };
-    requiredTranslations.forEach((k) => {
-      if (!out[k]) out[k] = "";
-    });
     out.puyaen = out.puyaen || ["", ""];
     out.chinoyen = out.chinoyen || ["", ""];
     out.namoonaur = out.namoonaur || [];

@@ -393,34 +393,30 @@ const useS = (props) => {
     `;
 
   useEffect(() => {
-    if (verses && snap.loadedVerses) {
-      if (
-        verses.some(
-          (verse: {}) =>
-            (user.surahTranslation !== null &&
-              !Object.keys(verse).includes(user.surahTranslation as string)) ||
-            (user.surahTafseer !== null &&
-              !Object.keys(verse).includes(user.surahTafseer as string))
-        )
-      ) {
-        const key = [user.surahTranslation, user.surahTafseer].find(
-          (key) => !Object.keys(verses[0]).includes(key)
+    if (!verses || !snap.loadedVerses) return;
+
+    const desiredKeys = [user.surahTranslation, user.surahTafseer].filter(
+      (k): k is string => typeof k === "string" && k.length > 0
+    );
+    if (desiredKeys.length === 0) return;
+
+    const missingKey = desiredKeys.find((k) => !Object.keys(verses[0]).includes(k));
+    if (!missingKey) return;
+
+    client
+      .query(LineQuery(missingKey))
+      .toPromise()
+      .then((result) => {
+        setVerses(
+          verses.map((verse, i) => {
+            return {
+              ...verse,
+              [missingKey]: result.data.page[i][missingKey],
+            };
+          })
         );
-        client
-          .query(LineQuery(key))
-          .toPromise()
-          .then((result) => {
-            setVerses(
-              verses.map((verse, i) => {
-                let newVerse = verse;
-                newVerse[key] = result.data.page[i][key];
-                return newVerse;
-              })
-            );
-          });
-      }
-    }
-  }, [user.surahTranslation, user.surahTafseer]);
+      });
+  }, [user.surahTranslation, user.surahTafseer, snap.loadedVerses, verses]);
 
   return {
     setRasm,

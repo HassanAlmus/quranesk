@@ -166,12 +166,11 @@ const VerseComponent = (props: {
                     : "",
               }}
             >
-              {
-                translationMap
-                  .map((m: any) => m.translations)
-                  .flat(1)
-                  .find((translation: any) => translation.key === key).name
-              }{" "}
+              {translationMap
+                .map((m: any) => m.translations)
+                .flat(1)
+                .find((translation: any) => translation.key === key)?.name ||
+                key}{" "}
             </h1>
             <div style={{ display: "flex" }}>
               <svg

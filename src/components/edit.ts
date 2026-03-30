@@ -40,6 +40,11 @@ const edit = (query: any, clientUser: any) => {
     ...defaultUser,
     ...returnUser(clientUser),
   };
+
+  if (!user.surahTranslation) {
+    user.surahTranslation = user.translations?.[0] || defaultUser.surahTranslation;
+  }
+
   Object.keys(query)
     .filter((e) => e !== "s" && e !== "v")
     .forEach((e) => {
@@ -84,6 +89,11 @@ export const edit2 = (query: any, req: any) => {
     ...returnUser2(req),
     ...defaultUser,
   };
+
+  if (!user.surahTranslation) {
+    user.surahTranslation = user.translations?.[0] || defaultUser.surahTranslation;
+  }
+
   Object.keys(query)
     .filter((e) => e !== "s" && e !== "v")
     .forEach((e) => {
